@@ -1,0 +1,54 @@
+# Entorno de desarrollo de Owli: las mismas piezas que en Railway.
+#
+#   docker compose up -d            # Postgres + Redis
+#   docker compose --profile api up # además, la API construida con el Dockerfile de producción
+#   docker compose down             # apagar (los datos quedan en los volúmenes)
+#   docker compose down -v          # apagar y borrar los datos
+#
+# Credenciales solo de desarrollo. Las de producción viven en las variables de Railway.
+name: owli
+
+services:
+  postgres:
+    image: postgres:16-alpine # misma versión mayor que el Postgres de Railway
+    environment:
+      POSTGRES_USER: owli
+      POSTGRES_PASSWORD: owli
+      POSTGRES_DB: owli
+    ports:
+      - "5433:5432" # 5433 en el host: el 5432 lo usa el Postgres instalado en Windows
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U owli -d owli"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    profiles: ["api"] # opcional: en el día a día la API se corre con `go run ./cmd/api`
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATABASE_URL: postgres://owli:owli@postgres:5432/owli?sslmode=disable
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:

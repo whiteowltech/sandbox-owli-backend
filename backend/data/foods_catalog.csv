@@ -1,0 +1,133 @@
+# Catálogo curado de Owli. Los nutrientes vienen de USDA FoodData Central (dominio público) por fdc_id;
+# aquí se agregan nombres, sinónimos regionales y atributos de dieta.
+# traits: animal, plant, meat, fish, grain, legume, dairy, added_sugar, gluten, lactose, verified
+# "verified" = gluten y lactosa confirmados para el alimento genérico. Los procesados quedan sin verificar
+# (pueden variar según la marca): para un celíaco, "no sabemos" equivale a "no" (ver CLAUDE.md).
+id,fdc_id,name_es,name_en,aliases,traits
+pechuga-pollo,171477,Pechuga de pollo asada,Roasted chicken breast,pollo|pechuga|chicken breast|pollo a la plancha,animal|meat|verified
+muslo-pollo,172388,Muslo de pollo asado,Roasted chicken thigh,pollo|muslo|pata muslo|chicken thigh,animal|meat|verified
+carne-picada,174034,Carne picada cocida (85 % magra),Cooked ground beef (85% lean),carne molida|picada|ground beef|hamburguesa casera,animal|meat|verified
+bife-solomillo,168635,Bife magro a la parrilla,Lean grilled sirloin steak,bife|bife de carne|bistec|filete|solomillo|steak|beef steak|grilled steak|sirloin|lomo,animal|meat|verified
+bife-ojo-bife,169557,Ojo de bife a la parrilla,Grilled rib eye steak,ojo de bife|entrecot|rib eye|bife ancho,animal|meat|verified
+vacio,174774,Vacío a la parrilla,Grilled flank steak,vacio|falda|flank steak|asado,animal|meat|verified
+higado-vaca,168627,Hígado de vaca a la plancha,Pan-fried beef liver,higado|liver|vísceras,animal|meat|verified
+lomo-cerdo,168233,Lomo de cerdo asado,Roasted pork loin,cerdo|bondiola|pork loin|chancho,animal|meat|verified
+jamon-cocido,173863,Jamón cocido,Sliced ham,jamon|jamón york|fiambre|ham,animal|meat
+panceta,168322,Panceta cocida,Cooked bacon,bacon|tocino|tocineta,animal|meat
+chorizo,746781,Chorizo de cerdo cocido,Cooked pork chorizo,chorizo|embutido|sausage,animal|meat
+morcilla,171618,Morcilla,Blood sausage,morcilla|blood sausage,animal|meat
+pechuga-pavo,171496,Pechuga de pavo asada,Roasted turkey breast,pavo|turkey,animal|meat|verified
+salmon,175168,Salmón cocido,Cooked salmon,salmon|salmón rosado|salmon fillet,animal|fish|verified
+atun-lata,173709,Atún al natural (lata),Canned light tuna in water,atun|atún|tuna|lomitos de atún,animal|fish|verified
+merluza,171956,Pescado blanco cocido (bacalao/merluza),Cooked white fish (cod),merluza|bacalao|cod|pescado blanco,animal|fish|verified
+camarones,175180,Camarones cocidos,Cooked shrimp,camarones|langostinos|gambas|shrimp|prawns,animal|fish|verified
+sardinas-lata,175139,Sardinas en aceite (lata),Canned sardines in oil,sardinas|sardines,animal|fish|verified
+huevo,171287,Huevo entero,Whole egg,huevo|huevos|egg|eggs,animal|verified
+huevo-duro,173424,Huevo duro,Hard-boiled egg,huevo duro|huevo cocido|boiled egg,animal|verified
+clara-huevo,172183,Clara de huevo,Egg white,clara|claras|egg white,animal|verified
+tofu,172475,Tofu firme,Firm tofu,tofu,plant|legume|verified
+tempeh,174272,Tempeh,Tempeh,tempeh|tempe,plant|legume|verified
+lentejas,172421,Lentejas cocidas,Cooked lentils,lentejas|lentils,plant|legume|verified
+garbanzos,173757,Garbanzos cocidos,Cooked chickpeas,garbanzos|chickpeas|garbanzo,plant|legume|verified
+porotos-negros,173735,Porotos negros cocidos,Cooked black beans,porotos|frijoles|judías|alubias|black beans|caraotas,plant|legume|verified
+yogur-griego,330137,Yogur griego natural descremado,Plain nonfat Greek yogurt,yogur|yogurt|griego|greek yogurt,animal|dairy|lactose|verified
+yogur-natural,171284,Yogur natural entero,Plain whole milk yogurt,yogur|yogurt|yoghurt,animal|dairy|lactose|verified
+leche-entera,171265,Leche entera,Whole milk,leche|milk,animal|dairy|lactose|verified
+leche-descremada,171269,Leche descremada,Skim milk,leche|descremada|desnatada|skim milk,animal|dairy|lactose|verified
+queso-mozzarella,170845,Queso mozzarella,Mozzarella cheese,queso|mozzarella|muzzarella,animal|dairy|lactose|verified
+queso-cheddar,328637,Queso cheddar,Cheddar cheese,queso|cheddar,animal|dairy|verified
+queso-cottage,328841,Queso cottage,Cottage cheese,queso|cottage|requesón,animal|dairy|lactose|verified
+ricota,746766,Ricota,Ricotta cheese,ricota|ricotta|requesón,animal|dairy|lactose|verified
+queso-parmesano,171247,Queso parmesano rallado,Grated parmesan cheese,queso|parmesano|rallado|reggianito|parmesan,animal|dairy|verified
+queso-crema,173418,Queso crema,Cream cheese,queso crema|queso untable|philadelphia|cream cheese,animal|dairy|lactose|verified
+queso-provolone,170850,Provolone,Provolone cheese,provoleta|provolone|queso,animal|dairy|verified
+arroz-blanco,168878,Arroz blanco cocido,Cooked white rice,arroz|rice,plant|grain|verified
+arroz-integral,169704,Arroz integral cocido,Cooked brown rice,arroz integral|brown rice,plant|grain|verified
+fideos,169737,Fideos cocidos,Cooked pasta,fideos|pasta|spaghetti|tallarines|macarrones,plant|grain|gluten|verified
+pan-blanco,174924,Pan blanco,White bread,pan|pan de molde|pan lactal|bread,plant|grain|gluten
+pan-integral,172688,Pan integral,Whole wheat bread,pan integral|whole wheat bread,plant|grain|gluten
+avena,2346396,Avena en hojuelas,Rolled oats,avena|copos de avena|oats|oatmeal,plant|grain|gluten|verified
+papa-hervida,170440,Papa hervida,Boiled potato,papa|patata|potato,plant|verified
+papa-horno,170093,Papa al horno con piel,Baked potato with skin,papa al horno|patata asada|baked potato,plant|verified
+batata,168483,Batata al horno,Baked sweet potato,batata|boniato|camote|sweet potato,plant|verified
+quinoa,168917,Quinoa cocida,Cooked quinoa,quinoa|quinua,plant|grain|verified
+tortilla-maiz,175036,Tortilla de maíz,Corn tortilla,tortilla de maiz|corn tortilla,plant|grain
+tortilla-trigo,175037,Tortilla de trigo,Flour tortilla,tortilla de trigo|wrap|rapiditas|flour tortilla,plant|grain|gluten
+choclo,169999,Choclo cocido,Cooked sweet corn,choclo|maíz|elote|corn,plant|grain|verified
+cuscus,169700,Cuscús cocido,Cooked couscous,cuscus|couscous,plant|grain|gluten|verified
+copos-maiz,174648,Copos de maíz (cereal),Corn flakes cereal,copos de maiz|cereal|corn flakes,plant|grain|added_sugar
+granola,171646,Granola,Granola,granola|muesli,plant|grain|added_sugar|gluten
+galletas-agua,172746,Galletitas de agua,Saltine crackers,galletitas|galletas|crackers|saltines,plant|grain|gluten
+banana,173944,Banana,Banana,banana|plátano|cambur|banano,plant|verified
+manzana,1750341,Manzana con piel,Apple with skin,manzana|apple,plant|verified
+naranja,169097,Naranja,Orange,naranja|orange,plant|verified
+frutillas,167762,Frutillas,Strawberries,frutillas|fresas|strawberries,plant|verified
+arandanos,171711,Arándanos,Blueberries,arandanos|blueberries,plant|verified
+uvas,174683,Uvas,Grapes,uvas|grapes,plant|verified
+pera,169118,Pera,Pear,pera|pear,plant|verified
+durazno,169928,Durazno,Peach,durazno|melocotón|peach,plant|verified
+mango,169910,Mango,Mango,mango,plant|verified
+anana,169124,Ananá,Pineapple,anana|piña|pineapple,plant|verified
+sandia,167765,Sandía,Watermelon,sandia|patilla|watermelon,plant|verified
+melon,169092,Melón,Cantaloupe melon,melon|cantaloupe,plant|verified
+kiwi,168153,Kiwi,Kiwi,kiwi|kiwifruit,plant|verified
+jugo-limon,167747,Jugo de limón,Lemon juice,limon|limón|lemon juice,plant|verified
+palta,171705,Palta,Avocado,palta|aguacate|avocado,plant|verified
+datiles,168191,Dátiles,Dates,datiles|dates,plant|verified
+pasas-uva,168165,Pasas de uva,Raisins,pasas|uvas pasas|raisins,plant|verified
+lechuga,169249,Lechuga,Lettuce,lechuga|ensalada|lettuce,plant|verified
+tomate,170457,Tomate,Tomato,tomate|jitomate|tomato,plant|verified
+pepino,168409,Pepino,Cucumber,pepino|cucumber,plant|verified
+zanahoria,170393,Zanahoria cruda,Raw carrot,zanahoria|carrot,plant|verified
+cebolla,170000,Cebolla,Onion,cebolla|onion,plant|verified
+morron-rojo,170108,Morrón rojo,Red bell pepper,morron|pimiento|ají|bell pepper,plant|verified
+brocoli,169967,Brócoli cocido,Cooked broccoli,brocoli|brócoli|broccoli,plant|verified
+espinaca,168462,Espinaca cruda,Raw spinach,espinaca|spinach,plant|verified
+zucchini,169292,Zucchini cocido,Cooked zucchini,zucchini|zapallito|calabacín|courgette,plant|verified
+zapallo,168449,Zapallo cocido,Cooked pumpkin,zapallo|calabaza|auyama|pumpkin,plant|verified
+coliflor,170397,Coliflor cocida,Cooked cauliflower,coliflor|cauliflower,plant|verified
+chauchas,169141,Chauchas cocidas,Cooked green beans,chauchas|judías verdes|vainitas|ejotes|green beans,plant|legume|verified
+champinones,169251,Champiñones,White mushrooms,champiñones|hongos|setas|mushrooms,plant|verified
+repollo,169975,Repollo,Cabbage,repollo|col|cabbage,plant|verified
+remolacha,169146,Remolacha cocida,Cooked beets,remolacha|betarraga|beets,plant|verified
+esparragos,168390,Espárragos cocidos,Cooked asparagus,esparragos|asparagus,plant|verified
+berenjena,169229,Berenjena cocida,Cooked eggplant,berenjena|eggplant,plant|verified
+apio,169988,Apio,Celery,apio|celery,plant|verified
+arvejas,170420,Arvejas cocidas,Cooked green peas,arvejas|guisantes|chícharos|peas,plant|legume|verified
+aceite-oliva,171413,Aceite de oliva,Olive oil,aceite|oliva|olive oil,plant|verified
+aceite-girasol,171025,Aceite de girasol,Sunflower oil,aceite|girasol|sunflower oil,plant|verified
+manteca,173410,Manteca,Butter,manteca|mantequilla|butter,animal|dairy|lactose|verified
+almendras,170567,Almendras,Almonds,almendras|almonds|frutos secos,plant|verified
+nueces,170187,Nueces,Walnuts,nueces|walnuts|frutos secos,plant|verified
+mani,173806,Maní tostado sin sal,Dry-roasted peanuts,mani|maní|cacahuate|cacahuete|peanuts,plant|legume|verified
+mantequilla-mani,172470,Mantequilla de maní,Peanut butter,pasta de mani|mantequilla de maní|crema de cacahuete|peanut butter,plant|legume
+semillas-chia,170554,Semillas de chía,Chia seeds,chia|semillas|chia seeds,plant|verified
+semillas-girasol,170562,Semillas de girasol,Sunflower seeds,girasol|pipas|semillas|sunflower seeds,plant|verified
+aceite-coco,171412,Aceite de coco,Coconut oil,aceite de coco|coconut oil,plant|verified
+mayonesa,171009,Mayonesa,Mayonnaise,mayonesa|mayo|mayonnaise,animal|plant
+crema-leche,170859,Crema de leche,Heavy cream,crema|nata|crema de leche|heavy cream,animal|dairy|lactose|verified
+azucar,169655,Azúcar,Sugar,azucar|azúcar|sugar,plant|added_sugar|verified
+miel,169640,Miel,Honey,miel|honey,animal|added_sugar|verified
+chocolate-amargo,170273,Chocolate amargo (70-85 %),Dark chocolate (70-85%),chocolate|amargo|dark chocolate,plant|added_sugar
+chocolate-leche,167587,Chocolate con leche,Milk chocolate,chocolate|chocolate con leche|milk chocolate,animal|plant|dairy|added_sugar|lactose
+dulce-leche,173461,Dulce de leche,Dulce de leche,dulce de leche|cajeta|arequipe|manjar,animal|dairy|added_sugar|lactose|verified
+cafe,171890,Café,Brewed coffee,cafe|café|coffee,plant|verified
+te-negro,173227,Té negro,Black tea,te|té|tea,plant|verified
+jugo-naranja,169098,Jugo de naranja natural,Fresh orange juice,jugo de naranja|zumo|orange juice,plant|verified
+gaseosa-cola,174852,Gaseosa cola,Cola soda,gaseosa|refresco|cola|coca|soda,plant|added_sugar|verified
+cerveza,168746,Cerveza,Beer,cerveza|birra|beer,plant|grain|gluten|verified
+vino-tinto,173190,Vino tinto,Red wine,vino|vino tinto|red wine,plant|verified
+ketchup,168556,Ketchup,Ketchup,ketchup|catsup|salsa de tomate,plant|added_sugar
+sal,173468,Sal,Table salt,sal|salt,verified
+cacao-polvo,169593,Cacao amargo en polvo,Unsweetened cocoa powder,cacao|cocoa,plant|verified
+mermelada,169641,Mermelada,Jam,mermelada|dulce|confitura|jam,plant|added_sugar
+salsa-soja,174277,Salsa de soja,Soy sauce,salsa de soja|soya|shoyu|soy sauce,plant|legume|grain|gluten|verified
+asado-tira,171223,Asado de tira,Beef short ribs,asado|tira de asado|costilla|short ribs|asado de tira,animal|meat|verified
+matambre,169434,Matambre,Beef flank (matambre),matambre|matambrito|flank,animal|meat|verified
+salchicha,174585,Salchicha,Pork and beef sausage,salchicha|pancho|viena|hot dog|frankfurter,animal|meat
+pan-frances,172675,Pan francés,French bread,pan|pan frances|flauta|baguette|french bread|mignon,plant|grain|gluten
+medialuna,174987,Medialuna de manteca,Butter croissant,medialuna|croissant|factura|medialunas,animal|plant|grain|dairy|added_sugar|gluten|lactose
+pizza-muzzarella,170317,Pizza de muzzarella,Cheese pizza,pizza|muzza|muzzarella|mozzarella pizza|cheese pizza,animal|plant|grain|dairy|gluten|lactose
+pure-papa,168555,Puré de papas,Mashed potatoes,pure|puré|pure de papa|mashed potatoes,animal|plant|dairy|lactose
+flan,167574,Flan casero,Caramel custard,flan|flan casero|caramel custard,animal|dairy|added_sugar|lactose
+acelga,170401,Acelga cocida,Cooked Swiss chard,acelga|chard|swiss chard,plant|verified

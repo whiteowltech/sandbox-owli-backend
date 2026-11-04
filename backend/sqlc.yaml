@@ -1,0 +1,25 @@
+# sqlc genera código Go tipado a partir del SQL (nada de SQL concatenado).
+# Regenerar desde backend/ (con Docker, sin instalar nada):
+#   docker run --rm -v "${PWD}:/src" -w /src sqlc/sqlc:1.30.0 generate
+version: "2"
+sql:
+  - engine: postgresql
+    schema: migrations
+    queries: internal/adapters/postgres/queries
+    gen:
+      go:
+        package: db
+        out: internal/adapters/postgres/db
+        sql_package: pgx/v5
+        emit_empty_slices: true
+        overrides:
+          - db_type: uuid
+            go_type: github.com/google/uuid.UUID
+          - db_type: pg_catalog.numeric
+            go_type: float64
+          # Micros: NULL = "sin dato" (nunca cero) → nil en Go.
+          - db_type: pg_catalog.numeric
+            nullable: true
+            go_type:
+              type: float64
+              pointer: true

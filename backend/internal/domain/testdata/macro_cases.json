@@ -1,0 +1,125 @@
+{
+  "_doc": "Casos compartidos entre backend/internal/domain/macro_split.go y app/src/app/core/nutrition/macros.ts.",
+  "cases": [
+    {
+      "name": "omnívoro, perder grasa, 80 kg",
+      "input": {
+        "dailyKcal": 2161,
+        "weightKg": 80,
+        "goal": "cut",
+        "diet": "omnivore"
+      },
+      "want": {
+        "proteinG": 160,
+        "carbsG": 245,
+        "fatG": 60,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "vegano, mantener, 60 kg",
+      "input": {
+        "dailyKcal": 1800,
+        "weightKg": 60,
+        "goal": "maintain",
+        "diet": "vegan"
+      },
+      "want": {
+        "proteinG": 96,
+        "carbsG": 242,
+        "fatG": 50,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "ganar músculo, 72 kg",
+      "input": {
+        "dailyKcal": 3171,
+        "weightKg": 72,
+        "goal": "bulk",
+        "diet": "omnivore"
+      },
+      "want": {
+        "proteinG": 130,
+        "carbsG": 465,
+        "fatG": 88,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "keto, perder grasa, 90 kg",
+      "input": {
+        "dailyKcal": 2300,
+        "weightKg": 90,
+        "goal": "cut",
+        "diet": "keto"
+      },
+      "want": {
+        "proteinG": 180,
+        "carbsG": 20,
+        "fatG": 167,
+        "netCarbs": true
+      }
+    },
+    {
+      "name": "carnívoro, mantener, 85 kg",
+      "input": {
+        "dailyKcal": 2600,
+        "weightKg": 85,
+        "goal": "maintain",
+        "diet": "carnivore"
+      },
+      "want": {
+        "proteinG": 136,
+        "carbsG": 0,
+        "fatG": 228,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "recomposición, 64 kg",
+      "input": {
+        "dailyKcal": 1922,
+        "weightKg": 64,
+        "goal": "recomp",
+        "diet": "paleo"
+      },
+      "want": {
+        "proteinG": 128,
+        "carbsG": 232,
+        "fatG": 53,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "mucho peso: la proteína se acota al 35 %",
+      "input": {
+        "dailyKcal": 2200,
+        "weightKg": 150,
+        "goal": "cut",
+        "diet": "omnivore"
+      },
+      "want": {
+        "proteinG": 193,
+        "carbsG": 220,
+        "fatG": 61,
+        "netCarbs": false
+      }
+    },
+    {
+      "name": "mínimo seguro y mucho peso: la proteína se acota al 35 %",
+      "input": {
+        "dailyKcal": 1200,
+        "weightKg": 95,
+        "goal": "cut",
+        "diet": "vegetarian"
+      },
+      "want": {
+        "proteinG": 105,
+        "carbsG": 120,
+        "fatG": 33,
+        "netCarbs": false
+      }
+    }
+  ]
+}

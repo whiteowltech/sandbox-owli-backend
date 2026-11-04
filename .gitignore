@@ -1,0 +1,45 @@
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Go
+backend/bin/
+*.exe
+*.test
+coverage.out
+
+# Node / Ionic / Angular
+node_modules/
+app/www/
+app/.angular/
+app/android/app/build/
+app/ios/App/Pods/
+
+# Playwright
+e2e/test-results/
+e2e/playwright-report/
+
+# Editor / SO
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Benchmark (dataset y resultados)
+backend/.bench-cache/
+
+# Videos de referencia (pesados, no se versionan)
+*.mp4
+*.mov
+referencias/
+
+# Capturas del navegador de pruebas (Playwright MCP)
+.playwright-mcp/
+
+# Datos de USDA descargados (se regeneran con cmd/importfoods)
+backend/.fdc-cache/
+
+# La app tiene su propio repositorio (sandbox-owli-app)
+app/

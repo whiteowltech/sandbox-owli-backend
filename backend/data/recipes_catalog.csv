@@ -1,0 +1,37 @@
+# Platos que USDA no tiene, calculados a partir de ingredientes de USDA (domain.ComposeRecipe).
+# Los gramos son de una preparación típica rioplatense; los ingredientes van ya cocidos salvo que
+# yield_g indique el peso final tras la cocción (masas al horno, hervidos).
+# ingredients: fdc_id:gramos separados por |. traits como en foods_catalog.csv, nunca "verified".
+# Ingredientes usados: 171413 aceite de oliva · 171025 aceite de girasol · 170416 perejil · 169230 ajo
+# 172240 vinagre de vino · 171328 orégano · 170932 ají molido · 173468 sal · 173647 agua
+# 170235 nalga/cuadrada cocida · 171477 pechuga de pollo · 174928 pan rallado · 171287 huevo
+# 168894 harina 000 · 171401 grasa · 174034 carne picada cocida · 170001 cebolla hervida
+# 173424 huevo duro · 169094 aceitunas · 173863 jamón cocido · 170845 mozzarella · 170054 salsa de tomate
+# 746781 chorizo · 172675 pan francés · 170850 provolone · 169249 lechuga · 170457 tomate · 170000 cebolla
+# 170108 morrón rojo · 170440 papa hervida · 169698 almidón de maíz · 173410 manteca · 169655 azúcar
+# 173461 dulce de leche · 168586 coco rallado · 167930 masa de tarta · 170401 acelga · 746766 ricota
+# 172421 lentejas · 171203 carne para guiso · 170490 zapallo · 169999 choclo · 175203 porotos blancos
+# 168322 panceta · 169737 fideos cocidos · 168878 arroz cocido · 171009 mayonesa
+id,name_es,name_en,aliases,traits,yield_g,ingredients
+chimichurri,Chimichurri,Chimichurri sauce,chimichurri|salsa chimichurri|chimi|chimichurri sauce,plant,,171413:50|171025:50|170416:25|169230:6|172240:40|171328:3|170932:1|173468:3|173647:20
+salsa-criolla,Salsa criolla,Criolla sauce,salsa criolla|criolla|vinagreta|criolla sauce,plant,,170457:100|170000:70|170108:60|171413:20|172240:20|173468:2
+milanesa-carne-frita,Milanesa de carne frita,Fried breaded beef cutlet,milanesa|milanesa de carne|mila|milanesa frita|breaded steak|beef milanesa|schnitzel,animal|plant|meat|grain|gluten,,170235:80|174928:20|171287:12|171025:12|173468:0.6
+milanesa-carne-horno,Milanesa de carne al horno,Baked breaded beef cutlet,milanesa al horno|milanesa de carne al horno|mila al horno|baked beef milanesa,animal|plant|meat|grain|gluten,,170235:80|174928:20|171287:12|171025:4|173468:0.6
+milanesa-pollo-frita,Milanesa de pollo frita,Fried breaded chicken cutlet,milanesa de pollo|suprema|suprema frita|breaded chicken|chicken milanesa,animal|plant|meat|grain|gluten,,171477:80|174928:20|171287:12|171025:12|173468:0.6
+milanesa-pollo-horno,Milanesa de pollo al horno,Baked breaded chicken cutlet,milanesa de pollo al horno|suprema al horno|baked chicken milanesa,animal|plant|meat|grain|gluten,,171477:80|174928:20|171287:12|171025:4|173468:0.6
+milanesa-napolitana,Milanesa a la napolitana,Milanesa napolitana,napolitana|milanesa napolitana|milanesa a la napolitana,animal|plant|meat|grain|dairy|gluten|lactose,,170235:80|174928:20|171287:12|171025:12|173863:20|170845:30|170054:20|173468:0.6
+empanada-carne,Empanada de carne,Beef empanada,empanada|empanada de carne|empanadas|beef empanada,animal|plant|meat|grain|gluten,88,168894:30|171401:6|173647:12|174034:28|170001:15|173424:5|169094:3|173468:0.6
+empanada-jyq,Empanada de jamón y queso,Ham and cheese empanada,empanada de jamon y queso|empanada jyq|ham and cheese empanada,animal|plant|meat|grain|dairy|gluten|lactose,80,168894:30|171401:6|173647:12|173863:20|170845:22|173468:0.6
+empanada-pollo,Empanada de pollo,Chicken empanada,empanada de pollo|chicken empanada,animal|plant|meat|grain|gluten,86,168894:30|171401:6|173647:12|171477:25|170001:15|170108:8|173468:0.6
+choripan,Choripán,Chorizo sandwich,choripan|choripán|chori|chorizo sandwich,animal|plant|meat|grain|gluten,,746781:90|172675:70
+provoleta,Provoleta,Grilled provolone,provoleta|provolone a la parrilla|grilled provolone,animal|plant|dairy|lactose,,170850:100|171413:5|171328:1|170932:0.5
+ensalada-mixta,Ensalada mixta,Mixed salad,ensalada|ensalada mixta|lechuga tomate cebolla|mixed salad|salad,plant,,169249:60|170457:70|170000:20|171413:8|172240:5|173468:0.5
+tortilla-papa,Tortilla de papa,Spanish potato omelette,tortilla de papa|tortilla española|tortilla|potato omelette|spanish omelette,animal|plant,330,170440:200|171287:100|170001:40|171413:20|173468:0.6
+noquis,Ñoquis de papa,Potato gnocchi,ñoquis|noquis|ñoquis de papa|gnocchi,animal|plant|grain|gluten,110,170440:70|168894:25|171287:6|173468:0.5
+alfajor-maicena,Alfajor de maicena,Cornstarch alfajor,alfajor|alfajor de maicena|alfajores|alfajor cookie,animal|plant|grain|dairy|added_sugar|gluten|lactose,52,169698:14|168894:8|173410:7|169655:6|171287:4|173461:16|168586:2
+tarta-verdura,Tarta de verdura,Swiss chard pie,tarta|tarta de verdura|tarta de acelga|pascualina|vegetable pie,animal|plant|grain|dairy|gluten|lactose,135,167930:40|170401:60|171287:15|746766:20|170001:10
+guiso-lentejas,Guiso de lentejas,Lentil stew,guiso|guiso de lentejas|lentejas guisadas|lentil stew,animal|plant|meat|legume,,172421:120|171203:40|746781:10|170440:50|170490:40|170001:20|170108:10|170054:30|171025:5|173468:0.6
+locro,Locro,Locro (corn and bean stew),locro|locro criollo,animal|plant|meat|legume,,169999:60|175203:40|170490:80|171203:40|746781:10|168322:8|170001:15|171025:5|173468:0.6
+fideos-tuco,Fideos con tuco,Pasta with meat sauce,fideos con tuco|tallarines con salsa|fideos con salsa|spaghetti bolognese|pasta with meat sauce,animal|plant|meat|grain|gluten,,169737:200|170054:80|174034:30|170001:15|171413:5|173468:0.6
+arroz-pollo,Arroz con pollo,Chicken and rice,arroz con pollo|chicken and rice|chicken rice,animal|plant|meat|grain,,168878:150|171477:80|170108:20|170001:20|171025:5|170054:20|173468:0.6
+sanguche-milanesa,Sándwich de milanesa,Milanesa sandwich,sanguche de milanesa|sandwich de milanesa|sanguchito de milanesa|milanesa sandwich,animal|plant|meat|grain|gluten,,170235:80|174928:20|171287:12|171025:12|172675:80|169249:15|170457:30|171009:10|173468:0.6

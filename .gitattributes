@@ -1,0 +1,4 @@
+# Fin de línea LF en el repo y en la copia de trabajo (gofmt y Prettier usan LF).
+* text=auto eol=lf
+*.png binary
+*.jpg binary

@@ -1,0 +1,6307 @@
+[
+  {
+    "id": "pechuga-pollo",
+    "nameEs": "Pechuga de pollo asada",
+    "nameEn": "Roasted chicken breast",
+    "aliases": [
+      "pollo",
+      "pechuga",
+      "chicken breast",
+      "pollo a la plancha"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171477",
+    "per100g": {
+      "kcal": 165,
+      "proteinG": 31,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 3.57
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 15,
+      "ironMg": 1.04,
+      "magnesiumMg": 29,
+      "potassiumMg": 256,
+      "sodiumMg": 74,
+      "zincMg": 1,
+      "vitaminB12Ug": 0.34
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "muslo-pollo",
+    "nameEs": "Muslo de pollo asado",
+    "nameEn": "Roasted chicken thigh",
+    "aliases": [
+      "pollo",
+      "muslo",
+      "pata muslo",
+      "chicken thigh"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172388",
+    "per100g": {
+      "kcal": 179,
+      "proteinG": 24.8,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 8.15
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 9,
+      "ironMg": 1.13,
+      "magnesiumMg": 24,
+      "potassiumMg": 269,
+      "sodiumMg": 106,
+      "zincMg": 1.92,
+      "vitaminB12Ug": 0.42
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "carne-picada",
+    "nameEs": "Carne picada cocida (85 % magra)",
+    "nameEn": "Cooked ground beef (85% lean)",
+    "aliases": [
+      "carne molida",
+      "picada",
+      "ground beef",
+      "hamburguesa casera"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174034",
+    "per100g": {
+      "kcal": 256,
+      "proteinG": 27.7,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 15.3
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 22,
+      "ironMg": 2.93,
+      "magnesiumMg": 25,
+      "potassiumMg": 407,
+      "sodiumMg": 89,
+      "zincMg": 6.62,
+      "vitaminB12Ug": 2.8
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "bife-solomillo",
+    "nameEs": "Bife magro a la parrilla",
+    "nameEn": "Lean grilled sirloin steak",
+    "aliases": [
+      "bife",
+      "bife de carne",
+      "bistec",
+      "filete",
+      "solomillo",
+      "steak",
+      "beef steak",
+      "grilled steak",
+      "sirloin",
+      "lomo"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168635",
+    "per100g": {
+      "kcal": 188,
+      "proteinG": 30.3,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 6.55
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 17,
+      "ironMg": 2.07,
+      "magnesiumMg": 26,
+      "potassiumMg": 380,
+      "sodiumMg": 63,
+      "zincMg": 5.75,
+      "vitaminB12Ug": 1.89
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "bife-ojo-bife",
+    "nameEs": "Ojo de bife a la parrilla",
+    "nameEn": "Grilled rib eye steak",
+    "aliases": [
+      "ojo de bife",
+      "entrecot",
+      "rib eye",
+      "bife ancho"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169557",
+    "per100g": {
+      "kcal": 249,
+      "proteinG": 27.3,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 14.7
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 20,
+      "ironMg": 1.75,
+      "magnesiumMg": 23,
+      "potassiumMg": 340,
+      "sodiumMg": 56,
+      "zincMg": 4.93,
+      "vitaminB12Ug": 1.6
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "vacio",
+    "nameEs": "Vacío a la parrilla",
+    "nameEn": "Grilled flank steak",
+    "aliases": [
+      "vacio",
+      "falda",
+      "flank steak",
+      "asado"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174774",
+    "per100g": {
+      "kcal": 186,
+      "proteinG": 27.9,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 7.4
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 18,
+      "ironMg": 1.74,
+      "magnesiumMg": 23,
+      "potassiumMg": 350,
+      "sodiumMg": 57,
+      "zincMg": 5.09,
+      "vitaminB12Ug": 1.6
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "higado-vaca",
+    "nameEs": "Hígado de vaca a la plancha",
+    "nameEn": "Pan-fried beef liver",
+    "aliases": [
+      "higado",
+      "liver",
+      "vísceras"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168627",
+    "per100g": {
+      "kcal": 175,
+      "proteinG": 26.5,
+      "carbsG": 5.16,
+      "fiberG": 0,
+      "fatG": 4.68
+    },
+    "micros": {
+      "vitaminCMg": 0.7,
+      "calciumMg": 6,
+      "ironMg": 6.17,
+      "magnesiumMg": 22,
+      "potassiumMg": 351,
+      "sodiumMg": 77,
+      "zincMg": 5.23,
+      "vitaminB12Ug": 83.1
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "lomo-cerdo",
+    "nameEs": "Lomo de cerdo asado",
+    "nameEn": "Roasted pork loin",
+    "aliases": [
+      "cerdo",
+      "bondiola",
+      "pork loin",
+      "chancho"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168233",
+    "per100g": {
+      "kcal": 209,
+      "proteinG": 28.6,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 9.63
+    },
+    "micros": {
+      "vitaminCMg": 0.6,
+      "calciumMg": 18,
+      "ironMg": 1.09,
+      "magnesiumMg": 28,
+      "potassiumMg": 425,
+      "sodiumMg": 58,
+      "zincMg": 2.53,
+      "vitaminB12Ug": 0.73
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "jamon-cocido",
+    "nameEs": "Jamón cocido",
+    "nameEn": "Sliced ham",
+    "aliases": [
+      "jamon",
+      "jamón york",
+      "fiambre",
+      "ham"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173863",
+    "per100g": {
+      "kcal": 107,
+      "proteinG": 16.8,
+      "carbsG": 0.7,
+      "fiberG": 0,
+      "fatG": 4.04
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 5,
+      "ironMg": 0.59,
+      "magnesiumMg": 19,
+      "potassiumMg": 463,
+      "sodiumMg": 945,
+      "zincMg": 1.51,
+      "vitaminB12Ug": 0.36
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "panceta",
+    "nameEs": "Panceta cocida",
+    "nameEn": "Cooked bacon",
+    "aliases": [
+      "bacon",
+      "tocino",
+      "tocineta"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168322",
+    "per100g": {
+      "kcal": 468,
+      "proteinG": 33.9,
+      "carbsG": 1.7,
+      "fiberG": 0,
+      "fatG": 35.1
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 11,
+      "ironMg": 0.95,
+      "magnesiumMg": 31,
+      "potassiumMg": 499,
+      "sodiumMg": 1680,
+      "zincMg": 3.06,
+      "vitaminB12Ug": 1.09
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "chorizo",
+    "nameEs": "Chorizo de cerdo cocido",
+    "nameEn": "Cooked pork chorizo",
+    "aliases": [
+      "chorizo",
+      "embutido",
+      "sausage"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "746781",
+    "per100g": {
+      "kcal": 346,
+      "proteinG": 19.3,
+      "carbsG": 2.63,
+      "fiberG": 0,
+      "fatG": 28.1
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 37,
+      "ironMg": 2.34,
+      "magnesiumMg": 30.1,
+      "potassiumMg": 435,
+      "sodiumMg": 983,
+      "zincMg": 2.19,
+      "vitaminB12Ug": 1.21
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "morcilla",
+    "nameEs": "Morcilla",
+    "nameEn": "Blood sausage",
+    "aliases": [
+      "morcilla",
+      "blood sausage"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171618",
+    "per100g": {
+      "kcal": 379,
+      "proteinG": 14.6,
+      "carbsG": 1.29,
+      "fiberG": 0,
+      "fatG": 34.5
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 6,
+      "ironMg": 6.4,
+      "magnesiumMg": 8,
+      "potassiumMg": 38,
+      "sodiumMg": 680,
+      "zincMg": 1.3,
+      "vitaminB12Ug": 1
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "pechuga-pavo",
+    "nameEs": "Pechuga de pavo asada",
+    "nameEn": "Roasted turkey breast",
+    "aliases": [
+      "pavo",
+      "turkey"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171496",
+    "per100g": {
+      "kcal": 147,
+      "proteinG": 30.1,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 2.08
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 9,
+      "ironMg": 0.71,
+      "magnesiumMg": 32,
+      "potassiumMg": 249,
+      "sodiumMg": 99,
+      "zincMg": 1.72,
+      "vitaminB12Ug": 0.39
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "salmon",
+    "nameEs": "Salmón cocido",
+    "nameEn": "Cooked salmon",
+    "aliases": [
+      "salmon",
+      "salmón rosado",
+      "salmon fillet"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "175168",
+    "per100g": {
+      "kcal": 206,
+      "proteinG": 22.1,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 12.4
+    },
+    "micros": {
+      "vitaminCMg": 3.7,
+      "calciumMg": 15,
+      "ironMg": 0.34,
+      "magnesiumMg": 30,
+      "potassiumMg": 384,
+      "sodiumMg": 61,
+      "zincMg": 0.43,
+      "vitaminB12Ug": 2.8
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": true,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "atun-lata",
+    "nameEs": "Atún al natural (lata)",
+    "nameEn": "Canned light tuna in water",
+    "aliases": [
+      "atun",
+      "atún",
+      "tuna",
+      "lomitos de atún"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173709",
+    "per100g": {
+      "kcal": 86,
+      "proteinG": 19.4,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 0.96
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 17,
+      "ironMg": 1.63,
+      "magnesiumMg": 23,
+      "potassiumMg": 179,
+      "sodiumMg": 247,
+      "zincMg": 0.69,
+      "vitaminB12Ug": 2.55
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": true,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "merluza",
+    "nameEs": "Pescado blanco cocido (bacalao/merluza)",
+    "nameEn": "Cooked white fish (cod)",
+    "aliases": [
+      "merluza",
+      "bacalao",
+      "cod",
+      "pescado blanco"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171956",
+    "per100g": {
+      "kcal": 105,
+      "proteinG": 22.8,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 0.86
+    },
+    "micros": {
+      "vitaminCMg": 1,
+      "calciumMg": 14,
+      "ironMg": 0.49,
+      "magnesiumMg": 42,
+      "potassiumMg": 244,
+      "sodiumMg": 78,
+      "zincMg": 0.58,
+      "vitaminB12Ug": 1.05
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": true,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "camarones",
+    "nameEs": "Camarones cocidos",
+    "nameEn": "Cooked shrimp",
+    "aliases": [
+      "camarones",
+      "langostinos",
+      "gambas",
+      "shrimp",
+      "prawns"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "175180",
+    "per100g": {
+      "kcal": 99,
+      "proteinG": 24,
+      "carbsG": 0.2,
+      "fiberG": 0,
+      "fatG": 0.28
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 70,
+      "ironMg": 0.51,
+      "magnesiumMg": 39,
+      "potassiumMg": 259,
+      "sodiumMg": 111,
+      "zincMg": 1.64,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": true,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "sardinas-lata",
+    "nameEs": "Sardinas en aceite (lata)",
+    "nameEn": "Canned sardines in oil",
+    "aliases": [
+      "sardinas",
+      "sardines"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "175139",
+    "per100g": {
+      "kcal": 208,
+      "proteinG": 24.6,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 11.4
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 382,
+      "ironMg": 2.92,
+      "magnesiumMg": 39,
+      "potassiumMg": 397,
+      "sodiumMg": 307,
+      "zincMg": 1.31,
+      "vitaminB12Ug": 8.94
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": true,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "huevo",
+    "nameEs": "Huevo entero",
+    "nameEn": "Whole egg",
+    "aliases": [
+      "huevo",
+      "huevos",
+      "egg",
+      "eggs"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171287",
+    "per100g": {
+      "kcal": 143,
+      "proteinG": 12.6,
+      "carbsG": 0.72,
+      "fiberG": 0,
+      "fatG": 9.51
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 56,
+      "ironMg": 1.75,
+      "magnesiumMg": 12,
+      "potassiumMg": 138,
+      "sodiumMg": 142,
+      "zincMg": 1.29,
+      "vitaminB12Ug": 0.89
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "huevo-duro",
+    "nameEs": "Huevo duro",
+    "nameEn": "Hard-boiled egg",
+    "aliases": [
+      "huevo duro",
+      "huevo cocido",
+      "boiled egg"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173424",
+    "per100g": {
+      "kcal": 155,
+      "proteinG": 12.6,
+      "carbsG": 1.12,
+      "fiberG": 0,
+      "fatG": 10.6
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 50,
+      "ironMg": 1.19,
+      "magnesiumMg": 10,
+      "potassiumMg": 126,
+      "sodiumMg": 124,
+      "zincMg": 1.05,
+      "vitaminB12Ug": 1.11
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "clara-huevo",
+    "nameEs": "Clara de huevo",
+    "nameEn": "Egg white",
+    "aliases": [
+      "clara",
+      "claras",
+      "egg white"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172183",
+    "per100g": {
+      "kcal": 52,
+      "proteinG": 10.9,
+      "carbsG": 0.73,
+      "fiberG": 0,
+      "fatG": 0.17
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 7,
+      "ironMg": 0.08,
+      "magnesiumMg": 11,
+      "potassiumMg": 163,
+      "sodiumMg": 166,
+      "zincMg": 0.03,
+      "vitaminB12Ug": 0.09
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "tofu",
+    "nameEs": "Tofu firme",
+    "nameEn": "Firm tofu",
+    "aliases": [
+      "tofu"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172475",
+    "per100g": {
+      "kcal": 144,
+      "proteinG": 17.3,
+      "carbsG": 2.78,
+      "fiberG": 2.3,
+      "fatG": 8.72
+    },
+    "micros": {
+      "vitaminCMg": 0.2,
+      "calciumMg": 683,
+      "ironMg": 2.66,
+      "magnesiumMg": 58,
+      "potassiumMg": 237,
+      "sodiumMg": 14,
+      "zincMg": 1.57,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "tempeh",
+    "nameEs": "Tempeh",
+    "nameEn": "Tempeh",
+    "aliases": [
+      "tempeh",
+      "tempe"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174272",
+    "per100g": {
+      "kcal": 192,
+      "proteinG": 20.3,
+      "carbsG": 7.64,
+      "fiberG": 0,
+      "fatG": 10.8
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 111,
+      "ironMg": 2.7,
+      "magnesiumMg": 81,
+      "potassiumMg": 412,
+      "sodiumMg": 9,
+      "zincMg": 1.14,
+      "vitaminB12Ug": 0.08
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "lentejas",
+    "nameEs": "Lentejas cocidas",
+    "nameEn": "Cooked lentils",
+    "aliases": [
+      "lentejas",
+      "lentils"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172421",
+    "per100g": {
+      "kcal": 116,
+      "proteinG": 9.02,
+      "carbsG": 20.1,
+      "fiberG": 7.9,
+      "fatG": 0.38
+    },
+    "micros": {
+      "vitaminCMg": 1.5,
+      "calciumMg": 19,
+      "ironMg": 3.33,
+      "magnesiumMg": 36,
+      "potassiumMg": 369,
+      "sodiumMg": 2,
+      "zincMg": 1.27,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "garbanzos",
+    "nameEs": "Garbanzos cocidos",
+    "nameEn": "Cooked chickpeas",
+    "aliases": [
+      "garbanzos",
+      "chickpeas",
+      "garbanzo"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173757",
+    "per100g": {
+      "kcal": 164,
+      "proteinG": 8.86,
+      "carbsG": 27.4,
+      "fiberG": 7.6,
+      "fatG": 2.59
+    },
+    "micros": {
+      "vitaminCMg": 1.3,
+      "calciumMg": 49,
+      "ironMg": 2.89,
+      "magnesiumMg": 48,
+      "potassiumMg": 291,
+      "sodiumMg": 7,
+      "zincMg": 1.53,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "porotos-negros",
+    "nameEs": "Porotos negros cocidos",
+    "nameEn": "Cooked black beans",
+    "aliases": [
+      "porotos",
+      "frijoles",
+      "judías",
+      "alubias",
+      "black beans",
+      "caraotas"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173735",
+    "per100g": {
+      "kcal": 132,
+      "proteinG": 8.86,
+      "carbsG": 23.7,
+      "fiberG": 8.7,
+      "fatG": 0.54
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 27,
+      "ironMg": 2.1,
+      "magnesiumMg": 70,
+      "potassiumMg": 355,
+      "sodiumMg": 1,
+      "zincMg": 1.12,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "yogur-griego",
+    "nameEs": "Yogur griego natural descremado",
+    "nameEn": "Plain nonfat Greek yogurt",
+    "aliases": [
+      "yogur",
+      "yogurt",
+      "griego",
+      "greek yogurt"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "330137",
+    "per100g": {
+      "kcal": 61,
+      "proteinG": 10.3,
+      "carbsG": 3.64,
+      "fiberG": 0,
+      "fatG": 0.37
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 111,
+      "ironMg": 0.07,
+      "magnesiumMg": 10.7,
+      "potassiumMg": 141,
+      "sodiumMg": 36,
+      "zincMg": 0.53,
+      "vitaminB12Ug": 0.7
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "yogur-natural",
+    "nameEs": "Yogur natural entero",
+    "nameEn": "Plain whole milk yogurt",
+    "aliases": [
+      "yogur",
+      "yogurt",
+      "yoghurt"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171284",
+    "per100g": {
+      "kcal": 61,
+      "proteinG": 3.47,
+      "carbsG": 4.66,
+      "fiberG": 0,
+      "fatG": 3.25
+    },
+    "micros": {
+      "vitaminCMg": 0.5,
+      "calciumMg": 121,
+      "ironMg": 0.05,
+      "magnesiumMg": 12,
+      "potassiumMg": 155,
+      "sodiumMg": 46,
+      "zincMg": 0.59,
+      "vitaminB12Ug": 0.37
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "leche-entera",
+    "nameEs": "Leche entera",
+    "nameEn": "Whole milk",
+    "aliases": [
+      "leche",
+      "milk"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171265",
+    "per100g": {
+      "kcal": 61,
+      "proteinG": 3.15,
+      "carbsG": 4.8,
+      "fiberG": 0,
+      "fatG": 3.25
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 113,
+      "ironMg": 0.03,
+      "magnesiumMg": 10,
+      "potassiumMg": 132,
+      "sodiumMg": 43,
+      "zincMg": 0.37,
+      "vitaminB12Ug": 0.45
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "leche-descremada",
+    "nameEs": "Leche descremada",
+    "nameEn": "Skim milk",
+    "aliases": [
+      "leche",
+      "descremada",
+      "desnatada",
+      "skim milk"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171269",
+    "per100g": {
+      "kcal": 34,
+      "proteinG": 3.37,
+      "carbsG": 4.96,
+      "fiberG": 0,
+      "fatG": 0.08
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 122,
+      "ironMg": 0.03,
+      "magnesiumMg": 11,
+      "potassiumMg": 156,
+      "sodiumMg": 42,
+      "zincMg": 0.42,
+      "vitaminB12Ug": 0.5
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-mozzarella",
+    "nameEs": "Queso mozzarella",
+    "nameEn": "Mozzarella cheese",
+    "aliases": [
+      "queso",
+      "mozzarella",
+      "muzzarella"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170845",
+    "per100g": {
+      "kcal": 299,
+      "proteinG": 22.2,
+      "carbsG": 2.4,
+      "fiberG": 0,
+      "fatG": 22.1
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 505,
+      "ironMg": 0.44,
+      "magnesiumMg": 20,
+      "potassiumMg": 76,
+      "sodiumMg": 486,
+      "zincMg": 2.92,
+      "vitaminB12Ug": 2.28
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-cheddar",
+    "nameEs": "Queso cheddar",
+    "nameEn": "Cheddar cheese",
+    "aliases": [
+      "queso",
+      "cheddar"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "328637",
+    "per100g": {
+      "kcal": 408,
+      "proteinG": 23.3,
+      "carbsG": 2.44,
+      "fiberG": 0,
+      "fatG": 34
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 707,
+      "ironMg": 0.16,
+      "magnesiumMg": 26.8,
+      "potassiumMg": 77,
+      "sodiumMg": 654,
+      "zincMg": 3.67,
+      "vitaminB12Ug": 1.06
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-cottage",
+    "nameEs": "Queso cottage",
+    "nameEn": "Cottage cheese",
+    "aliases": [
+      "queso",
+      "cottage",
+      "requesón"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "328841",
+    "per100g": {
+      "kcal": 84,
+      "proteinG": 11,
+      "carbsG": 4.31,
+      "fiberG": 0,
+      "fatG": 2.3
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 103,
+      "ironMg": 0.13,
+      "magnesiumMg": 8.9,
+      "potassiumMg": 120,
+      "sodiumMg": 321,
+      "zincMg": 0.61,
+      "vitaminB12Ug": 0.42
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "ricota",
+    "nameEs": "Ricota",
+    "nameEn": "Ricotta cheese",
+    "aliases": [
+      "ricota",
+      "ricotta",
+      "requesón"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "746766",
+    "per100g": {
+      "kcal": 157,
+      "proteinG": 7.81,
+      "carbsG": 6.86,
+      "fiberG": 0,
+      "fatG": 11
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 224,
+      "ironMg": 0.1,
+      "magnesiumMg": 19.7,
+      "potassiumMg": 230,
+      "sodiumMg": 105,
+      "zincMg": 0.56,
+      "vitaminB12Ug": 0.78
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-parmesano",
+    "nameEs": "Queso parmesano rallado",
+    "nameEn": "Grated parmesan cheese",
+    "aliases": [
+      "queso",
+      "parmesano",
+      "rallado",
+      "reggianito",
+      "parmesan"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171247",
+    "per100g": {
+      "kcal": 420,
+      "proteinG": 28.4,
+      "carbsG": 13.9,
+      "fiberG": 0,
+      "fatG": 27.8
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 853,
+      "ironMg": 0.49,
+      "magnesiumMg": 34,
+      "potassiumMg": 180,
+      "sodiumMg": 1800,
+      "zincMg": 4.2,
+      "vitaminB12Ug": 1.4
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-crema",
+    "nameEs": "Queso crema",
+    "nameEn": "Cream cheese",
+    "aliases": [
+      "queso crema",
+      "queso untable",
+      "philadelphia",
+      "cream cheese"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173418",
+    "per100g": {
+      "kcal": 350,
+      "proteinG": 6.15,
+      "carbsG": 5.52,
+      "fiberG": 0,
+      "fatG": 34.4
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 97,
+      "ironMg": 0.11,
+      "magnesiumMg": 9,
+      "potassiumMg": 132,
+      "sodiumMg": 314,
+      "zincMg": 0.5,
+      "vitaminB12Ug": 0.22
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "queso-provolone",
+    "nameEs": "Provolone",
+    "nameEn": "Provolone cheese",
+    "aliases": [
+      "provoleta",
+      "provolone",
+      "queso"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170850",
+    "per100g": {
+      "kcal": 351,
+      "proteinG": 25.6,
+      "carbsG": 2.14,
+      "fiberG": 0,
+      "fatG": 26.6
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 756,
+      "ironMg": 0.52,
+      "magnesiumMg": 28,
+      "potassiumMg": 138,
+      "sodiumMg": 727,
+      "zincMg": 3.23,
+      "vitaminB12Ug": 1.46
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "arroz-blanco",
+    "nameEs": "Arroz blanco cocido",
+    "nameEn": "Cooked white rice",
+    "aliases": [
+      "arroz",
+      "rice"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168878",
+    "per100g": {
+      "kcal": 130,
+      "proteinG": 2.69,
+      "carbsG": 28.2,
+      "fiberG": 0.4,
+      "fatG": 0.28
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 10,
+      "ironMg": 1.2,
+      "magnesiumMg": 12,
+      "potassiumMg": 35,
+      "sodiumMg": 1,
+      "zincMg": 0.49,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "arroz-integral",
+    "nameEs": "Arroz integral cocido",
+    "nameEn": "Cooked brown rice",
+    "aliases": [
+      "arroz integral",
+      "brown rice"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169704",
+    "per100g": {
+      "kcal": 123,
+      "proteinG": 2.74,
+      "carbsG": 25.6,
+      "fiberG": 1.6,
+      "fatG": 0.97
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 3,
+      "ironMg": 0.56,
+      "magnesiumMg": 39,
+      "potassiumMg": 86,
+      "sodiumMg": 4,
+      "zincMg": 0.71,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "fideos",
+    "nameEs": "Fideos cocidos",
+    "nameEn": "Cooked pasta",
+    "aliases": [
+      "fideos",
+      "pasta",
+      "spaghetti",
+      "tallarines",
+      "macarrones"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169737",
+    "per100g": {
+      "kcal": 158,
+      "proteinG": 5.8,
+      "carbsG": 30.9,
+      "fiberG": 1.8,
+      "fatG": 0.93
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 7,
+      "ironMg": 1.28,
+      "magnesiumMg": 18,
+      "potassiumMg": 44,
+      "sodiumMg": 1,
+      "zincMg": 0.51,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "pan-blanco",
+    "nameEs": "Pan blanco",
+    "nameEn": "White bread",
+    "aliases": [
+      "pan",
+      "pan de molde",
+      "pan lactal",
+      "bread"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174924",
+    "per100g": {
+      "kcal": 266,
+      "proteinG": 8.85,
+      "carbsG": 49.4,
+      "fiberG": 2.7,
+      "fatG": 3.33
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 144,
+      "ironMg": 3.61,
+      "magnesiumMg": 23,
+      "potassiumMg": 126,
+      "sodiumMg": 490,
+      "zincMg": 0.74,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "pan-integral",
+    "nameEs": "Pan integral",
+    "nameEn": "Whole wheat bread",
+    "aliases": [
+      "pan integral",
+      "whole wheat bread"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172688",
+    "per100g": {
+      "kcal": 252,
+      "proteinG": 12.4,
+      "carbsG": 42.7,
+      "fiberG": 6,
+      "fatG": 3.5
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 161,
+      "ironMg": 2.47,
+      "magnesiumMg": 75,
+      "potassiumMg": 254,
+      "sodiumMg": 455,
+      "zincMg": 1.77,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "avena",
+    "nameEs": "Avena en hojuelas",
+    "nameEn": "Rolled oats",
+    "aliases": [
+      "avena",
+      "copos de avena",
+      "oats",
+      "oatmeal"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "2346396",
+    "per100g": {
+      "kcal": 379,
+      "proteinG": 13.5,
+      "carbsG": 68.7,
+      "fiberG": 0,
+      "fatG": 5.89
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 45.5,
+      "ironMg": 4.34,
+      "magnesiumMg": 126,
+      "potassiumMg": 350,
+      "sodiumMg": 0.668,
+      "zincMg": 2.74,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "papa-hervida",
+    "nameEs": "Papa hervida",
+    "nameEn": "Boiled potato",
+    "aliases": [
+      "papa",
+      "patata",
+      "potato"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170440",
+    "per100g": {
+      "kcal": 86,
+      "proteinG": 1.71,
+      "carbsG": 20,
+      "fiberG": 1.8,
+      "fatG": 0.1
+    },
+    "micros": {
+      "vitaminCMg": 7.4,
+      "calciumMg": 8,
+      "ironMg": 0.31,
+      "magnesiumMg": 20,
+      "potassiumMg": 328,
+      "sodiumMg": 5,
+      "zincMg": 0.27,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "papa-horno",
+    "nameEs": "Papa al horno con piel",
+    "nameEn": "Baked potato with skin",
+    "aliases": [
+      "papa al horno",
+      "patata asada",
+      "baked potato"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170093",
+    "per100g": {
+      "kcal": 93,
+      "proteinG": 2.5,
+      "carbsG": 21.2,
+      "fiberG": 2.2,
+      "fatG": 0.13
+    },
+    "micros": {
+      "vitaminCMg": 9.6,
+      "calciumMg": 15,
+      "ironMg": 1.08,
+      "magnesiumMg": 28,
+      "potassiumMg": 535,
+      "sodiumMg": 10,
+      "zincMg": 0.36,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "batata",
+    "nameEs": "Batata al horno",
+    "nameEn": "Baked sweet potato",
+    "aliases": [
+      "batata",
+      "boniato",
+      "camote",
+      "sweet potato"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168483",
+    "per100g": {
+      "kcal": 90,
+      "proteinG": 2.01,
+      "carbsG": 20.7,
+      "fiberG": 3.3,
+      "fatG": 0.15
+    },
+    "micros": {
+      "vitaminCMg": 19.6,
+      "calciumMg": 38,
+      "ironMg": 0.69,
+      "magnesiumMg": 27,
+      "potassiumMg": 475,
+      "sodiumMg": 36,
+      "zincMg": 0.32,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "quinoa",
+    "nameEs": "Quinoa cocida",
+    "nameEn": "Cooked quinoa",
+    "aliases": [
+      "quinoa",
+      "quinua"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168917",
+    "per100g": {
+      "kcal": 120,
+      "proteinG": 4.4,
+      "carbsG": 21.3,
+      "fiberG": 2.8,
+      "fatG": 1.92
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 17,
+      "ironMg": 1.49,
+      "magnesiumMg": 64,
+      "potassiumMg": 172,
+      "sodiumMg": 7,
+      "zincMg": 1.09,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "tortilla-maiz",
+    "nameEs": "Tortilla de maíz",
+    "nameEn": "Corn tortilla",
+    "aliases": [
+      "tortilla de maiz",
+      "corn tortilla"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "175036",
+    "per100g": {
+      "kcal": 218,
+      "proteinG": 5.7,
+      "carbsG": 44.6,
+      "fiberG": 6.3,
+      "fatG": 2.85
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 81,
+      "ironMg": 1.23,
+      "magnesiumMg": 72,
+      "potassiumMg": 186,
+      "sodiumMg": 45,
+      "zincMg": 1.31,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "tortilla-trigo",
+    "nameEs": "Tortilla de trigo",
+    "nameEn": "Flour tortilla",
+    "aliases": [
+      "tortilla de trigo",
+      "wrap",
+      "rapiditas",
+      "flour tortilla"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "175037",
+    "per100g": {
+      "kcal": 306,
+      "proteinG": 8.2,
+      "carbsG": 49.4,
+      "fiberG": 3.5,
+      "fatG": 7.99
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 146,
+      "ironMg": 3.63,
+      "magnesiumMg": 22,
+      "potassiumMg": 125,
+      "sodiumMg": 736,
+      "zincMg": 0.53,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "choclo",
+    "nameEs": "Choclo cocido",
+    "nameEn": "Cooked sweet corn",
+    "aliases": [
+      "choclo",
+      "maíz",
+      "elote",
+      "corn"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169999",
+    "per100g": {
+      "kcal": 96,
+      "proteinG": 3.41,
+      "carbsG": 21,
+      "fiberG": 2.4,
+      "fatG": 1.5
+    },
+    "micros": {
+      "vitaminCMg": 5.5,
+      "calciumMg": 3,
+      "ironMg": 0.45,
+      "magnesiumMg": 26,
+      "potassiumMg": 218,
+      "sodiumMg": 1,
+      "zincMg": 0.62,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "cuscus",
+    "nameEs": "Cuscús cocido",
+    "nameEn": "Cooked couscous",
+    "aliases": [
+      "cuscus",
+      "couscous"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169700",
+    "per100g": {
+      "kcal": 112,
+      "proteinG": 3.79,
+      "carbsG": 23.2,
+      "fiberG": 1.4,
+      "fatG": 0.16
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 8,
+      "ironMg": 0.38,
+      "magnesiumMg": 8,
+      "potassiumMg": 58,
+      "sodiumMg": 5,
+      "zincMg": 0.26,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "copos-maiz",
+    "nameEs": "Copos de maíz (cereal)",
+    "nameEn": "Corn flakes cereal",
+    "aliases": [
+      "copos de maiz",
+      "cereal",
+      "corn flakes"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174648",
+    "per100g": {
+      "kcal": 384,
+      "proteinG": 5.9,
+      "carbsG": 88,
+      "fiberG": 2.7,
+      "fatG": 0.91
+    },
+    "micros": {
+      "vitaminCMg": 65,
+      "calciumMg": 2,
+      "ironMg": 19.4,
+      "magnesiumMg": 7,
+      "potassiumMg": 107,
+      "sodiumMg": 571,
+      "zincMg": 0.2,
+      "vitaminB12Ug": 5.36
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "granola",
+    "nameEs": "Granola",
+    "nameEn": "Granola",
+    "aliases": [
+      "granola",
+      "muesli"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171646",
+    "per100g": {
+      "kcal": 489,
+      "proteinG": 13.7,
+      "carbsG": 53.9,
+      "fiberG": 8.9,
+      "fatG": 24.3
+    },
+    "micros": {
+      "vitaminCMg": 1.2,
+      "calciumMg": 76,
+      "ironMg": 3.95,
+      "magnesiumMg": 168,
+      "potassiumMg": 539,
+      "sodiumMg": 26,
+      "zincMg": 4.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "galletas-agua",
+    "nameEs": "Galletitas de agua",
+    "nameEn": "Saltine crackers",
+    "aliases": [
+      "galletitas",
+      "galletas",
+      "crackers",
+      "saltines"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172746",
+    "per100g": {
+      "kcal": 418,
+      "proteinG": 9.46,
+      "carbsG": 74,
+      "fiberG": 2.8,
+      "fatG": 8.64
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 19,
+      "ironMg": 5.57,
+      "magnesiumMg": 23,
+      "potassiumMg": 152,
+      "sodiumMg": 941,
+      "zincMg": 0.69,
+      "vitaminB12Ug": 0.09
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "banana",
+    "nameEs": "Banana",
+    "nameEn": "Banana",
+    "aliases": [
+      "banana",
+      "plátano",
+      "cambur",
+      "banano"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173944",
+    "per100g": {
+      "kcal": 89,
+      "proteinG": 1.09,
+      "carbsG": 22.8,
+      "fiberG": 2.6,
+      "fatG": 0.33
+    },
+    "micros": {
+      "vitaminCMg": 8.7,
+      "calciumMg": 5,
+      "ironMg": 0.26,
+      "magnesiumMg": 27,
+      "potassiumMg": 358,
+      "sodiumMg": 1,
+      "zincMg": 0.15,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "manzana",
+    "nameEs": "Manzana con piel",
+    "nameEn": "Apple with skin",
+    "aliases": [
+      "manzana",
+      "apple"
+    ],
+    "source": "usda_foundation",
+    "sourceRef": "1750341",
+    "per100g": {
+      "kcal": 54.9,
+      "proteinG": 0.133,
+      "carbsG": 14.8,
+      "fiberG": 2.11,
+      "fatG": 0.15
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 6.64,
+      "ironMg": 0.06,
+      "magnesiumMg": 4.95,
+      "potassiumMg": 106,
+      "sodiumMg": 0.279,
+      "zincMg": 0.024,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "naranja",
+    "nameEs": "Naranja",
+    "nameEn": "Orange",
+    "aliases": [
+      "naranja",
+      "orange"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169097",
+    "per100g": {
+      "kcal": 47,
+      "proteinG": 0.94,
+      "carbsG": 11.8,
+      "fiberG": 2.4,
+      "fatG": 0.12
+    },
+    "micros": {
+      "vitaminCMg": 53.2,
+      "calciumMg": 40,
+      "ironMg": 0.1,
+      "magnesiumMg": 10,
+      "potassiumMg": 181,
+      "sodiumMg": 0,
+      "zincMg": 0.07,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "frutillas",
+    "nameEs": "Frutillas",
+    "nameEn": "Strawberries",
+    "aliases": [
+      "frutillas",
+      "fresas",
+      "strawberries"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "167762",
+    "per100g": {
+      "kcal": 32,
+      "proteinG": 0.67,
+      "carbsG": 7.68,
+      "fiberG": 2,
+      "fatG": 0.3
+    },
+    "micros": {
+      "vitaminCMg": 58.8,
+      "calciumMg": 16,
+      "ironMg": 0.41,
+      "magnesiumMg": 13,
+      "potassiumMg": 153,
+      "sodiumMg": 1,
+      "zincMg": 0.14,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "arandanos",
+    "nameEs": "Arándanos",
+    "nameEn": "Blueberries",
+    "aliases": [
+      "arandanos",
+      "blueberries"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171711",
+    "per100g": {
+      "kcal": 57,
+      "proteinG": 0.74,
+      "carbsG": 14.5,
+      "fiberG": 2.4,
+      "fatG": 0.33
+    },
+    "micros": {
+      "vitaminCMg": 9.7,
+      "calciumMg": 6,
+      "ironMg": 0.28,
+      "magnesiumMg": 6,
+      "potassiumMg": 77,
+      "sodiumMg": 1,
+      "zincMg": 0.16,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "uvas",
+    "nameEs": "Uvas",
+    "nameEn": "Grapes",
+    "aliases": [
+      "uvas",
+      "grapes"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174683",
+    "per100g": {
+      "kcal": 69,
+      "proteinG": 0.72,
+      "carbsG": 18.1,
+      "fiberG": 0.9,
+      "fatG": 0.16
+    },
+    "micros": {
+      "vitaminCMg": 3.2,
+      "calciumMg": 10,
+      "ironMg": 0.36,
+      "magnesiumMg": 7,
+      "potassiumMg": 191,
+      "sodiumMg": 2,
+      "zincMg": 0.07,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "pera",
+    "nameEs": "Pera",
+    "nameEn": "Pear",
+    "aliases": [
+      "pera",
+      "pear"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169118",
+    "per100g": {
+      "kcal": 57,
+      "proteinG": 0.36,
+      "carbsG": 15.2,
+      "fiberG": 3.1,
+      "fatG": 0.14
+    },
+    "micros": {
+      "vitaminCMg": 4.3,
+      "calciumMg": 9,
+      "ironMg": 0.18,
+      "magnesiumMg": 7,
+      "potassiumMg": 116,
+      "sodiumMg": 1,
+      "zincMg": 0.1,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "durazno",
+    "nameEs": "Durazno",
+    "nameEn": "Peach",
+    "aliases": [
+      "durazno",
+      "melocotón",
+      "peach"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169928",
+    "per100g": {
+      "kcal": 39,
+      "proteinG": 0.91,
+      "carbsG": 9.54,
+      "fiberG": 1.5,
+      "fatG": 0.25
+    },
+    "micros": {
+      "vitaminCMg": 6.6,
+      "calciumMg": 6,
+      "ironMg": 0.25,
+      "magnesiumMg": 9,
+      "potassiumMg": 190,
+      "sodiumMg": 0,
+      "zincMg": 0.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "mango",
+    "nameEs": "Mango",
+    "nameEn": "Mango",
+    "aliases": [
+      "mango"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169910",
+    "per100g": {
+      "kcal": 60,
+      "proteinG": 0.82,
+      "carbsG": 15,
+      "fiberG": 1.6,
+      "fatG": 0.38
+    },
+    "micros": {
+      "vitaminCMg": 36.4,
+      "calciumMg": 11,
+      "ironMg": 0.16,
+      "magnesiumMg": 10,
+      "potassiumMg": 168,
+      "sodiumMg": 1,
+      "zincMg": 0.09,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "anana",
+    "nameEs": "Ananá",
+    "nameEn": "Pineapple",
+    "aliases": [
+      "anana",
+      "piña",
+      "pineapple"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169124",
+    "per100g": {
+      "kcal": 50,
+      "proteinG": 0.54,
+      "carbsG": 13.1,
+      "fiberG": 1.4,
+      "fatG": 0.12
+    },
+    "micros": {
+      "vitaminCMg": 47.8,
+      "calciumMg": 13,
+      "ironMg": 0.29,
+      "magnesiumMg": 12,
+      "potassiumMg": 109,
+      "sodiumMg": 1,
+      "zincMg": 0.12,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "sandia",
+    "nameEs": "Sandía",
+    "nameEn": "Watermelon",
+    "aliases": [
+      "sandia",
+      "patilla",
+      "watermelon"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "167765",
+    "per100g": {
+      "kcal": 30,
+      "proteinG": 0.61,
+      "carbsG": 7.55,
+      "fiberG": 0.4,
+      "fatG": 0.15
+    },
+    "micros": {
+      "vitaminCMg": 8.1,
+      "calciumMg": 7,
+      "ironMg": 0.24,
+      "magnesiumMg": 10,
+      "potassiumMg": 112,
+      "sodiumMg": 1,
+      "zincMg": 0.1,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "melon",
+    "nameEs": "Melón",
+    "nameEn": "Cantaloupe melon",
+    "aliases": [
+      "melon",
+      "cantaloupe"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169092",
+    "per100g": {
+      "kcal": 34,
+      "proteinG": 0.84,
+      "carbsG": 8.16,
+      "fiberG": 0.9,
+      "fatG": 0.19
+    },
+    "micros": {
+      "vitaminCMg": 36.7,
+      "calciumMg": 9,
+      "ironMg": 0.21,
+      "magnesiumMg": 12,
+      "potassiumMg": 267,
+      "sodiumMg": 16,
+      "zincMg": 0.18,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "kiwi",
+    "nameEs": "Kiwi",
+    "nameEn": "Kiwi",
+    "aliases": [
+      "kiwi",
+      "kiwifruit"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168153",
+    "per100g": {
+      "kcal": 61,
+      "proteinG": 1.14,
+      "carbsG": 14.7,
+      "fiberG": 3,
+      "fatG": 0.52
+    },
+    "micros": {
+      "vitaminCMg": 92.7,
+      "calciumMg": 34,
+      "ironMg": 0.31,
+      "magnesiumMg": 17,
+      "potassiumMg": 312,
+      "sodiumMg": 3,
+      "zincMg": 0.14,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "jugo-limon",
+    "nameEs": "Jugo de limón",
+    "nameEn": "Lemon juice",
+    "aliases": [
+      "limon",
+      "limón",
+      "lemon juice"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "167747",
+    "per100g": {
+      "kcal": 22,
+      "proteinG": 0.35,
+      "carbsG": 6.9,
+      "fiberG": 0.3,
+      "fatG": 0.24
+    },
+    "micros": {
+      "vitaminCMg": 38.7,
+      "calciumMg": 6,
+      "ironMg": 0.08,
+      "magnesiumMg": 6,
+      "potassiumMg": 103,
+      "sodiumMg": 1,
+      "zincMg": 0.05,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "palta",
+    "nameEs": "Palta",
+    "nameEn": "Avocado",
+    "aliases": [
+      "palta",
+      "aguacate",
+      "avocado"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171705",
+    "per100g": {
+      "kcal": 160,
+      "proteinG": 2,
+      "carbsG": 8.53,
+      "fiberG": 6.7,
+      "fatG": 14.7
+    },
+    "micros": {
+      "vitaminCMg": 10,
+      "calciumMg": 12,
+      "ironMg": 0.55,
+      "magnesiumMg": 29,
+      "potassiumMg": 485,
+      "sodiumMg": 7,
+      "zincMg": 0.64,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "datiles",
+    "nameEs": "Dátiles",
+    "nameEn": "Dates",
+    "aliases": [
+      "datiles",
+      "dates"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168191",
+    "per100g": {
+      "kcal": 277,
+      "proteinG": 1.81,
+      "carbsG": 75,
+      "fiberG": 6.7,
+      "fatG": 0.15
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 64,
+      "ironMg": 0.9,
+      "magnesiumMg": 54,
+      "potassiumMg": 696,
+      "sodiumMg": 1,
+      "zincMg": 0.44,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "pasas-uva",
+    "nameEs": "Pasas de uva",
+    "nameEn": "Raisins",
+    "aliases": [
+      "pasas",
+      "uvas pasas",
+      "raisins"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168165",
+    "per100g": {
+      "kcal": 299,
+      "proteinG": 3.3,
+      "carbsG": 79.3,
+      "fiberG": 4.5,
+      "fatG": 0.25
+    },
+    "micros": {
+      "vitaminCMg": 2.3,
+      "calciumMg": 62,
+      "ironMg": 1.79,
+      "magnesiumMg": 36,
+      "potassiumMg": 744,
+      "sodiumMg": 26,
+      "zincMg": 0.36,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "lechuga",
+    "nameEs": "Lechuga",
+    "nameEn": "Lettuce",
+    "aliases": [
+      "lechuga",
+      "ensalada",
+      "lettuce"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169249",
+    "per100g": {
+      "kcal": 15,
+      "proteinG": 1.36,
+      "carbsG": 2.87,
+      "fiberG": 1.3,
+      "fatG": 0.15
+    },
+    "micros": {
+      "vitaminCMg": 9.2,
+      "calciumMg": 36,
+      "ironMg": 0.86,
+      "magnesiumMg": 13,
+      "potassiumMg": 194,
+      "sodiumMg": 28,
+      "zincMg": 0.18,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "tomate",
+    "nameEs": "Tomate",
+    "nameEn": "Tomato",
+    "aliases": [
+      "tomate",
+      "jitomate",
+      "tomato"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170457",
+    "per100g": {
+      "kcal": 18,
+      "proteinG": 0.88,
+      "carbsG": 3.89,
+      "fiberG": 1.2,
+      "fatG": 0.2
+    },
+    "micros": {
+      "vitaminCMg": 13.7,
+      "calciumMg": 10,
+      "ironMg": 0.27,
+      "magnesiumMg": 11,
+      "potassiumMg": 237,
+      "sodiumMg": 5,
+      "zincMg": 0.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "pepino",
+    "nameEs": "Pepino",
+    "nameEn": "Cucumber",
+    "aliases": [
+      "pepino",
+      "cucumber"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168409",
+    "per100g": {
+      "kcal": 15,
+      "proteinG": 0.65,
+      "carbsG": 3.63,
+      "fiberG": 0.5,
+      "fatG": 0.11
+    },
+    "micros": {
+      "vitaminCMg": 2.8,
+      "calciumMg": 16,
+      "ironMg": 0.28,
+      "magnesiumMg": 13,
+      "potassiumMg": 147,
+      "sodiumMg": 2,
+      "zincMg": 0.2,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "zanahoria",
+    "nameEs": "Zanahoria cruda",
+    "nameEn": "Raw carrot",
+    "aliases": [
+      "zanahoria",
+      "carrot"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170393",
+    "per100g": {
+      "kcal": 41,
+      "proteinG": 0.93,
+      "carbsG": 9.58,
+      "fiberG": 2.8,
+      "fatG": 0.24
+    },
+    "micros": {
+      "vitaminCMg": 5.9,
+      "calciumMg": 33,
+      "ironMg": 0.3,
+      "magnesiumMg": 12,
+      "potassiumMg": 320,
+      "sodiumMg": 69,
+      "zincMg": 0.24,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "cebolla",
+    "nameEs": "Cebolla",
+    "nameEn": "Onion",
+    "aliases": [
+      "cebolla",
+      "onion"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170000",
+    "per100g": {
+      "kcal": 40,
+      "proteinG": 1.1,
+      "carbsG": 9.34,
+      "fiberG": 1.7,
+      "fatG": 0.1
+    },
+    "micros": {
+      "vitaminCMg": 7.4,
+      "calciumMg": 23,
+      "ironMg": 0.21,
+      "magnesiumMg": 10,
+      "potassiumMg": 146,
+      "sodiumMg": 4,
+      "zincMg": 0.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "morron-rojo",
+    "nameEs": "Morrón rojo",
+    "nameEn": "Red bell pepper",
+    "aliases": [
+      "morron",
+      "pimiento",
+      "ají",
+      "bell pepper"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170108",
+    "per100g": {
+      "kcal": 26,
+      "proteinG": 0.99,
+      "carbsG": 6.03,
+      "fiberG": 2.1,
+      "fatG": 0.3
+    },
+    "micros": {
+      "vitaminCMg": 128,
+      "calciumMg": 7,
+      "ironMg": 0.43,
+      "magnesiumMg": 12,
+      "potassiumMg": 211,
+      "sodiumMg": 4,
+      "zincMg": 0.25,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "brocoli",
+    "nameEs": "Brócoli cocido",
+    "nameEn": "Cooked broccoli",
+    "aliases": [
+      "brocoli",
+      "brócoli",
+      "broccoli"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169967",
+    "per100g": {
+      "kcal": 35,
+      "proteinG": 2.38,
+      "carbsG": 7.18,
+      "fiberG": 3.3,
+      "fatG": 0.41
+    },
+    "micros": {
+      "vitaminCMg": 64.9,
+      "calciumMg": 40,
+      "ironMg": 0.67,
+      "magnesiumMg": 21,
+      "potassiumMg": 293,
+      "sodiumMg": 41,
+      "zincMg": 0.45,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "espinaca",
+    "nameEs": "Espinaca cruda",
+    "nameEn": "Raw spinach",
+    "aliases": [
+      "espinaca",
+      "spinach"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168462",
+    "per100g": {
+      "kcal": 23,
+      "proteinG": 2.86,
+      "carbsG": 3.63,
+      "fiberG": 2.2,
+      "fatG": 0.39
+    },
+    "micros": {
+      "vitaminCMg": 28.1,
+      "calciumMg": 99,
+      "ironMg": 2.71,
+      "magnesiumMg": 79,
+      "potassiumMg": 558,
+      "sodiumMg": 79,
+      "zincMg": 0.53,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "zucchini",
+    "nameEs": "Zucchini cocido",
+    "nameEn": "Cooked zucchini",
+    "aliases": [
+      "zucchini",
+      "zapallito",
+      "calabacín",
+      "courgette"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169292",
+    "per100g": {
+      "kcal": 15,
+      "proteinG": 1.14,
+      "carbsG": 2.69,
+      "fiberG": 1,
+      "fatG": 0.36
+    },
+    "micros": {
+      "vitaminCMg": 12.9,
+      "calciumMg": 18,
+      "ironMg": 0.37,
+      "magnesiumMg": 19,
+      "potassiumMg": 264,
+      "sodiumMg": 3,
+      "zincMg": 0.33,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "zapallo",
+    "nameEs": "Zapallo cocido",
+    "nameEn": "Cooked pumpkin",
+    "aliases": [
+      "zapallo",
+      "calabaza",
+      "auyama",
+      "pumpkin"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168449",
+    "per100g": {
+      "kcal": 20,
+      "proteinG": 0.72,
+      "carbsG": 4.9,
+      "fiberG": 1.1,
+      "fatG": 0.07
+    },
+    "micros": {
+      "vitaminCMg": 4.7,
+      "calciumMg": 15,
+      "ironMg": 0.57,
+      "magnesiumMg": 9,
+      "potassiumMg": 230,
+      "sodiumMg": 1,
+      "zincMg": 0.23,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "coliflor",
+    "nameEs": "Coliflor cocida",
+    "nameEn": "Cooked cauliflower",
+    "aliases": [
+      "coliflor",
+      "cauliflower"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170397",
+    "per100g": {
+      "kcal": 23,
+      "proteinG": 1.84,
+      "carbsG": 4.11,
+      "fiberG": 2.3,
+      "fatG": 0.45
+    },
+    "micros": {
+      "vitaminCMg": 44.3,
+      "calciumMg": 16,
+      "ironMg": 0.32,
+      "magnesiumMg": 9,
+      "potassiumMg": 142,
+      "sodiumMg": 15,
+      "zincMg": 0.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "chauchas",
+    "nameEs": "Chauchas cocidas",
+    "nameEn": "Cooked green beans",
+    "aliases": [
+      "chauchas",
+      "judías verdes",
+      "vainitas",
+      "ejotes",
+      "green beans"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169141",
+    "per100g": {
+      "kcal": 35,
+      "proteinG": 1.89,
+      "carbsG": 7.88,
+      "fiberG": 3.2,
+      "fatG": 0.28
+    },
+    "micros": {
+      "vitaminCMg": 9.7,
+      "calciumMg": 44,
+      "ironMg": 0.65,
+      "magnesiumMg": 18,
+      "potassiumMg": 146,
+      "sodiumMg": 1,
+      "zincMg": 0.25,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "champinones",
+    "nameEs": "Champiñones",
+    "nameEn": "White mushrooms",
+    "aliases": [
+      "champiñones",
+      "hongos",
+      "setas",
+      "mushrooms"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169251",
+    "per100g": {
+      "kcal": 22,
+      "proteinG": 3.09,
+      "carbsG": 3.26,
+      "fiberG": 1,
+      "fatG": 0.34
+    },
+    "micros": {
+      "vitaminCMg": 2.1,
+      "calciumMg": 3,
+      "ironMg": 0.5,
+      "magnesiumMg": 9,
+      "potassiumMg": 318,
+      "sodiumMg": 5,
+      "zincMg": 0.52,
+      "vitaminB12Ug": 0.04
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "repollo",
+    "nameEs": "Repollo",
+    "nameEn": "Cabbage",
+    "aliases": [
+      "repollo",
+      "col",
+      "cabbage"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169975",
+    "per100g": {
+      "kcal": 25,
+      "proteinG": 1.28,
+      "carbsG": 5.8,
+      "fiberG": 2.5,
+      "fatG": 0.1
+    },
+    "micros": {
+      "vitaminCMg": 36.6,
+      "calciumMg": 40,
+      "ironMg": 0.47,
+      "magnesiumMg": 12,
+      "potassiumMg": 170,
+      "sodiumMg": 18,
+      "zincMg": 0.18,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "remolacha",
+    "nameEs": "Remolacha cocida",
+    "nameEn": "Cooked beets",
+    "aliases": [
+      "remolacha",
+      "betarraga",
+      "beets"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169146",
+    "per100g": {
+      "kcal": 44,
+      "proteinG": 1.68,
+      "carbsG": 9.96,
+      "fiberG": 2,
+      "fatG": 0.18
+    },
+    "micros": {
+      "vitaminCMg": 3.6,
+      "calciumMg": 16,
+      "ironMg": 0.79,
+      "magnesiumMg": 23,
+      "potassiumMg": 305,
+      "sodiumMg": 77,
+      "zincMg": 0.35,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "esparragos",
+    "nameEs": "Espárragos cocidos",
+    "nameEn": "Cooked asparagus",
+    "aliases": [
+      "esparragos",
+      "asparagus"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168390",
+    "per100g": {
+      "kcal": 22,
+      "proteinG": 2.4,
+      "carbsG": 4.11,
+      "fiberG": 2,
+      "fatG": 0.22
+    },
+    "micros": {
+      "vitaminCMg": 7.7,
+      "calciumMg": 23,
+      "ironMg": 0.91,
+      "magnesiumMg": 14,
+      "potassiumMg": 224,
+      "sodiumMg": 14,
+      "zincMg": 0.6,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "berenjena",
+    "nameEs": "Berenjena cocida",
+    "nameEn": "Cooked eggplant",
+    "aliases": [
+      "berenjena",
+      "eggplant"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169229",
+    "per100g": {
+      "kcal": 35,
+      "proteinG": 0.83,
+      "carbsG": 8.73,
+      "fiberG": 2.5,
+      "fatG": 0.23
+    },
+    "micros": {
+      "vitaminCMg": 1.3,
+      "calciumMg": 6,
+      "ironMg": 0.25,
+      "magnesiumMg": 11,
+      "potassiumMg": 123,
+      "sodiumMg": 1,
+      "zincMg": 0.12,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "apio",
+    "nameEs": "Apio",
+    "nameEn": "Celery",
+    "aliases": [
+      "apio",
+      "celery"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169988",
+    "per100g": {
+      "kcal": 14,
+      "proteinG": 0.69,
+      "carbsG": 2.97,
+      "fiberG": 1.6,
+      "fatG": 0.17
+    },
+    "micros": {
+      "vitaminCMg": 3.1,
+      "calciumMg": 40,
+      "ironMg": 0.2,
+      "magnesiumMg": 11,
+      "potassiumMg": 260,
+      "sodiumMg": 80,
+      "zincMg": 0.13,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "arvejas",
+    "nameEs": "Arvejas cocidas",
+    "nameEn": "Cooked green peas",
+    "aliases": [
+      "arvejas",
+      "guisantes",
+      "chícharos",
+      "peas"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170420",
+    "per100g": {
+      "kcal": 84,
+      "proteinG": 5.36,
+      "carbsG": 15.6,
+      "fiberG": 5.5,
+      "fatG": 0.22
+    },
+    "micros": {
+      "vitaminCMg": 14.2,
+      "calciumMg": 27,
+      "ironMg": 1.54,
+      "magnesiumMg": 39,
+      "potassiumMg": 271,
+      "sodiumMg": 3,
+      "zincMg": 1.19,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "aceite-oliva",
+    "nameEs": "Aceite de oliva",
+    "nameEn": "Olive oil",
+    "aliases": [
+      "aceite",
+      "oliva",
+      "olive oil"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171413",
+    "per100g": {
+      "kcal": 884,
+      "proteinG": 0,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 100
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 1,
+      "ironMg": 0.56,
+      "magnesiumMg": 0,
+      "potassiumMg": 1,
+      "sodiumMg": 2,
+      "zincMg": 0,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "aceite-girasol",
+    "nameEs": "Aceite de girasol",
+    "nameEn": "Sunflower oil",
+    "aliases": [
+      "aceite",
+      "girasol",
+      "sunflower oil"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171025",
+    "per100g": {
+      "kcal": 884,
+      "proteinG": 0,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 100
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 0,
+      "ironMg": 0,
+      "magnesiumMg": 0,
+      "potassiumMg": 0,
+      "sodiumMg": 0,
+      "zincMg": 0,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "manteca",
+    "nameEs": "Manteca",
+    "nameEn": "Butter",
+    "aliases": [
+      "manteca",
+      "mantequilla",
+      "butter"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173410",
+    "per100g": {
+      "kcal": 717,
+      "proteinG": 0.85,
+      "carbsG": 0.06,
+      "fiberG": 0,
+      "fatG": 81.1
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 24,
+      "ironMg": 0.02,
+      "magnesiumMg": 2,
+      "potassiumMg": 24,
+      "sodiumMg": 643,
+      "zincMg": 0.09,
+      "vitaminB12Ug": 0.17
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "almendras",
+    "nameEs": "Almendras",
+    "nameEn": "Almonds",
+    "aliases": [
+      "almendras",
+      "almonds",
+      "frutos secos"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170567",
+    "per100g": {
+      "kcal": 579,
+      "proteinG": 21.2,
+      "carbsG": 21.6,
+      "fiberG": 12.5,
+      "fatG": 49.9
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 269,
+      "ironMg": 3.71,
+      "magnesiumMg": 270,
+      "potassiumMg": 733,
+      "sodiumMg": 1,
+      "zincMg": 3.12,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "nueces",
+    "nameEs": "Nueces",
+    "nameEn": "Walnuts",
+    "aliases": [
+      "nueces",
+      "walnuts",
+      "frutos secos"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170187",
+    "per100g": {
+      "kcal": 654,
+      "proteinG": 15.2,
+      "carbsG": 13.7,
+      "fiberG": 6.7,
+      "fatG": 65.2
+    },
+    "micros": {
+      "vitaminCMg": 1.3,
+      "calciumMg": 98,
+      "ironMg": 2.91,
+      "magnesiumMg": 158,
+      "potassiumMg": 441,
+      "sodiumMg": 2,
+      "zincMg": 3.09,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "mani",
+    "nameEs": "Maní tostado sin sal",
+    "nameEn": "Dry-roasted peanuts",
+    "aliases": [
+      "mani",
+      "maní",
+      "cacahuate",
+      "cacahuete",
+      "peanuts"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173806",
+    "per100g": {
+      "kcal": 587,
+      "proteinG": 24.4,
+      "carbsG": 21.3,
+      "fiberG": 8.4,
+      "fatG": 49.7
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 58,
+      "ironMg": 1.58,
+      "magnesiumMg": 178,
+      "potassiumMg": 634,
+      "sodiumMg": 6,
+      "zincMg": 2.77,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "mantequilla-mani",
+    "nameEs": "Mantequilla de maní",
+    "nameEn": "Peanut butter",
+    "aliases": [
+      "pasta de mani",
+      "mantequilla de maní",
+      "crema de cacahuete",
+      "peanut butter"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172470",
+    "per100g": {
+      "kcal": 598,
+      "proteinG": 22.2,
+      "carbsG": 22.3,
+      "fiberG": 5,
+      "fatG": 51.4
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 49,
+      "ironMg": 1.74,
+      "magnesiumMg": 168,
+      "potassiumMg": 558,
+      "sodiumMg": 17,
+      "zincMg": 2.51,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "semillas-chia",
+    "nameEs": "Semillas de chía",
+    "nameEn": "Chia seeds",
+    "aliases": [
+      "chia",
+      "semillas",
+      "chia seeds"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170554",
+    "per100g": {
+      "kcal": 486,
+      "proteinG": 16.5,
+      "carbsG": 42.1,
+      "fiberG": 34.4,
+      "fatG": 30.7
+    },
+    "micros": {
+      "vitaminCMg": 1.6,
+      "calciumMg": 631,
+      "ironMg": 7.72,
+      "magnesiumMg": 335,
+      "potassiumMg": 407,
+      "sodiumMg": 16,
+      "zincMg": 4.58,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "semillas-girasol",
+    "nameEs": "Semillas de girasol",
+    "nameEn": "Sunflower seeds",
+    "aliases": [
+      "girasol",
+      "pipas",
+      "semillas",
+      "sunflower seeds"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170562",
+    "per100g": {
+      "kcal": 584,
+      "proteinG": 20.8,
+      "carbsG": 20,
+      "fiberG": 8.6,
+      "fatG": 51.5
+    },
+    "micros": {
+      "vitaminCMg": 1.4,
+      "calciumMg": 78,
+      "ironMg": 5.25,
+      "magnesiumMg": 325,
+      "potassiumMg": 645,
+      "sodiumMg": 9,
+      "zincMg": 5,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "aceite-coco",
+    "nameEs": "Aceite de coco",
+    "nameEn": "Coconut oil",
+    "aliases": [
+      "aceite de coco",
+      "coconut oil"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171412",
+    "per100g": {
+      "kcal": 892,
+      "proteinG": 0,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 99.1
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 1,
+      "ironMg": 0.05,
+      "magnesiumMg": 0,
+      "potassiumMg": 0,
+      "sodiumMg": 0,
+      "zincMg": 0.02,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "mayonesa",
+    "nameEs": "Mayonesa",
+    "nameEn": "Mayonnaise",
+    "aliases": [
+      "mayonesa",
+      "mayo",
+      "mayonnaise"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171009",
+    "per100g": {
+      "kcal": 680,
+      "proteinG": 0.96,
+      "carbsG": 0.57,
+      "fiberG": 0,
+      "fatG": 74.8
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 8,
+      "ironMg": 0.21,
+      "magnesiumMg": 1,
+      "potassiumMg": 20,
+      "sodiumMg": 635,
+      "zincMg": 0.15,
+      "vitaminB12Ug": 0.12
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "crema-leche",
+    "nameEs": "Crema de leche",
+    "nameEn": "Heavy cream",
+    "aliases": [
+      "crema",
+      "nata",
+      "crema de leche",
+      "heavy cream"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170859",
+    "per100g": {
+      "kcal": 340,
+      "proteinG": 2.84,
+      "carbsG": 2.84,
+      "fiberG": 0,
+      "fatG": 36.1
+    },
+    "micros": {
+      "vitaminCMg": 0.6,
+      "calciumMg": 66,
+      "ironMg": 0.1,
+      "magnesiumMg": 7,
+      "potassiumMg": 95,
+      "sodiumMg": 27,
+      "zincMg": 0.24,
+      "vitaminB12Ug": 0.16
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "azucar",
+    "nameEs": "Azúcar",
+    "nameEn": "Sugar",
+    "aliases": [
+      "azucar",
+      "azúcar",
+      "sugar"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169655",
+    "per100g": {
+      "kcal": 387,
+      "proteinG": 0,
+      "carbsG": 100,
+      "fiberG": 0,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 1,
+      "ironMg": 0.05,
+      "magnesiumMg": 0,
+      "potassiumMg": 2,
+      "sodiumMg": 1,
+      "zincMg": 0.01,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "miel",
+    "nameEs": "Miel",
+    "nameEn": "Honey",
+    "aliases": [
+      "miel",
+      "honey"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169640",
+    "per100g": {
+      "kcal": 304,
+      "proteinG": 0.3,
+      "carbsG": 82.4,
+      "fiberG": 0.2,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0.5,
+      "calciumMg": 6,
+      "ironMg": 0.42,
+      "magnesiumMg": 2,
+      "potassiumMg": 52,
+      "sodiumMg": 4,
+      "zincMg": 0.22,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "chocolate-amargo",
+    "nameEs": "Chocolate amargo (70-85 %)",
+    "nameEn": "Dark chocolate (70-85%)",
+    "aliases": [
+      "chocolate",
+      "amargo",
+      "dark chocolate"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170273",
+    "per100g": {
+      "kcal": 598,
+      "proteinG": 7.79,
+      "carbsG": 45.9,
+      "fiberG": 10.9,
+      "fatG": 42.6
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 73,
+      "ironMg": 11.9,
+      "magnesiumMg": 228,
+      "potassiumMg": 715,
+      "sodiumMg": 20,
+      "zincMg": 3.31,
+      "vitaminB12Ug": 0.28
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "chocolate-leche",
+    "nameEs": "Chocolate con leche",
+    "nameEn": "Milk chocolate",
+    "aliases": [
+      "chocolate",
+      "chocolate con leche",
+      "milk chocolate"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "167587",
+    "per100g": {
+      "kcal": 535,
+      "proteinG": 7.65,
+      "carbsG": 59.4,
+      "fiberG": 3.4,
+      "fatG": 29.7
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 189,
+      "ironMg": 2.35,
+      "magnesiumMg": 63,
+      "potassiumMg": 372,
+      "sodiumMg": 79,
+      "zincMg": 2.3,
+      "vitaminB12Ug": 0.75
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "dulce-leche",
+    "nameEs": "Dulce de leche",
+    "nameEn": "Dulce de leche",
+    "aliases": [
+      "dulce de leche",
+      "cajeta",
+      "arequipe",
+      "manjar"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173461",
+    "per100g": {
+      "kcal": 315,
+      "proteinG": 6.84,
+      "carbsG": 55.4,
+      "fiberG": 0,
+      "fatG": 7.35
+    },
+    "micros": {
+      "vitaminCMg": 2.6,
+      "calciumMg": 251,
+      "ironMg": 0.17,
+      "magnesiumMg": 22,
+      "potassiumMg": 350,
+      "sodiumMg": 129,
+      "zincMg": 0.79,
+      "vitaminB12Ug": 0.31
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "cafe",
+    "nameEs": "Café",
+    "nameEn": "Brewed coffee",
+    "aliases": [
+      "cafe",
+      "café",
+      "coffee"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171890",
+    "per100g": {
+      "kcal": 1,
+      "proteinG": 0.12,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 0.02
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 2,
+      "ironMg": 0.01,
+      "magnesiumMg": 3,
+      "potassiumMg": 49,
+      "sodiumMg": 2,
+      "zincMg": 0.02,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "te-negro",
+    "nameEs": "Té negro",
+    "nameEn": "Black tea",
+    "aliases": [
+      "te",
+      "té",
+      "tea"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173227",
+    "per100g": {
+      "kcal": 1,
+      "proteinG": 0,
+      "carbsG": 0.3,
+      "fiberG": 0,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 0,
+      "ironMg": 0.02,
+      "magnesiumMg": 3,
+      "potassiumMg": 37,
+      "sodiumMg": 3,
+      "zincMg": 0.02,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "jugo-naranja",
+    "nameEs": "Jugo de naranja natural",
+    "nameEn": "Fresh orange juice",
+    "aliases": [
+      "jugo de naranja",
+      "zumo",
+      "orange juice"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169098",
+    "per100g": {
+      "kcal": 45,
+      "proteinG": 0.7,
+      "carbsG": 10.4,
+      "fiberG": 0.2,
+      "fatG": 0.2
+    },
+    "micros": {
+      "vitaminCMg": 50,
+      "calciumMg": 11,
+      "ironMg": 0.2,
+      "magnesiumMg": 11,
+      "potassiumMg": 200,
+      "sodiumMg": 1,
+      "zincMg": 0.05,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "gaseosa-cola",
+    "nameEs": "Gaseosa cola",
+    "nameEn": "Cola soda",
+    "aliases": [
+      "gaseosa",
+      "refresco",
+      "cola",
+      "coca",
+      "soda"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174852",
+    "per100g": {
+      "kcal": 42,
+      "proteinG": 0,
+      "carbsG": 10.4,
+      "fiberG": 0,
+      "fatG": 0.25
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 1,
+      "ironMg": 0.02,
+      "magnesiumMg": 0,
+      "potassiumMg": 5,
+      "sodiumMg": 3,
+      "zincMg": 0.09,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "cerveza",
+    "nameEs": "Cerveza",
+    "nameEn": "Beer",
+    "aliases": [
+      "cerveza",
+      "birra",
+      "beer"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168746",
+    "per100g": {
+      "kcal": 43,
+      "proteinG": 0.46,
+      "carbsG": 3.55,
+      "fiberG": 0,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 4,
+      "ironMg": 0.02,
+      "magnesiumMg": 6,
+      "potassiumMg": 27,
+      "sodiumMg": 4,
+      "zincMg": 0.01,
+      "vitaminB12Ug": 0.02
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "vino-tinto",
+    "nameEs": "Vino tinto",
+    "nameEn": "Red wine",
+    "aliases": [
+      "vino",
+      "vino tinto",
+      "red wine"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173190",
+    "per100g": {
+      "kcal": 85,
+      "proteinG": 0.07,
+      "carbsG": 2.61,
+      "fiberG": 0,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 8,
+      "ironMg": 0.46,
+      "magnesiumMg": 12,
+      "potassiumMg": 127,
+      "sodiumMg": 4,
+      "zincMg": 0.14,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "ketchup",
+    "nameEs": "Ketchup",
+    "nameEn": "Ketchup",
+    "aliases": [
+      "ketchup",
+      "catsup",
+      "salsa de tomate"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168556",
+    "per100g": {
+      "kcal": 101,
+      "proteinG": 1.04,
+      "carbsG": 27.4,
+      "fiberG": 0.3,
+      "fatG": 0.1
+    },
+    "micros": {
+      "vitaminCMg": 4.1,
+      "calciumMg": 15,
+      "ironMg": 0.35,
+      "magnesiumMg": 13,
+      "potassiumMg": 281,
+      "sodiumMg": 907,
+      "zincMg": 0.17,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "sal",
+    "nameEs": "Sal",
+    "nameEn": "Table salt",
+    "aliases": [
+      "sal",
+      "salt"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "173468",
+    "per100g": {
+      "kcal": 0,
+      "proteinG": 0,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 0
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 24,
+      "ironMg": 0.33,
+      "magnesiumMg": 1,
+      "potassiumMg": 8,
+      "sodiumMg": 38800,
+      "zincMg": 0.1,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "cacao-polvo",
+    "nameEs": "Cacao amargo en polvo",
+    "nameEn": "Unsweetened cocoa powder",
+    "aliases": [
+      "cacao",
+      "cocoa"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169593",
+    "per100g": {
+      "kcal": 228,
+      "proteinG": 19.6,
+      "carbsG": 57.9,
+      "fiberG": 37,
+      "fatG": 13.7
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 128,
+      "ironMg": 13.9,
+      "magnesiumMg": 499,
+      "potassiumMg": 1520,
+      "sodiumMg": 21,
+      "zincMg": 6.81,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "mermelada",
+    "nameEs": "Mermelada",
+    "nameEn": "Jam",
+    "aliases": [
+      "mermelada",
+      "dulce",
+      "confitura",
+      "jam"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169641",
+    "per100g": {
+      "kcal": 278,
+      "proteinG": 0.37,
+      "carbsG": 68.9,
+      "fiberG": 1.1,
+      "fatG": 0.07
+    },
+    "micros": {
+      "vitaminCMg": 8.8,
+      "calciumMg": 20,
+      "ironMg": 0.49,
+      "magnesiumMg": 4,
+      "potassiumMg": 77,
+      "sodiumMg": 32,
+      "zincMg": 0.06,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "salsa-soja",
+    "nameEs": "Salsa de soja",
+    "nameEn": "Soy sauce",
+    "aliases": [
+      "salsa de soja",
+      "soya",
+      "shoyu",
+      "soy sauce"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174277",
+    "per100g": {
+      "kcal": 53,
+      "proteinG": 8.14,
+      "carbsG": 4.93,
+      "fiberG": 0.8,
+      "fatG": 0.57
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 33,
+      "ironMg": 1.45,
+      "magnesiumMg": 74,
+      "potassiumMg": 435,
+      "sodiumMg": 5490,
+      "zincMg": 0.87,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "asado-tira",
+    "nameEs": "Asado de tira",
+    "nameEn": "Beef short ribs",
+    "aliases": [
+      "asado",
+      "tira de asado",
+      "costilla",
+      "short ribs",
+      "asado de tira"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "171223",
+    "per100g": {
+      "kcal": 317,
+      "proteinG": 25.3,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 24
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 14,
+      "ironMg": 2.67,
+      "magnesiumMg": 20,
+      "potassiumMg": 228,
+      "sodiumMg": 70,
+      "zincMg": 9.64,
+      "vitaminB12Ug": 3.55
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "matambre",
+    "nameEs": "Matambre",
+    "nameEn": "Beef flank (matambre)",
+    "aliases": [
+      "matambre",
+      "matambrito",
+      "flank"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "169434",
+    "per100g": {
+      "kcal": 263,
+      "proteinG": 27,
+      "carbsG": 0,
+      "fiberG": 0,
+      "fatG": 16.4
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 6,
+      "ironMg": 3.33,
+      "magnesiumMg": 23,
+      "potassiumMg": 337,
+      "sodiumMg": 70,
+      "zincMg": 5.77,
+      "vitaminB12Ug": 3.3
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "salchicha",
+    "nameEs": "Salchicha",
+    "nameEn": "Pork and beef sausage",
+    "aliases": [
+      "salchicha",
+      "pancho",
+      "viena",
+      "hot dog",
+      "frankfurter"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174585",
+    "per100g": {
+      "kcal": 320,
+      "proteinG": 12,
+      "carbsG": 2.42,
+      "fiberG": 0,
+      "fatG": 28.7
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 12,
+      "ironMg": 0.75,
+      "magnesiumMg": 13,
+      "potassiumMg": 179,
+      "sodiumMg": 911,
+      "zincMg": 1.26,
+      "vitaminB12Ug": 0.58
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "pan-frances",
+    "nameEs": "Pan francés",
+    "nameEn": "French bread",
+    "aliases": [
+      "pan",
+      "pan frances",
+      "flauta",
+      "baguette",
+      "french bread",
+      "mignon"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "172675",
+    "per100g": {
+      "kcal": 272,
+      "proteinG": 10.8,
+      "carbsG": 51.9,
+      "fiberG": 2.2,
+      "fatG": 2.42
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 52,
+      "ironMg": 3.91,
+      "magnesiumMg": 32,
+      "potassiumMg": 117,
+      "sodiumMg": 602,
+      "zincMg": 1.04,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "medialuna",
+    "nameEs": "Medialuna de manteca",
+    "nameEn": "Butter croissant",
+    "aliases": [
+      "medialuna",
+      "croissant",
+      "factura",
+      "medialunas"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "174987",
+    "per100g": {
+      "kcal": 406,
+      "proteinG": 8.2,
+      "carbsG": 45.8,
+      "fiberG": 2.6,
+      "fatG": 21
+    },
+    "micros": {
+      "vitaminCMg": 0.2,
+      "calciumMg": 37,
+      "ironMg": 2.03,
+      "magnesiumMg": 16,
+      "potassiumMg": 118,
+      "sodiumMg": 384,
+      "zincMg": 0.75,
+      "vitaminB12Ug": 0.16
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "pizza-muzzarella",
+    "nameEs": "Pizza de muzzarella",
+    "nameEn": "Cheese pizza",
+    "aliases": [
+      "pizza",
+      "muzza",
+      "muzzarella",
+      "mozzarella pizza",
+      "cheese pizza"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170317",
+    "per100g": {
+      "kcal": 268,
+      "proteinG": 10.4,
+      "carbsG": 29,
+      "fiberG": 2.2,
+      "fatG": 12.3
+    },
+    "micros": {
+      "vitaminCMg": 1.2,
+      "calciumMg": 179,
+      "ironMg": 2.27,
+      "magnesiumMg": 23,
+      "potassiumMg": 152,
+      "sodiumMg": 447,
+      "zincMg": 1.32,
+      "vitaminB12Ug": 0.78
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "pure-papa",
+    "nameEs": "Puré de papas",
+    "nameEn": "Mashed potatoes",
+    "aliases": [
+      "pure",
+      "puré",
+      "pure de papa",
+      "mashed potatoes"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "168555",
+    "per100g": {
+      "kcal": 113,
+      "proteinG": 1.86,
+      "carbsG": 16.8,
+      "fiberG": 1.5,
+      "fatG": 4.22
+    },
+    "micros": {
+      "vitaminCMg": 6,
+      "calciumMg": 24,
+      "ironMg": 0.26,
+      "magnesiumMg": 18,
+      "potassiumMg": 284,
+      "sodiumMg": 317,
+      "zincMg": 0.27,
+      "vitaminB12Ug": 0.07
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "flan",
+    "nameEs": "Flan casero",
+    "nameEn": "Caramel custard",
+    "aliases": [
+      "flan",
+      "flan casero",
+      "caramel custard"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "167574",
+    "per100g": {
+      "kcal": 145,
+      "proteinG": 4.53,
+      "carbsG": 22.8,
+      "fiberG": 0,
+      "fatG": 4.03
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 83,
+      "ironMg": 0.38,
+      "magnesiumMg": 9,
+      "potassiumMg": 118,
+      "sodiumMg": 53,
+      "zincMg": 0.47,
+      "vitaminB12Ug": 0.36
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": false,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "acelga",
+    "nameEs": "Acelga cocida",
+    "nameEn": "Cooked Swiss chard",
+    "aliases": [
+      "acelga",
+      "chard",
+      "swiss chard"
+    ],
+    "source": "usda_sr_legacy",
+    "sourceRef": "170401",
+    "per100g": {
+      "kcal": 20,
+      "proteinG": 1.88,
+      "carbsG": 4.13,
+      "fiberG": 2.1,
+      "fatG": 0.08
+    },
+    "micros": {
+      "vitaminCMg": 18,
+      "calciumMg": 58,
+      "ironMg": 2.26,
+      "magnesiumMg": 86,
+      "potassiumMg": 549,
+      "sodiumMg": 179,
+      "zincMg": 0.33,
+      "vitaminB12Ug": 0
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": true
+    }
+  },
+  {
+    "id": "chimichurri",
+    "nameEs": "Chimichurri",
+    "nameEn": "Chimichurri sauce",
+    "aliases": [
+      "chimichurri",
+      "salsa chimichurri",
+      "chimi",
+      "chimichurri sauce"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "171413:50|171025:50|170416:25|169230:6|172240:40|171328:3|170932:1|173468:3|173647:20",
+    "per100g": {
+      "kcal": 464.98484848484856,
+      "proteinG": 0.7727777777777778,
+      "carbsG": 3.186616161616162,
+      "fiberG": 1.2616161616161619,
+      "fatG": 50.77217171717172
+    },
+    "micros": {
+      "vitaminCMg": 18.260101010101014,
+      "calciumMg": 50.030303030303024,
+      "ironMg": 1.6686363636363637,
+      "magnesiumMg": 12.853535353535355,
+      "potassiumMg": 119.5959595959596,
+      "sodiumMg": 598.5202020202021,
+      "zincMg": 0.23212121212121214,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "salsa-criolla",
+    "nameEs": "Salsa criolla",
+    "nameEn": "Criolla sauce",
+    "aliases": [
+      "salsa criolla",
+      "criolla",
+      "vinagreta",
+      "criolla sauce"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170457:100|170000:70|170108:60|171413:20|172240:20|173468:2",
+    "per100g": {
+      "kcal": 89.04411764705884,
+      "proteinG": 0.8279411764705882,
+      "carbsG": 5.183823529411765,
+      "fiberG": 1.3419117647058822,
+      "fatG": 7.518382352941177
+    },
+    "micros": {
+      "vitaminCMg": 35.213235294117645,
+      "calciumMg": 11.830882352941174,
+      "ironMg": 0.3248529411764706,
+      "magnesiumMg": 9.566176470588236,
+      "potassiumMg": 174.25,
+      "sodiumMg": 289.7794117647059,
+      "zincMg": 0.16433823529411767,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "milanesa-carne-frita",
+    "nameEs": "Milanesa de carne frita",
+    "nameEn": "Fried breaded beef cutlet",
+    "aliases": [
+      "milanesa",
+      "milanesa de carne",
+      "mila",
+      "milanesa frita",
+      "breaded steak",
+      "beef milanesa",
+      "schnitzel"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170235:80|174928:20|171287:12|171025:12|173468:0.6",
+    "per100g": {
+      "kcal": 295.2166934189406,
+      "proteinG": 26.542536115569828,
+      "carbsG": 11.626324237560192,
+      "fiberG": 0.7223113964686999,
+      "fatG": 15.121348314606742
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 37.45104333868379,
+      "ironMg": 3.077030497592296,
+      "magnesiumMg": 24.75601926163724,
+      "potassiumMg": 259.23595505617976,
+      "sodiumMg": 346.9020866773676,
+      "zincMg": 3.2852327447833067,
+      "vitaminB12Ug": 1.875441412520064
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "milanesa-carne-horno",
+    "nameEs": "Milanesa de carne al horno",
+    "nameEn": "Baked breaded beef cutlet",
+    "aliases": [
+      "milanesa al horno",
+      "milanesa de carne al horno",
+      "mila al horno",
+      "baked beef milanesa"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170235:80|174928:20|171287:12|171025:4|173468:0.6",
+    "per100g": {
+      "kcal": 254.8198970840481,
+      "proteinG": 28.363636363636367,
+      "carbsG": 12.424013722126931,
+      "fiberG": 0.7718696397941682,
+      "fatG": 9.297770154373929
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 40.02058319039452,
+      "ironMg": 3.288147512864495,
+      "magnesiumMg": 26.454545454545457,
+      "potassiumMg": 277.0222984562607,
+      "sodiumMg": 370.7032590051458,
+      "zincMg": 3.5106346483704978,
+      "vitaminB12Ug": 2.0041166380789024
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "milanesa-pollo-frita",
+    "nameEs": "Milanesa de pollo frita",
+    "nameEn": "Fried breaded chicken cutlet",
+    "aliases": [
+      "milanesa de pollo",
+      "suprema",
+      "suprema frita",
+      "breaded chicken",
+      "chicken milanesa"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "171477:80|174928:20|171287:12|171025:12|173468:0.6",
+    "per100g": {
+      "kcal": 268.25040128410916,
+      "proteinG": 23.26805778491172,
+      "carbsG": 11.626324237560192,
+      "fiberG": 0.7223113964686999,
+      "fatG": 13.689566613162121
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 44.51364365971108,
+      "ironMg": 1.6131460674157305,
+      "magnesiumMg": 26.682182985553776,
+      "potassiumMg": 209.15569823434993,
+      "sodiumMg": 365.5216693418941,
+      "zincMg": 0.9995184590690209,
+      "vitaminB12Ug": 0.3601926163723917
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "milanesa-pollo-horno",
+    "nameEs": "Milanesa de pollo al horno",
+    "nameEn": "Baked breaded chicken cutlet",
+    "aliases": [
+      "milanesa de pollo al horno",
+      "suprema al horno",
+      "baked chicken milanesa"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "171477:80|174928:20|171287:12|171025:4|173468:0.6",
+    "per100g": {
+      "kcal": 226.00343053173242,
+      "proteinG": 24.864493996569472,
+      "carbsG": 12.424013722126931,
+      "fiberG": 0.7718696397941682,
+      "fatG": 7.767753001715266
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 47.56775300171527,
+      "ironMg": 1.7238250428816468,
+      "magnesiumMg": 28.512864493996574,
+      "potassiumMg": 223.50600343053176,
+      "sodiumMg": 390.60034305317333,
+      "zincMg": 1.068096054888508,
+      "vitaminB12Ug": 0.38490566037735857
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "milanesa-napolitana",
+    "nameEs": "Milanesa a la napolitana",
+    "nameEn": "Milanesa napolitana",
+    "aliases": [
+      "napolitana",
+      "milanesa napolitana",
+      "milanesa a la napolitana"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170235:80|174928:20|171287:12|171025:12|173863:20|170845:30|170054:20|173468:0.6",
+    "per100g": {
+      "kcal": 248.58170606372045,
+      "proteinG": 22.2672147995889,
+      "carbsG": 8.431860226104831,
+      "fiberG": 0.6166495375128469,
+      "fatG": 13.535046248715313
+    },
+    "micros": {
+      "vitaminCMg": 0.7194244604316548,
+      "calciumMg": 103.78417266187051,
+      "ironMg": 2.197317574511819,
+      "magnesiumMg": 22.428571428571427,
+      "potassiumMg": 255.81089414182938,
+      "sodiumMg": 442.87769784172656,
+      "zincMg": 2.7314491264131555,
+      "vitaminB12Ug": 1.5893114080164437
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "empanada-carne",
+    "nameEs": "Empanada de carne",
+    "nameEn": "Beef empanada",
+    "aliases": [
+      "empanada",
+      "empanada de carne",
+      "empanadas",
+      "beef empanada"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "168894:30|171401:6|173647:12|174034:28|170001:15|173424:5|169094:3|173468:0.6",
+    "per100g": {
+      "kcal": 287.3068181818182,
+      "proteinG": 13.30136363636364,
+      "carbsG": 28.019545454545458,
+      "fiberG": 1.2136363636363638,
+      "fatG": 13.026704545454544
+    },
+    "micros": {
+      "vitaminCMg": 0.9170454545454547,
+      "calciumMg": 22.277272727272727,
+      "ironMg": 2.838954545454546,
+      "magnesiumMg": 18.17727272727273,
+      "potassiumMg": 201.75909090909096,
+      "sodiumMg": 326.7045454545455,
+      "zincMg": 2.4575000000000005,
+      "vitaminB12Ug": 0.9539772727272728
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "empanada-jyq",
+    "nameEs": "Empanada de jamón y queso",
+    "nameEn": "Ham and cheese empanada",
+    "aliases": [
+      "empanada de jamon y queso",
+      "empanada jyq",
+      "ham and cheese empanada"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "168894:30|171401:6|173647:12|173863:20|170845:22|173468:0.6",
+    "per100g": {
+      "kcal": 313.125,
+      "proteinG": 14.1675,
+      "carbsG": 29.447499999999994,
+      "fiberG": 1.0125000000000002,
+      "fatG": 14.954999999999998
+    },
+    "micros": {
+      "vitaminCMg": 0,
+      "calciumMg": 146.38,
+      "ironMg": 2.0109749999999997,
+      "magnesiumMg": 18.6575,
+      "potassiumMg": 176.83500000000004,
+      "sodiumMg": 662.25,
+      "zincMg": 1.4534999999999998,
+      "vitaminB12Ug": 0.7169999999999999
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "empanada-pollo",
+    "nameEs": "Empanada de pollo",
+    "nameEn": "Chicken empanada",
+    "aliases": [
+      "empanada de pollo",
+      "chicken empanada"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "168894:30|171401:6|173647:12|171477:25|170001:15|170108:8|173468:0.6",
+    "per100g": {
+      "kcal": 247.96511627906978,
+      "proteinG": 12.933953488372094,
+      "carbsG": 28.95627906976744,
+      "fiberG": 1.3813953488372093,
+      "fatG": 8.417441860465116
+    },
+    "micros": {
+      "vitaminCMg": 12.813953488372093,
+      "calciumMg": 14.667441860465118,
+      "ironMg": 2.005093023255814,
+      "magnesiumMg": 19.286046511627905,
+      "potassiumMg": 160.3813953488372,
+      "sodiumMg": 294.3604651162791,
+      "zincMg": 0.6045348837209303,
+      "vitaminB12Ug": 0.09883720930232559
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "choripan",
+    "nameEs": "Choripán",
+    "nameEn": "Chorizo sandwich",
+    "aliases": [
+      "choripan",
+      "choripán",
+      "chori",
+      "chorizo sandwich"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "746781:90|172675:70",
+    "per100g": {
+      "kcal": 313.625,
+      "proteinG": 15.58125,
+      "carbsG": 24.185624999999998,
+      "fiberG": 0.9625,
+      "fatG": 16.865000000000002
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 43.5625,
+      "ironMg": 3.026875,
+      "magnesiumMg": 30.931250000000002,
+      "potassiumMg": 295.875,
+      "sodiumMg": 816.3125,
+      "zincMg": 1.686875,
+      "vitaminB12Ug": 0.680625
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "provoleta",
+    "nameEs": "Provoleta",
+    "nameEn": "Grilled provolone",
+    "aliases": [
+      "provoleta",
+      "provolone a la parrilla",
+      "grilled provolone"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170850:100|171413:5|171328:1|170932:0.5",
+    "per100g": {
+      "kcal": 375.06103286384973,
+      "proteinG": 24.178403755868544,
+      "carbsG": 2.9220657276995308,
+      "fiberG": 0.5267605633802817,
+      "fatG": 29.792769953051646
+    },
+    "micros": {
+      "vitaminCMg": 0.3802816901408452,
+      "calciumMg": 725.6244131455398,
+      "ironMg": 0.8967136150234742,
+      "magnesiumMg": 29.539906103286388,
+      "potassiumMg": 150.89201877934275,
+      "sodiumMg": 683.0985915492957,
+      "zincMg": 3.0697652582159622,
+      "vitaminB12Ug": 1.3708920187793427
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "ensalada-mixta",
+    "nameEs": "Ensalada mixta",
+    "nameEn": "Mixed salad",
+    "aliases": [
+      "ensalada",
+      "ensalada mixta",
+      "lechuga tomate cebolla",
+      "mixed salad",
+      "salad"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "169249:60|170457:70|170000:20|171413:8|172240:5|173468:0.5",
+    "per100g": {
+      "kcal": 61.93883792048929,
+      "proteinG": 1.0116207951070335,
+      "carbsG": 3.8694189602446483,
+      "fiberG": 1.198776758409786,
+      "fatG": 5.045871559633027
+    },
+    "micros": {
+      "vitaminCMg": 10.16207951070336,
+      "calciumMg": 20.611620795107026,
+      "ironMg": 0.4990519877675841,
+      "magnesiumMg": 10.828746177370029,
+      "potassiumMg": 191.7859327217125,
+      "sodiumMg": 131.90214067278288,
+      "zincMg": 0.16085626911314985,
+      "vitaminB12Ug": null
+    },
+    "traits": {
+      "AnimalOrigin": false,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "tortilla-papa",
+    "nameEs": "Tortilla de papa",
+    "nameEn": "Spanish potato omelette",
+    "aliases": [
+      "tortilla de papa",
+      "tortilla española",
+      "tortilla",
+      "potato omelette",
+      "spanish omelette"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170440:200|171287:100|170001:40|171413:20|173468:0.6",
+    "per100g": {
+      "kcal": 154.36363636363637,
+      "proteinG": 5.0193939393939395,
+      "carbsG": 13.575757575757576,
+      "fiberG": 1.2606060606060607,
+      "fatG": 9.026060606060607
+    },
+    "micros": {
+      "vitaminCMg": 5.115151515151516,
+      "calciumMg": 24.58909090909091,
+      "ironMg": 0.7818121212121214,
+      "magnesiumMg": 17.092727272727274,
+      "potassiumMg": 260.80242424242425,
+      "sodiumMg": 117.0909090909091,
+      "zincMg": 0.5801818181818182,
+      "vitaminB12Ug": 0.2696969696969697
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "noquis",
+    "nameEs": "Ñoquis de papa",
+    "nameEn": "Potato gnocchi",
+    "aliases": [
+      "ñoquis",
+      "noquis",
+      "ñoquis de papa",
+      "gnocchi"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170440:70|168894:25|171287:6|173468:0.5",
+    "per100g": {
+      "kcal": 145.25454545454545,
+      "proteinG": 4.116363636363636,
+      "carbsG": 30.107454545454544,
+      "fiberG": 1.759090909090909,
+      "fatG": 0.805090909090909
+    },
+    "micros": {
+      "vitaminCMg": 4.709090909090909,
+      "calciumMg": 11.663636363636362,
+      "ironMg": 1.3487727272727272,
+      "magnesiumMg": 18.386363636363633,
+      "potassiumMg": 240.60909090909092,
+      "sodiumMg": 187.74545454545455,
+      "zincMg": 0.4017272727272727,
+      "vitaminB12Ug": 0.04854545454545454
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "alfajor-maicena",
+    "nameEs": "Alfajor de maicena",
+    "nameEn": "Cornstarch alfajor",
+    "aliases": [
+      "alfajor",
+      "alfajor de maicena",
+      "alfajores",
+      "alfajor cookie"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "169698:14|168894:8|173410:7|169655:6|171287:4|173461:16|168586:2",
+    "per100g": {
+      "kcal": 426.94230769230774,
+      "proteinG": 4.953653846153846,
+      "carbsG": 66.80192307692309,
+      "fiberG": 0.8307692307692309,
+      "fatG": 15.440000000000001
+    },
+    "micros": {
+      "vitaminCMg": 0.8269230769230771,
+      "calciumMg": 88.3076923076923,
+      "ironMg": 1.1096153846153847,
+      "magnesiumMg": 14.076923076923078,
+      "potassiumMg": 152,
+      "sodiumMg": 150.09615384615384,
+      "zincMg": 0.5494230769230769,
+      "vitaminB12Ug": 0.18673076923076923
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": true,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "tarta-verdura",
+    "nameEs": "Tarta de verdura",
+    "nameEn": "Swiss chard pie",
+    "aliases": [
+      "tarta",
+      "tarta de verdura",
+      "tarta de acelga",
+      "pascualina",
+      "vegetable pie"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "167930:40|170401:60|171287:15|746766:20|170001:10",
+    "per100g": {
+      "kcal": 201.2222222222222,
+      "proteinG": 4.503703703703703,
+      "carbsG": 21.020740740740738,
+      "fiberG": 1.4518518518518515,
+      "fatG": 11.239629629629627
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 70.37037037037037,
+      "ironMg": 1.5722222222222222,
+      "magnesiumMg": 45.955555555555556,
+      "potassiumMg": 330.29629629629625,
+      "sodiumMg": 250.96296296296296,
+      "zincMg": 0.4537037037037037,
+      "vitaminB12Ug": 0.21444444444444447
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": false,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": true,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": true,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "guiso-lentejas",
+    "nameEs": "Guiso de lentejas",
+    "nameEn": "Lentil stew",
+    "aliases": [
+      "guiso",
+      "guiso de lentejas",
+      "lentejas guisadas",
+      "lentil stew"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "172421:120|171203:40|746781:10|170440:50|170490:40|170001:20|170108:10|170054:30|171025:5|173468:0.6",
+    "per100g": {
+      "kcal": 113.88206388206387,
+      "proteinG": 8.493857493857494,
+      "carbsG": 12.948095823095823,
+      "fiberG": 3.82063882063882,
+      "fatG": 3.4834152334152333
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 16.936117936117938,
+      "ironMg": 1.881443488943489,
+      "magnesiumMg": 24.114250614250615,
+      "potassiumMg": 312.57616707616705,
+      "sodiumMg": 155.52825552825553,
+      "zincMg": 1.666953316953317,
+      "vitaminB12Ug": 0.3725429975429976
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "locro",
+    "nameEs": "Locro",
+    "nameEn": "Locro (corn and bean stew)",
+    "aliases": [
+      "locro",
+      "locro criollo"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "169999:60|175203:40|170490:80|171203:40|746781:10|168322:8|170001:15|171025:5|173468:0.6",
+    "per100g": {
+      "kcal": 132.2660479505027,
+      "proteinG": 9.45707656612529,
+      "carbsG": 12.238592420726992,
+      "fiberG": 2.478731631863882,
+      "fatG": 5.682327919566898
+    },
+    "micros": {
+      "vitaminCMg": null,
+      "calciumMg": 27.000773395204945,
+      "ironMg": 1.405251353441609,
+      "magnesiumMg": 26.11987625676721,
+      "potassiumMg": 303.15854601701466,
+      "sodiumMg": 192.01469450889402,
+      "zincMg": 1.9040603248259862,
+      "vitaminB12Ug": 0.502784222737819
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": false,
+      "ContainsLegume": true,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "fideos-tuco",
+    "nameEs": "Fideos con tuco",
+    "nameEn": "Pasta with meat sauce",
+    "aliases": [
+      "fideos con tuco",
+      "tallarines con salsa",
+      "fideos con salsa",
+      "spaghetti bolognese",
+      "pasta with meat sauce"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "169737:200|170054:80|174034:30|170001:15|171413:5|173468:0.6",
+    "per100g": {
+      "kcal": 139.98790078644888,
+      "proteinG": 6.374470659407137,
+      "carbsG": 20.441016333938293,
+      "fiberG": 1.5154264972776772,
+      "fatG": 3.5446158499697513
+    },
+    "micros": {
+      "vitaminCMg": 1.929824561403509,
+      "calciumMg": 10.675741076830004,
+      "ironMg": 1.2924924379915304,
+      "magnesiumMg": 17.28856624319419,
+      "potassiumMg": 142.98185117967333,
+      "sodiumMg": 193.9655172413793,
+      "zincMg": 0.9722020568663036,
+      "vitaminB12Ug": 0.2540834845735027
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "arroz-pollo",
+    "nameEs": "Arroz con pollo",
+    "nameEn": "Chicken and rice",
+    "aliases": [
+      "arroz con pollo",
+      "chicken and rice",
+      "chicken rice"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "168878:150|171477:80|170108:20|170001:20|171025:5|170054:20|173468:0.6",
+    "per100g": {
+      "kcal": 131.93504736129904,
+      "proteinG": 9.994925575101487,
+      "carbsG": 15.767253044654938,
+      "fiberG": 0.5412719891745602,
+      "fatG": 2.8531799729364002
+    },
+    "micros": {
+      "vitaminCMg": 9.485791610284167,
+      "calciumMg": 12.092016238159673,
+      "ironMg": 1.0013464140730717,
+      "magnesiumMg": 16.510825439783492,
+      "potassiumMg": 132.6617050067659,
+      "sodiumMg": 131.83355886332882,
+      "zincMg": 0.5654939106901218,
+      "vitaminB12Ug": 0.09201623815967523
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": false,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  },
+  {
+    "id": "sanguche-milanesa",
+    "nameEs": "Sándwich de milanesa",
+    "nameEn": "Milanesa sandwich",
+    "aliases": [
+      "sanguche de milanesa",
+      "sandwich de milanesa",
+      "sanguchito de milanesa",
+      "milanesa sandwich"
+    ],
+    "source": "owli_recipe",
+    "sourceRef": "170235:80|174928:20|171287:12|171025:12|172675:80|169249:15|170457:30|171009:10|173468:0.6",
+    "per100g": {
+      "kcal": 254.65716486902926,
+      "proteinG": 16.285053929121727,
+      "carbsG": 22.211440677966102,
+      "fiberG": 1.2384437596302,
+      "fatG": 10.916679506933743
+    },
+    "micros": {
+      "vitaminCMg": 2.114791987673343,
+      "calciumMg": 37.54391371340524,
+      "ironMg": 2.7707935285053926,
+      "magnesiumMg": 23.804314329738055,
+      "potassiumMg": 199.84899845916792,
+      "sodiumMg": 378.67488443759623,
+      "zincMg": 1.9331278890600923,
+      "vitaminB12Ug": 0.9047765793528504
+    },
+    "traits": {
+      "AnimalOrigin": true,
+      "PlantOrigin": true,
+      "ContainsMeat": true,
+      "ContainsFish": false,
+      "ContainsGrain": true,
+      "ContainsLegume": false,
+      "ContainsDairy": false,
+      "ContainsAddedSugar": false,
+      "ContainsGluten": true,
+      "ContainsLactose": false,
+      "AllergensVerified": false
+    }
+  }
+]

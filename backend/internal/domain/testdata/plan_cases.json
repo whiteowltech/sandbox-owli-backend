@@ -1,0 +1,245 @@
+{
+  "_doc": "Casos compartidos entre backend/internal/domain/plan.go y app/src/app/core/nutrition/plan.ts. Si cambia una regla, se actualiza aquí y deben pasar los tests de los dos lados.",
+  "cases": [
+    {
+      "name": "hombre moderado, perder grasa constante",
+      "input": {
+        "sex": "male",
+        "ageYears": 30,
+        "heightCm": 175,
+        "weightKg": 80,
+        "activity": "moderate",
+        "goal": "cut",
+        "pace": "steady",
+        "targetWeightKg": 74
+      },
+      "want": {
+        "tdee": 2711,
+        "dailyTarget": 2161,
+        "minSafe": 1500,
+        "clamped": false,
+        "weeklyRateKg": 0.5,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": 12.0,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "mujer ligera, perder grasa exigente",
+      "input": {
+        "sex": "female",
+        "ageYears": 28,
+        "heightCm": 165,
+        "weightKg": 70,
+        "activity": "light",
+        "goal": "cut",
+        "pace": "fast",
+        "targetWeightKg": 62
+      },
+      "want": {
+        "tdee": 1967,
+        "dailyTarget": 1200,
+        "minSafe": 1200,
+        "clamped": true,
+        "weeklyRateKg": 0.6973,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": 11.4733,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "mínimo seguro: el ritmo exigente se recorta",
+      "input": {
+        "sex": "female",
+        "ageYears": 45,
+        "heightCm": 158,
+        "weightKg": 62,
+        "activity": "sedentary",
+        "goal": "cut",
+        "pace": "fast",
+        "targetWeightKg": 56
+      },
+      "want": {
+        "tdee": 1466,
+        "dailyTarget": 1200,
+        "minSafe": 1200,
+        "clamped": true,
+        "weeklyRateKg": 0.2418,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": 24.812,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "mínimo seguro con ritmo casi nulo: sin fecha",
+      "input": {
+        "sex": "female",
+        "ageYears": 60,
+        "heightCm": 155,
+        "weightKg": 50,
+        "activity": "sedentary",
+        "goal": "cut",
+        "pace": "fast",
+        "targetWeightKg": 46
+      },
+      "want": {
+        "tdee": 1209,
+        "dailyTarget": 1200,
+        "minSafe": 1200,
+        "clamped": true,
+        "weeklyRateKg": 0.0082,
+        "wrongDirection": false,
+        "tooSlow": true,
+        "weeksToGoal": null,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "ganar músculo tranquilo",
+      "input": {
+        "sex": "male",
+        "ageYears": 24,
+        "heightCm": 182,
+        "weightKg": 72,
+        "activity": "active",
+        "goal": "bulk",
+        "pace": "slow",
+        "targetWeightKg": 78
+      },
+      "want": {
+        "tdee": 3006,
+        "dailyTarget": 3171,
+        "minSafe": 1500,
+        "clamped": false,
+        "weeklyRateKg": 0.15,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": 40.0,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "ganar músculo con peso meta menor: dirección equivocada",
+      "input": {
+        "sex": "male",
+        "ageYears": 24,
+        "heightCm": 182,
+        "weightKg": 72,
+        "activity": "active",
+        "goal": "bulk",
+        "pace": "steady",
+        "targetWeightKg": 70
+      },
+      "want": {
+        "tdee": 3006,
+        "dailyTarget": 3281,
+        "minSafe": 1500,
+        "clamped": false,
+        "weeklyRateKg": 0.25,
+        "wrongDirection": true,
+        "tooSlow": false,
+        "weeksToGoal": null,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "perder grasa con peso meta mayor: dirección equivocada",
+      "input": {
+        "sex": "male",
+        "ageYears": 35,
+        "heightCm": 170,
+        "weightKg": 90,
+        "activity": "moderate",
+        "goal": "cut",
+        "pace": "slow",
+        "targetWeightKg": 95
+      },
+      "want": {
+        "tdee": 2778,
+        "dailyTarget": 2503,
+        "minSafe": 1500,
+        "clamped": false,
+        "weeklyRateKg": 0.25,
+        "wrongDirection": true,
+        "tooSlow": false,
+        "weeksToGoal": null,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "mantener",
+      "input": {
+        "sex": "male",
+        "ageYears": 40,
+        "heightCm": 178,
+        "weightKg": 85,
+        "activity": "very_active",
+        "goal": "maintain",
+        "pace": "steady",
+        "targetWeightKg": 85
+      },
+      "want": {
+        "tdee": 3358,
+        "dailyTarget": 3358,
+        "minSafe": 1500,
+        "clamped": false,
+        "weeklyRateKg": 0.0,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": null,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "recomposición",
+      "input": {
+        "sex": "female",
+        "ageYears": 32,
+        "heightCm": 168,
+        "weightKg": 64,
+        "activity": "moderate",
+        "goal": "recomp",
+        "pace": "steady",
+        "targetWeightKg": 64
+      },
+      "want": {
+        "tdee": 2122,
+        "dailyTarget": 1922,
+        "minSafe": 1200,
+        "clamped": false,
+        "weeklyRateKg": 0.1818,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": null,
+        "targetBelowHealthyBmi": false
+      }
+    },
+    {
+      "name": "peso meta bajo el IMC saludable",
+      "input": {
+        "sex": "female",
+        "ageYears": 22,
+        "heightCm": 170,
+        "weightKg": 58,
+        "activity": "light",
+        "goal": "cut",
+        "pace": "slow",
+        "targetWeightKg": 50
+      },
+      "want": {
+        "tdee": 1886,
+        "dailyTarget": 1611,
+        "minSafe": 1200,
+        "clamped": false,
+        "weeklyRateKg": 0.25,
+        "wrongDirection": false,
+        "tooSlow": false,
+        "weeksToGoal": 32.0,
+        "targetBelowHealthyBmi": true
+      }
+    }
+  ]
+}
