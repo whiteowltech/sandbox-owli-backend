@@ -1,0 +1,11 @@
+# Configuración de Railway para la API. En el servicio: Root Directory = /backend y
+# Settings → Config-as-code → Railway Config File = /backend/railway.toml.
+[build]
+builder = "DOCKERFILE"
+
+[deploy]
+# La API responde 200 en /healthz cuando ya aplicó las migraciones y cargó el catálogo.
+healthcheckPath = "/healthz"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

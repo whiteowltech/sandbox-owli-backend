@@ -1,0 +1,9 @@
+# Nada de secretos ni datos locales en la imagen.
+.env
+.env.*
+!.env.example
+bin/
+.fdc-cache/
+.bench-cache/
+*.test
+coverage.out
