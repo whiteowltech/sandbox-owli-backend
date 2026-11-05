@@ -130,11 +130,14 @@ Precios de referencia de noviembre de 2026. Costo estimado por análisis: ≈ $0
 ### Meal Closing Engine
 - Se configuran de 1 (OMAD) a 5 comidas al día.
 - Calcula en tiempo real lo que falta y sugiere platos concretos que lo cubren dentro de una tolerancia de **±5 % de calorías y ±5 g de proteína**, respetando la dieta.
-- Implementado en [closing.go](backend/internal/domain/closing.go) (`MealsLeft`, `MealNeed`, `SuggestDishes`) y expuesto en `GET /v1/me/suggestions`:
+- Implementado en [closing.go](backend/internal/domain/closing.go) (`PlanNextMeal`, `MealNeed`, `DayOver`, `SuggestDishes`) y expuesto en `GET /v1/me/suggestions`:
   - Lo que falta del día se reparte entre las comidas que quedan (anotaciones a menos de 90 min cuentan como una comida).
   - Los platos son plantillas curadas en `data/dishes_catalog.csv` (fuente de proteína + carbo + grasa, con porción mín./máx. por ingrediente). Los gramos se resuelven con un sistema 3×3 (proteína, carbos, grasa) o 2×2 (proteína, kcal).
   - Cada ingrediente pasa por `domain.Allows`. En keto se descartan ingredientes con más de 10 g de carbos netos por 100 g.
-  - Hasta 10 platos, como mucho 2 por fuente de proteína; a la hora del desayuno o la merienda suben los platos de desayuno. Con menos de 100 kcal pendientes, el día está cerrado.
+  - Hasta 10 platos, como mucho 2 por fuente de proteína. Con menos de 100 kcal pendientes, el día está cerrado.
+  - Qué comida es (`PlanNextMeal`): quedan las configuradas menos las hechas, pero no más de las que entran antes de las 22 h con 2 h 30 entre comidas (provisional). Con una sola, no se divide nada. Desayuno: la primera comida antes de las 12 h; merienda: de 16 a 19 h con dos hechas y otra por delante. A esas horas suben los platos de desayuno.
+  - Si el día ya pasó la grasa o los carbos (`DayOver`), se descartan los platos que suman más de 10 g de ese macro.
+  - Acompañamientos (`kind=side`: fruta, arroz, pan…, sin fuente de proteína) solo cuando a la comida le faltan menos de 15 g de proteína; se escalan por calorías.
   - Anotar un plato sugerido es gratis (origen `suggestion`).
 
 ### Owli: Mood Engine y tono

@@ -39,28 +39,23 @@ func (s *SuggestionService) Suggestions(ctx context.Context, userID domain.UserI
 	for i, e := range day.Entries {
 		eatenAt[i] = e.EatenAt
 	}
-	mealsLeft := domain.MealsLeft(profile.MealsPerDay, eatenAt)
-	need := domain.MealNeed(float64(day.Plan.DailyTarget), day.Targets, day.Totals, mealsLeft)
-
 	loc, err := time.LoadLocation(profile.Timezone)
 	if err != nil {
 		return ports.ClosingView{}, fmt.Errorf("zona horaria del perfil: %w", err)
 	}
+	next := domain.PlanNextMeal(profile.MealsPerDay, eatenAt, s.now().In(loc))
+	kcal := float64(day.Plan.DailyTarget)
+	need := domain.MealNeed(kcal, day.Targets, day.Totals, next.Left)
+	over := domain.DayOver(kcal, day.Targets, day.Totals)
+
 	dishes := domain.SuggestDishes(s.dishes, domain.ClosingRequest{
-		Need: need, Diet: profile.Diet, Restrictions: profile.Restrictions,
-		Breakfast: breakfastTime(s.now().In(loc)),
+		Need: need, Over: over, Diet: profile.Diet, Restrictions: profile.Restrictions,
+		Breakfast: next.Breakfast,
 	})
 	return ports.ClosingView{
-		MealsLeft: mealsLeft, Need: need, NetCarbs: day.Targets.NetCarbs,
+		MealsLeft: next.Left, Need: need, Over: over, NetCarbs: day.Targets.NetCarbs,
 		Closed: need.Calories < domain.MinClosingKcal, Dishes: dishes,
 	}, nil
-}
-
-// breakfastTime: desayuno (4 a 11 h) o merienda (16 a 19 h), en la hora local del
-// usuario. A esas horas suben los platos de desayuno (yogur, tostadas, huevos).
-func breakfastTime(local time.Time) bool {
-	h := local.Hour()
-	return (h >= 4 && h < 11) || (h >= 16 && h < 19)
 }
 
 var _ ports.SuggestionUseCase = (*SuggestionService)(nil)

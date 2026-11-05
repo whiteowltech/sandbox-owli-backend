@@ -21,6 +21,7 @@ type dishDTO struct {
 	NameES   string       `json:"nameEs"`
 	NameEN   string       `json:"nameEn"`
 	Exact    bool         `json:"exact"` // cierra dentro de ±5 % kcal y ±5 g de proteína
+	Side     bool         `json:"side"`  // acompañamiento sin fuente de proteína
 	Macros   macrosDTO    `json:"macros"`
 	Portions []portionDTO `json:"portions"`
 }
@@ -28,6 +29,7 @@ type dishDTO struct {
 type closingDTO struct {
 	MealsLeft int       `json:"mealsLeft"`
 	Need      macrosDTO `json:"need"`
+	Over      macrosDTO `json:"over"` // cuánto se pasó el día de cada macro
 	NetCarbs  bool      `json:"netCarbs"`
 	Closed    bool      `json:"closed"`
 	Dishes    []dishDTO `json:"dishes"`
@@ -40,9 +42,9 @@ func (s *suggestionHandlers) list(w http.ResponseWriter, r *http.Request) {
 		fail(w, s.h.log, err)
 		return
 	}
-	out := closingDTO{MealsLeft: v.MealsLeft, Need: toMacrosDTO(v.Need), NetCarbs: v.NetCarbs, Closed: v.Closed, Dishes: []dishDTO{}}
+	out := closingDTO{MealsLeft: v.MealsLeft, Need: toMacrosDTO(v.Need), Over: toMacrosDTO(v.Over), NetCarbs: v.NetCarbs, Closed: v.Closed, Dishes: []dishDTO{}}
 	for _, d := range v.Dishes {
-		dto := dishDTO{ID: d.ID, NameES: d.NameES, NameEN: d.NameEN, Exact: d.Exact, Macros: toMacrosDTO(d.Macros)}
+		dto := dishDTO{ID: d.ID, NameES: d.NameES, NameEN: d.NameEN, Exact: d.Exact, Side: d.Side, Macros: toMacrosDTO(d.Macros)}
 		for _, p := range d.Portions {
 			dto.Portions = append(dto.Portions, portionDTO{Grams: p.Grams, Food: toFoodDTO(p.Food)})
 		}

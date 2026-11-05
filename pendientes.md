@@ -42,11 +42,8 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 - [x] **Tu semana**: 7 días con calorías y proteína contra el objetivo, días cerrados, racha y tabla accesible.
 - [ ] **Historial del plan**: guardar el objetivo de cada día para que "Tu semana" compare cada día con el plan vigente ese día (hoy usa el actual).
 - [x] **Recalcular el plan** desde la cuenta sin repetir el onboarding: "Tu cuenta" edita cuerpo, objetivo, dieta, comidas por día y nombre con el objetivo recalculado en vivo; también créditos, idioma, unidades y borrar la cuenta (4 de noviembre de 2026). Las comidas por día ahora se eligen en el onboarding (antes quedaban fijas en 4).
-- [ ] **Motor de sugerencias, fase 1.5** (visto con datos reales el 4 de noviembre de 2026: con carbos 2/192 g y grasa 97/53 g sugirió huevos con manteca):
-  - Descartar platos que suman a un macro ya pasado (grasa pasada → nada con manteca, aceite, palta ni panceta).
-  - Acompañamientos sin fuente de proteína para cuando faltan carbos o calorías (fruta, arroz, papa, pan, yogur con fruta).
-  - Deducir qué comida es por las comidas hechas y el tiempo desde la última, no solo por la hora (de 16 a 19 h hoy asume merienda). En la última comida del día, no dividir.
-  - Explicar arriba de la lista qué falta para esta comida y por qué.
+- [x] **Motor de sugerencias, fase 1.5** (caso real del 4 de noviembre de 2026: con carbos 2/192 g y grasa 97/53 g sugería huevos con manteca). Descarta platos que suman a un macro ya pasado, ofrece acompañamientos sin proteína, deduce la comida por lo anotado y la hora (la última no se divide) y explica arriba de la lista por qué.
+- [ ] **Validar con un profesional** las reglas nuevas del motor: 22 h como última comida, 2 h 30 entre comidas, 10 g de margen para un macro pasado y 15 g de proteína para ofrecer acompañamientos.
 - [ ] **Crear alimentos propios** en el registro manual cuando no están en la base.
 
 ## Cuentas y sesiones

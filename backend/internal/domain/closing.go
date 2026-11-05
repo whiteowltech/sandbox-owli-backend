@@ -29,6 +29,16 @@ const (
 	// breakfastPenalty: al desayuno no se sugiere un bife, y a la cena no un yogur con avena;
 	// no se excluyen, solo bajan en el orden.
 	breakfastPenalty = 0.3
+	// OverMacroAllowanceG: si el día ya pasó la grasa o los carbos, un plato puede sumar
+	// como mucho esto de ese macro (con la grasa pasada no se sugieren huevos con manteca).
+	OverMacroAllowanceG = 10.0
+	// SideMaxProteinNeedG: los acompañamientos (sin fuente de proteína) se ofrecen solo
+	// cuando a la comida le falta menos proteína que esto; si falta más, va un plato.
+	SideMaxProteinNeedG = 15.0
+	// LastMealHour y MinMealSpacing acotan las comidas que quedan: a las 21 h no
+	// entran tres comidas más aunque el perfil diga cinco al día. Provisionales.
+	LastMealHour   = 22
+	MinMealSpacing = 150 * time.Minute
 )
 
 // DishComponent es un ingrediente de una plantilla con su porción mínima y máxima
@@ -40,11 +50,14 @@ type DishComponent struct {
 
 // DishTemplate es un plato curado. Components[0] es la fuente de proteína; con tres
 // componentes se resuelven proteína, carbos y grasa; con dos, proteína y calorías.
+// Un acompañamiento (Side) no tiene fuente de proteína: tiene 1 o 2 ingredientes y
+// se escala en proporción a sus porciones mínimas hasta cubrir las calorías.
 type DishTemplate struct {
 	ID         string
 	NameES     string
 	NameEN     string
 	Breakfast  bool // plato de desayuno o merienda
+	Side       bool // acompañamiento: fruta, arroz, pan… para cuando solo faltan carbos o calorías
 	Components []DishComponent
 }
 
@@ -63,12 +76,14 @@ type DishSuggestion struct {
 	Macros   Macros
 	// Exact: cierra lo que falta dentro de la tolerancia (±5 % kcal, ±5 g de proteína).
 	Exact bool
+	Side  bool
 	score float64
 }
 
 // ClosingRequest es lo que necesita el motor para sugerir.
 type ClosingRequest struct {
 	Need         Macros // lo que falta para esta comida (en keto, CarbsG son carbos netos)
+	Over         Macros // cuánto se pasó el día de cada macro (DayOver); cero si no se pasó
 	Diet         DietType
 	Restrictions []Restriction
 	Breakfast    bool // es la hora del desayuno en la zona horaria del usuario
@@ -78,6 +93,11 @@ type ClosingRequest struct {
 // hechas. Las anotaciones a menos de MealGap entre sí cuentan como una sola comida.
 // Siempre queda al menos una: la que se está por hacer.
 func MealsLeft(mealsPerDay int, eatenAt []time.Time) int {
+	return max(1, mealsPerDay-countMeals(eatenAt))
+}
+
+// countMeals agrupa las anotaciones en comidas (a menos de MealGap son la misma).
+func countMeals(eatenAt []time.Time) int {
 	times := append([]time.Time(nil), eatenAt...)
 	sort.Slice(times, func(i, j int) bool { return times[i].Before(times[j]) })
 	meals := 0
@@ -86,7 +106,47 @@ func MealsLeft(mealsPerDay int, eatenAt []time.Time) int {
 			meals++
 		}
 	}
-	return max(1, mealsPerDay-meals)
+	return meals
+}
+
+// NextMeal es la comida que viene, deducida de lo anotado y de la hora local.
+type NextMeal struct {
+	// Left: comidas que quedan, contando esta (1 = es la última: no se divide nada).
+	Left int
+	// Breakfast: desayuno, o merienda si todavía queda una comida después.
+	Breakfast bool
+}
+
+// PlanNextMeal deduce qué comida viene. local es la hora del usuario en su zona.
+//   - Quedan las configuradas menos las hechas (MealsLeft), pero no más de las que
+//     entran antes de LastMealHour con MinMealSpacing entre una y otra.
+//   - Desayuno: la primera comida del día antes de las 12 h. Merienda: de 16 a 19 h
+//     con dos comidas hechas y otra por delante (con 3 al día, a esa hora va la cena).
+func PlanNextMeal(mealsPerDay int, eatenAt []time.Time, local time.Time) NextMeal {
+	done := countMeals(eatenAt)
+	end := time.Date(local.Year(), local.Month(), local.Day(), LastMealHour, 0, 0, 0, local.Location())
+	fit := 1
+	if local.Before(end) {
+		fit += int(end.Sub(local) / MinMealSpacing)
+	}
+	left := min(max(1, mealsPerDay-done), fit)
+	h := local.Hour()
+	breakfast := (done == 0 && h >= 4 && h < 12) || (done >= 2 && left >= 2 && h >= 16 && h < 19)
+	return NextMeal{Left: left, Breakfast: breakfast}
+}
+
+// DayOver dice cuánto se pasó el día de cada macro (cero si no se pasó).
+func DayOver(dailyKcal float64, targets MacroTargets, eaten Macros) Macros {
+	carbsEaten := eaten.CarbsG
+	if targets.NetCarbs {
+		carbsEaten = eaten.NetCarbsG()
+	}
+	return Macros{
+		Calories: math.Max(0, eaten.Calories-dailyKcal),
+		ProteinG: math.Max(0, eaten.ProteinG-targets.ProteinG),
+		CarbsG:   math.Max(0, carbsEaten-targets.CarbsG),
+		FatG:     math.Max(0, eaten.FatG-targets.FatG),
+	}
 }
 
 // MealNeed reparte lo que falta del día entre las comidas que quedan. Nada es
@@ -118,11 +178,17 @@ func SuggestDishes(templates []DishTemplate, req ClosingRequest) []DishSuggestio
 		if !fits(t, req, keto) {
 			continue
 		}
-		grams, ok := solveGrams(t.Components, req.Need, keto)
+		var grams []float64
+		ok := false
+		if t.Side {
+			grams, ok = solveSide(t.Components, req.Need)
+		} else {
+			grams, ok = solveGrams(t.Components, req.Need, keto)
+		}
 		if !ok {
 			continue
 		}
-		s := DishSuggestion{ID: t.ID, NameES: t.NameES, NameEN: t.NameEN}
+		s := DishSuggestion{ID: t.ID, NameES: t.NameES, NameEN: t.NameEN, Side: t.Side}
 		for i, c := range t.Components {
 			s.Portions = append(s.Portions, DishPortion{Food: c.Food, Grams: grams[i]})
 			s.Macros = s.Macros.Add(c.Food.Per100g.Scale(grams[i] / 100))
@@ -134,13 +200,18 @@ func SuggestDishes(templates []DishTemplate, req ClosingRequest) []DishSuggestio
 				continue // no entra en el margen de carbos netos del día
 			}
 		}
+		// El día ya se pasó de grasa o de carbos: nada que sume más.
+		if (req.Over.FatG > 0 && s.Macros.FatG > OverMacroAllowanceG) ||
+			(req.Over.CarbsG > 0 && carbs > OverMacroAllowanceG) {
+			continue
+		}
 		need := req.Need
 		s.Exact = math.Abs(s.Macros.Calories-need.Calories) <= need.Calories*ClosingCalorieTolerance &&
 			math.Abs(s.Macros.ProteinG-need.ProteinG) <= ClosingProteinToleranceG
 		s.score = math.Abs(s.Macros.Calories-need.Calories)/math.Max(need.Calories, 100) +
 			math.Abs(s.Macros.ProteinG-need.ProteinG)/math.Max(need.ProteinG, 10) +
 			0.5*(math.Abs(carbs-need.CarbsG)/math.Max(need.CarbsG, 15)+math.Abs(s.Macros.FatG-need.FatG)/math.Max(need.FatG, 8))
-		if t.Breakfast != req.Breakfast {
+		if !t.Side && t.Breakfast != req.Breakfast { // una fruta o un arroz van a cualquier hora
 			s.score += breakfastPenalty
 		}
 		out = append(out, s)
@@ -164,7 +235,11 @@ func SuggestDishes(templates []DishTemplate, req ClosingRequest) []DishSuggestio
 }
 
 func fits(t DishTemplate, req ClosingRequest, keto bool) bool {
-	if len(t.Components) < 2 || len(t.Components) > 3 {
+	if t.Side {
+		if len(t.Components) < 1 || len(t.Components) > 2 || req.Need.ProteinG >= SideMaxProteinNeedG {
+			return false
+		}
+	} else if len(t.Components) < 2 || len(t.Components) > 3 {
 		return false
 	}
 	for _, c := range t.Components {
@@ -226,6 +301,25 @@ func solveGrams(cs []DishComponent, need Macros, keto bool) ([]float64, bool) {
 	}
 	for i, c := range cs {
 		g[i] = math.Min(c.MaxG, math.Max(c.MinG, math.Max(5, math.Round(g[i]/5)*5)))
+	}
+	return g, true
+}
+
+// solveSide escala un acompañamiento hasta cubrir las calorías, manteniendo la
+// proporción de sus porciones mínimas (yogur 150 g con fruta 100 g), y respeta
+// las porciones mín./máx. de cada ingrediente.
+func solveSide(cs []DishComponent, need Macros) ([]float64, bool) {
+	var kcal float64
+	for _, c := range cs {
+		kcal += c.Food.Per100g.Calories * c.MinG / 100
+	}
+	if kcal <= 0 {
+		return nil, false
+	}
+	scale := need.Calories / kcal
+	g := make([]float64, len(cs))
+	for i, c := range cs {
+		g[i] = math.Min(c.MaxG, math.Max(c.MinG, math.Round(c.MinG*scale/5)*5))
 	}
 	return g, true
 }

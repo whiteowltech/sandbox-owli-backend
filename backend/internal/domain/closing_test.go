@@ -200,3 +200,72 @@ func pos(s []DishSuggestion, id string) int {
 	}
 	return len(s)
 }
+
+func TestPlanNextMeal(t *testing.T) {
+	ba, _ := time.LoadLocation("America/Argentina/Buenos_Aires")
+	at := func(h, m int) time.Time { return time.Date(2026, 11, 4, h, m, 0, 0, ba) }
+	tests := []struct {
+		name      string
+		perDay    int
+		eaten     []time.Time
+		now       time.Time
+		left      int
+		breakfast bool
+	}{
+		{"primera comida de la mañana: desayuno", 4, nil, at(8, 0), 4, true},
+		{"a media mañana con el desayuno hecho", 4, []time.Time{at(8, 0)}, at(10, 30), 3, false},
+		{"almuerzo tardío sin desayuno: no es desayuno", 3, nil, at(13, 0), 3, false},
+		{"merienda: dos comidas hechas y la cena por delante", 4, []time.Time{at(8, 0), at(13, 0)}, at(17, 0), 2, true},
+		{"con 3 al día, a las 17 h va la cena", 3, []time.Time{at(8, 0), at(13, 0)}, at(17, 0), 1, false},
+		{"a las 20 h no entran tres comidas más", 4, []time.Time{at(13, 0)}, at(20, 0), 1, false},
+		{"a las 19 h entran dos", 5, []time.Time{at(8, 0)}, at(19, 0), 2, false},
+		{"pasadas las 22 h queda una", 4, nil, at(23, 0), 1, false},
+	}
+	for _, tt := range tests {
+		got := PlanNextMeal(tt.perDay, tt.eaten, tt.now)
+		if got.Left != tt.left || got.Breakfast != tt.breakfast {
+			t.Errorf("%s: %+v, quería Left=%d Breakfast=%v", tt.name, got, tt.left, tt.breakfast)
+		}
+	}
+}
+
+func TestDayOver(t *testing.T) {
+	targets := MacroTargets{ProteinG: 150, CarbsG: 192, FatG: 53}
+	got := DayOver(2000, targets, Macros{Calories: 1500, ProteinG: 160, CarbsG: 2, FatG: 97})
+	if want := (Macros{ProteinG: 10, FatG: 44}); got != want {
+		t.Errorf("DayOver = %+v, quería %+v", got, want)
+	}
+}
+
+// Caso real del 4 de noviembre de 2026: carbos 2/192 g y grasa 97/53 g. Sugería
+// huevos con manteca; con la grasa pasada no puede haber nada que sume grasa.
+func TestSuggestDishesWithFatAlreadyOver(t *testing.T) {
+	need := Macros{Calories: 500, ProteinG: 8, CarbsG: 95}
+	sides := append([]DishTemplate{
+		{ID: "arroz-solo", Side: true, Components: []DishComponent{{Food: cRice, MinG: 100, MaxG: 350}}},
+		{ID: "palta-sola", Side: true, Components: []DishComponent{{Food: cAvocado, MinG: 50, MaxG: 200}}},
+	}, testDishes...)
+	got := SuggestDishes(sides, ClosingRequest{Need: need, Over: Macros{FatG: 44}, Diet: DietOmnivore})
+	if len(got) == 0 || got[0].ID != "arroz-solo" {
+		t.Fatalf("con poca proteína pendiente y la grasa pasada va el arroz: %v", ids(got))
+	}
+	for _, s := range got {
+		if s.Macros.FatG > OverMacroAllowanceG {
+			t.Errorf("%s suma %.0f g de grasa con la grasa del día pasada", s.ID, s.Macros.FatG)
+		}
+	}
+	if !got[0].Side || got[0].Portions[0].Grams < 300 {
+		t.Errorf("el arroz se escala hasta las calorías (con tope): %+v", got[0].Portions)
+	}
+}
+
+func TestSidesOnlyWhenLittleProteinIsMissing(t *testing.T) {
+	side := DishTemplate{ID: "arroz-solo", Side: true, Components: []DishComponent{{Food: cRice, MinG: 100, MaxG: 350}}}
+	if got := SuggestDishes([]DishTemplate{side}, ClosingRequest{Need: Macros{Calories: 600, ProteinG: 40, CarbsG: 60}, Diet: DietOmnivore}); len(got) != 0 {
+		t.Errorf("faltan 40 g de proteína: un arroz solo no sirve, %v", ids(got))
+	}
+	got := SuggestDishes([]DishTemplate{side}, ClosingRequest{Need: Macros{Calories: 260, ProteinG: 5, CarbsG: 55}, Diet: DietOmnivore})
+	if len(got) != 1 || got[0].Portions[0].Grams != 200 {
+		t.Errorf("260 kcal de arroz = 200 g: %+v", got)
+	}
+}

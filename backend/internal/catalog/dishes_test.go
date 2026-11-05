@@ -46,16 +46,39 @@ func TestRealDishesResolve(t *testing.T) {
 	}
 }
 
+// Caso real del 4 de noviembre de 2026 (carbos 2/192 g, grasa 97/53 g): sugería huevos
+// con manteca. Con la grasa pasada y poca proteína pendiente van acompañamientos con carbos.
+func TestRealDishesWithFatOver(t *testing.T) {
+	foods, _ := catalog.Parse(data.FoodsSeed)
+	dishes, err := catalog.ParseDishes(data.Dishes, foods)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := domain.SuggestDishes(dishes, domain.ClosingRequest{
+		Need: domain.Macros{Calories: 700, ProteinG: 10, CarbsG: 190},
+		Over: domain.Macros{FatG: 44}, Diet: domain.DietOmnivore,
+	})
+	if len(got) < 5 || !got[0].Side {
+		t.Fatalf("se esperaban acompañamientos: %d", len(got))
+	}
+	for _, s := range got {
+		if s.Macros.FatG > domain.OverMacroAllowanceG {
+			t.Errorf("%s suma %.0f g de grasa", s.ID, s.Macros.FatG)
+		}
+	}
+}
+
 func TestParseDishesRejectsBrokenRows(t *testing.T) {
 	foods, _ := catalog.Parse(data.FoodsSeed)
-	header := "id,name_es,name_en,breakfast,components\n"
+	header := "id,name_es,name_en,kind,components\n"
 	tests := map[string]string{
-		"alimento inexistente": "x,X,X,0,pechuga-pollo:60:300|unicornio:10:20\n",
-		"porciones al revés":   "x,X,X,0,pechuga-pollo:300:60|arroz-blanco:30:350\n",
-		"un solo ingrediente":  "x,X,X,0,pechuga-pollo:60:300\n",
-		"formato":              "x,X,X,0,pechuga-pollo-60-300|arroz-blanco:30:350\n",
-		"breakfast":            "x,X,X,si,pechuga-pollo:60:300|arroz-blanco:30:350\n",
-		"repetido":             "x,X,X,0,pechuga-pollo:60:300|arroz-blanco:30:350\nx,X,X,0,pechuga-pollo:60:300|arroz-blanco:30:350\n",
+		"alimento inexistente": "x,X,X,meal,pechuga-pollo:60:300|unicornio:10:20\n",
+		"porciones al revés":   "x,X,X,meal,pechuga-pollo:300:60|arroz-blanco:30:350\n",
+		"un solo ingrediente":  "x,X,X,meal,pechuga-pollo:60:300\n",
+		"formato":              "x,X,X,meal,pechuga-pollo-60-300|arroz-blanco:30:350\n",
+		"kind":                 "x,X,X,si,pechuga-pollo:60:300|arroz-blanco:30:350\n",
+		"acompañamiento largo": "x,X,X,side,banana:60:200|avena:20:100|nueces:10:50\n",
+		"repetido":             "x,X,X,meal,pechuga-pollo:60:300|arroz-blanco:30:350\nx,X,X,meal,pechuga-pollo:60:300|arroz-blanco:30:350\n",
 	}
 	for name, rows := range tests {
 		if _, err := catalog.ParseDishes([]byte(header+rows), foods); err == nil || !strings.Contains(err.Error(), "plato") {

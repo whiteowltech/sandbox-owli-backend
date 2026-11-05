@@ -32,14 +32,15 @@ func testTemplates() []domain.DishTemplate {
 	}
 }
 
-func newSuggestions(t *testing.T) (*SuggestionService, *DiaryService, *memory.Store, domain.UserID) {
+// newSuggestions: now es la hora de la consulta (diaryNow son las 20 h en Buenos Aires).
+func newSuggestions(t *testing.T, now time.Time) (*SuggestionService, *DiaryService, *memory.Store, domain.UserID) {
 	t.Helper()
 	diary, store, u := newDiary(t)
-	return NewSuggestionService(diary, store, testTemplates(), func() time.Time { return diaryNow }), diary, store, u
+	return NewSuggestionService(diary, store, testTemplates(), func() time.Time { return now }), diary, store, u
 }
 
 func TestSuggestionsForTheNextMeal(t *testing.T) {
-	svc, _, store, u := newSuggestions(t)
+	svc, _, store, u := newSuggestions(t, diaryNow.Add(-10*time.Hour)) // 10 h en Buenos Aires
 	ctx := context.Background()
 	if _, err := svc.Suggestions(ctx, u); !errors.Is(err, ports.ErrProfileRequired) {
 		t.Fatalf("sin perfil: %v", err)
@@ -60,7 +61,7 @@ func TestSuggestionsForTheNextMeal(t *testing.T) {
 }
 
 func TestSuggestionsAfterEating(t *testing.T) {
-	svc, diary, store, u := newSuggestions(t)
+	svc, diary, store, u := newSuggestions(t, diaryNow.Add(-6*time.Hour)) // 14 h en Buenos Aires
 	ctx := context.Background()
 	saveProfile(t, store, u)
 
@@ -85,7 +86,7 @@ func TestSuggestionsAfterEating(t *testing.T) {
 }
 
 func TestSuggestionsRespectTheDiet(t *testing.T) {
-	svc, _, store, u := newSuggestions(t)
+	svc, _, store, u := newSuggestions(t, diaryNow)
 	ctx := context.Background()
 	saveProfile(t, store, u)
 	p, _ := store.Get(ctx, u)
@@ -102,10 +103,16 @@ func TestSuggestionsRespectTheDiet(t *testing.T) {
 	}
 }
 
-func TestBreakfastTime(t *testing.T) {
-	for h, want := range map[int]bool{3: false, 4: true, 10: true, 11: false, 13: false, 16: true, 18: true, 19: false, 21: false} {
-		if got := breakfastTime(time.Date(2026, 11, 3, h, 0, 0, 0, time.UTC)); got != want {
-			t.Errorf("%d h: %v", h, got)
-		}
+func TestSuggestionsAtTheLastMeal(t *testing.T) {
+	svc, _, store, u := newSuggestions(t, diaryNow) // 20 h: ya no entran cuatro comidas
+	ctx := context.Background()
+	saveProfile(t, store, u)
+	got, err := svc.Suggestions(ctx, u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	day, _ := svc.diary.Day(ctx, u, "")
+	if got.MealsLeft != 1 || got.Need.Calories != float64(day.Plan.DailyTarget) {
+		t.Errorf("a las 20 h es la última comida y no se divide: %d comidas, %v kcal", got.MealsLeft, got.Need.Calories)
 	}
 }

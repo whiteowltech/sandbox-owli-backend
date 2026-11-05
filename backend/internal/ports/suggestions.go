@@ -11,7 +11,10 @@ import (
 type ClosingView struct {
 	MealsLeft int
 	Need      domain.Macros // para esta comida; en keto, CarbsG son carbos netos
-	NetCarbs  bool
+	// Over: cuánto se pasó el día de cada macro; con grasa o carbos pasados, los
+	// platos casi no suman de ese macro (domain.OverMacroAllowanceG).
+	Over     domain.Macros
+	NetCarbs bool
 	// Closed: el día ya está cubierto (falta menos de domain.MinClosingKcal); no hay platos.
 	Closed bool
 	Dishes []domain.DishSuggestion

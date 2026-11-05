@@ -1,58 +1,73 @@
 # Platos curados para el Meal Closing Engine (domain.SuggestDishes).
 # Cada plato lista sus ingredientes del catálogo (foods_catalog.csv o recipes_catalog.csv) con
 # la porción mínima y máxima en gramos: food_id:min:max separados por |.
-#   - El primero es la fuente de proteína (variedad: como mucho 2 platos por fuente).
+#   - En un plato, el primero es la fuente de proteína (variedad: como mucho 2 platos por fuente).
 #   - Con 3 ingredientes se resuelven proteína, carbos y grasa; con 2, proteína y calorías.
 #   - Las porciones acotan las cuentas: una cucharada de aceite (3–25 g) no se vuelve 200 g.
-# breakfast = 1: plato de desayuno o merienda (sube en el orden a esa hora).
+# kind: meal (plato), breakfast (desayuno o merienda: sube en el orden a esa hora) o side
+#   (acompañamiento sin fuente de proteína, 1 o 2 ingredientes: se ofrece cuando a la comida
+#   le faltan menos de 15 g de proteína y se escala en proporción a las porciones mínimas).
 # La dieta y las restricciones las decide domain.Allows con los atributos de cada ingrediente.
-id,name_es,name_en,breakfast,components
-pollo-arroz-palta,Pollo con arroz y palta,Chicken with rice and avocado,0,pechuga-pollo:60:300|arroz-blanco:30:350|palta:30:150
-pollo-batata,Pollo con batata al horno,Chicken with roasted sweet potato,0,pechuga-pollo:60:300|batata:60:350|aceite-oliva:3:25
-pollo-quinoa,Pollo con quinoa,Chicken with quinoa,0,pechuga-pollo:60:300|quinoa:40:300|aceite-oliva:3:25
-pollo-papas,Pollo con papas al horno,Chicken with roasted potatoes,0,pechuga-pollo:60:300|papa-horno:60:350|aceite-oliva:3:25
-fideos-pollo-queso,Fideos con pollo y queso,Pasta with chicken and cheese,0,pechuga-pollo:60:300|fideos:60:350|queso-parmesano:5:40
-pollo-brocoli-palta,Pollo con brócoli y palta,Chicken with broccoli and avocado,0,pechuga-pollo:60:300|brocoli:60:300|palta:30:150
-pollo-espinaca-queso,Pollo con espinaca y queso,Chicken with spinach and cheese,0,pechuga-pollo:60:300|espinaca:60:300|queso-mozzarella:15:150
-ensalada-pollo-choclo,"Ensalada de pollo, choclo y palta","Chicken, corn and avocado salad",0,pechuga-pollo:60:300|choclo:40:250|palta:30:150
-muslo-arroz-integral,Muslo de pollo con arroz integral,Chicken thigh with brown rice,0,muslo-pollo:60:300|arroz-integral:30:350|aceite-oliva:3:25
-salmon-papas,Salmón con papas,Salmon with potatoes,0,salmon:60:300|papa-hervida:60:350|aceite-oliva:3:25
-poke-salmon,Poke de salmón,Salmon poke,0,salmon:60:300|arroz-blanco:30:350|palta:30:150
-salmon-brocoli-manteca,Salmón con brócoli y manteca,Salmon with broccoli and butter,0,salmon:60:300|brocoli:60:300|manteca:5:30
-salmon-espinaca-palta,Salmón con espinaca y palta,Salmon with spinach and avocado,0,salmon:60:300|espinaca:60:300|palta:30:150
-salmon-manteca,Salmón con manteca,Salmon with butter,0,salmon:60:300|manteca:5:30
-merluza-papas,Merluza con papas,Hake with potatoes,0,merluza:80:350|papa-hervida:60:350|aceite-oliva:3:25
-bife-papas,Bife con papas,Steak with potatoes,0,bife-solomillo:80:350|papa-horno:60:350|aceite-oliva:3:25
-bife-ensalada,Bife con ensalada,Steak with salad,0,bife-solomillo:80:350|lechuga:60:300|aceite-oliva:3:25
-bife-brocoli-manteca,Bife con brócoli y manteca,Steak with broccoli and butter,0,bife-solomillo:80:350|brocoli:60:300|manteca:5:30
-vacio-batata,Vacío con batata,Flank steak with sweet potato,0,vacio:80:350|batata:60:350|aceite-oliva:3:25
-ojo-bife-manteca,Ojo de bife con manteca,Rib eye with butter,0,bife-ojo-bife:80:350|manteca:5:30
-asado-ensalada,Asado de tira con ensalada,Short ribs with salad,0,asado-tira:80:350|lechuga:60:300|aceite-oliva:3:25
-arroz-carne-picada,Arroz con carne picada,Rice with ground beef,0,carne-picada:60:300|arroz-blanco:30:350|aceite-oliva:3:25
-cerdo-batata,Lomo de cerdo con batata,Pork loin with sweet potato,0,lomo-cerdo:80:350|batata:60:350|aceite-oliva:3:25
-wrap-pavo-palta,Wrap de pavo y palta,Turkey and avocado wrap,0,pechuga-pavo:50:250|tortilla-trigo:30:150|palta:30:150
-arroz-camarones,Arroz con camarones,Shrimp rice,0,camarones:60:300|arroz-blanco:30:350|aceite-oliva:3:25
-huevos-panceta,Huevos con panceta,Eggs and bacon,1,huevo:50:250|panceta:10:80
-huevos-manteca,Huevos revueltos con manteca,Scrambled eggs with butter,1,huevo:50:250|manteca:5:30
-huevos-queso,Huevos con queso,Eggs with cheese,1,huevo:50:250|queso-mozzarella:15:150
-tostadas-huevo-palta,Tostadas con huevo y palta,Toast with egg and avocado,1,huevo:50:250|pan-integral:30:150|palta:30:150
-omelette-espinaca,Omelette de espinaca y queso,Spinach and cheese omelette,1,huevo:50:250|espinaca:60:300|queso-mozzarella:15:150
-huevos-batata-palta,Huevos con batata y palta,Eggs with sweet potato and avocado,0,huevo:50:250|batata:60:350|palta:30:150
-arroz-atun-palta,Arroz con atún y palta,Rice with tuna and avocado,0,atun-lata:50:250|arroz-blanco:30:350|palta:30:150
-ensalada-atun-papa,Ensalada de atún y papa,Tuna and potato salad,0,atun-lata:50:250|papa-hervida:60:350|aceite-oliva:3:25
-fideos-atun,Fideos con atún,Pasta with tuna,0,atun-lata:50:250|fideos:60:350|aceite-oliva:3:25
-tofu-arroz,Tofu salteado con arroz,Stir-fried tofu with rice,0,tofu:60:350|arroz-blanco:30:350|aceite-oliva:3:25
-tofu-quinoa-palta,Tofu con quinoa y palta,Tofu with quinoa and avocado,0,tofu:60:350|quinoa:40:300|palta:30:150
-tofu-brocoli-nueces,Tofu con brócoli y nueces,Tofu with broccoli and walnuts,0,tofu:60:350|brocoli:60:300|nueces:10:50
-tempeh-batata,Tempeh con batata y almendras,Tempeh with sweet potato and almonds,0,tempeh:60:300|batata:60:350|almendras:10:50
-tempeh-quinoa,Tempeh con quinoa,Tempeh with quinoa,0,tempeh:60:300|quinoa:40:300|aceite-oliva:3:25
-lentejas-arroz,Lentejas con arroz,Lentils with rice,0,lentejas:100:350|arroz-blanco:30:350|aceite-oliva:3:25
-lentejas-papa,Lentejas con papa,Lentils with potato,0,lentejas:100:350|papa-hervida:60:350|aceite-oliva:3:25
-garbanzos-cuscus,Garbanzos con cuscús,Chickpeas with couscous,0,garbanzos:100:350|cuscus:40:300|aceite-oliva:3:25
-porotos-arroz-palta,Porotos negros con arroz y palta,Black beans with rice and avocado,0,porotos-negros:100:350|arroz-blanco:30:350|palta:30:150
-yogur-avena-nueces,Yogur con avena y nueces,Yogurt with oats and walnuts,1,yogur-griego:100:350|avena:20:100|nueces:10:50
-yogur-banana-almendras,Yogur con banana y almendras,Yogurt with banana and almonds,1,yogur-griego:100:350|banana:50:200|almendras:10:50
-yogur-arandanos-chia,Yogur con arándanos y chía,Yogurt with blueberries and chia,1,yogur-griego:100:350|arandanos:30:200|semillas-chia:5:30
-tostadas-cottage-palta,Tostadas con cottage y palta,Toast with cottage cheese and avocado,1,queso-cottage:50:250|pan-integral:30:150|palta:30:150
-avena-leche-mani,Avena con leche y mantequilla de maní,Oats with milk and peanut butter,1,leche-entera:100:400|avena:20:100|mantequilla-mani:10:40
-queso-panceta,Provolone con panceta,Provolone with bacon,0,queso-provolone:30:150|panceta:10:80
+id,name_es,name_en,kind,components
+pollo-arroz-palta,Pollo con arroz y palta,Chicken with rice and avocado,meal,pechuga-pollo:60:300|arroz-blanco:30:350|palta:30:150
+pollo-batata,Pollo con batata al horno,Chicken with roasted sweet potato,meal,pechuga-pollo:60:300|batata:60:350|aceite-oliva:3:25
+pollo-quinoa,Pollo con quinoa,Chicken with quinoa,meal,pechuga-pollo:60:300|quinoa:40:300|aceite-oliva:3:25
+pollo-papas,Pollo con papas al horno,Chicken with roasted potatoes,meal,pechuga-pollo:60:300|papa-horno:60:350|aceite-oliva:3:25
+fideos-pollo-queso,Fideos con pollo y queso,Pasta with chicken and cheese,meal,pechuga-pollo:60:300|fideos:60:350|queso-parmesano:5:40
+pollo-brocoli-palta,Pollo con brócoli y palta,Chicken with broccoli and avocado,meal,pechuga-pollo:60:300|brocoli:60:300|palta:30:150
+pollo-espinaca-queso,Pollo con espinaca y queso,Chicken with spinach and cheese,meal,pechuga-pollo:60:300|espinaca:60:300|queso-mozzarella:15:150
+ensalada-pollo-choclo,"Ensalada de pollo, choclo y palta","Chicken, corn and avocado salad",meal,pechuga-pollo:60:300|choclo:40:250|palta:30:150
+muslo-arroz-integral,Muslo de pollo con arroz integral,Chicken thigh with brown rice,meal,muslo-pollo:60:300|arroz-integral:30:350|aceite-oliva:3:25
+salmon-papas,Salmón con papas,Salmon with potatoes,meal,salmon:60:300|papa-hervida:60:350|aceite-oliva:3:25
+poke-salmon,Poke de salmón,Salmon poke,meal,salmon:60:300|arroz-blanco:30:350|palta:30:150
+salmon-brocoli-manteca,Salmón con brócoli y manteca,Salmon with broccoli and butter,meal,salmon:60:300|brocoli:60:300|manteca:5:30
+salmon-espinaca-palta,Salmón con espinaca y palta,Salmon with spinach and avocado,meal,salmon:60:300|espinaca:60:300|palta:30:150
+salmon-manteca,Salmón con manteca,Salmon with butter,meal,salmon:60:300|manteca:5:30
+merluza-papas,Merluza con papas,Hake with potatoes,meal,merluza:80:350|papa-hervida:60:350|aceite-oliva:3:25
+bife-papas,Bife con papas,Steak with potatoes,meal,bife-solomillo:80:350|papa-horno:60:350|aceite-oliva:3:25
+bife-ensalada,Bife con ensalada,Steak with salad,meal,bife-solomillo:80:350|lechuga:60:300|aceite-oliva:3:25
+bife-brocoli-manteca,Bife con brócoli y manteca,Steak with broccoli and butter,meal,bife-solomillo:80:350|brocoli:60:300|manteca:5:30
+vacio-batata,Vacío con batata,Flank steak with sweet potato,meal,vacio:80:350|batata:60:350|aceite-oliva:3:25
+ojo-bife-manteca,Ojo de bife con manteca,Rib eye with butter,meal,bife-ojo-bife:80:350|manteca:5:30
+asado-ensalada,Asado de tira con ensalada,Short ribs with salad,meal,asado-tira:80:350|lechuga:60:300|aceite-oliva:3:25
+arroz-carne-picada,Arroz con carne picada,Rice with ground beef,meal,carne-picada:60:300|arroz-blanco:30:350|aceite-oliva:3:25
+cerdo-batata,Lomo de cerdo con batata,Pork loin with sweet potato,meal,lomo-cerdo:80:350|batata:60:350|aceite-oliva:3:25
+wrap-pavo-palta,Wrap de pavo y palta,Turkey and avocado wrap,meal,pechuga-pavo:50:250|tortilla-trigo:30:150|palta:30:150
+arroz-camarones,Arroz con camarones,Shrimp rice,meal,camarones:60:300|arroz-blanco:30:350|aceite-oliva:3:25
+huevos-panceta,Huevos con panceta,Eggs and bacon,breakfast,huevo:50:250|panceta:10:80
+huevos-manteca,Huevos revueltos con manteca,Scrambled eggs with butter,breakfast,huevo:50:250|manteca:5:30
+huevos-queso,Huevos con queso,Eggs with cheese,breakfast,huevo:50:250|queso-mozzarella:15:150
+tostadas-huevo-palta,Tostadas con huevo y palta,Toast with egg and avocado,breakfast,huevo:50:250|pan-integral:30:150|palta:30:150
+omelette-espinaca,Omelette de espinaca y queso,Spinach and cheese omelette,breakfast,huevo:50:250|espinaca:60:300|queso-mozzarella:15:150
+huevos-batata-palta,Huevos con batata y palta,Eggs with sweet potato and avocado,meal,huevo:50:250|batata:60:350|palta:30:150
+arroz-atun-palta,Arroz con atún y palta,Rice with tuna and avocado,meal,atun-lata:50:250|arroz-blanco:30:350|palta:30:150
+ensalada-atun-papa,Ensalada de atún y papa,Tuna and potato salad,meal,atun-lata:50:250|papa-hervida:60:350|aceite-oliva:3:25
+fideos-atun,Fideos con atún,Pasta with tuna,meal,atun-lata:50:250|fideos:60:350|aceite-oliva:3:25
+tofu-arroz,Tofu salteado con arroz,Stir-fried tofu with rice,meal,tofu:60:350|arroz-blanco:30:350|aceite-oliva:3:25
+tofu-quinoa-palta,Tofu con quinoa y palta,Tofu with quinoa and avocado,meal,tofu:60:350|quinoa:40:300|palta:30:150
+tofu-brocoli-nueces,Tofu con brócoli y nueces,Tofu with broccoli and walnuts,meal,tofu:60:350|brocoli:60:300|nueces:10:50
+tempeh-batata,Tempeh con batata y almendras,Tempeh with sweet potato and almonds,meal,tempeh:60:300|batata:60:350|almendras:10:50
+tempeh-quinoa,Tempeh con quinoa,Tempeh with quinoa,meal,tempeh:60:300|quinoa:40:300|aceite-oliva:3:25
+lentejas-arroz,Lentejas con arroz,Lentils with rice,meal,lentejas:100:350|arroz-blanco:30:350|aceite-oliva:3:25
+lentejas-papa,Lentejas con papa,Lentils with potato,meal,lentejas:100:350|papa-hervida:60:350|aceite-oliva:3:25
+garbanzos-cuscus,Garbanzos con cuscús,Chickpeas with couscous,meal,garbanzos:100:350|cuscus:40:300|aceite-oliva:3:25
+porotos-arroz-palta,Porotos negros con arroz y palta,Black beans with rice and avocado,meal,porotos-negros:100:350|arroz-blanco:30:350|palta:30:150
+yogur-avena-nueces,Yogur con avena y nueces,Yogurt with oats and walnuts,breakfast,yogur-griego:100:350|avena:20:100|nueces:10:50
+yogur-banana-almendras,Yogur con banana y almendras,Yogurt with banana and almonds,breakfast,yogur-griego:100:350|banana:50:200|almendras:10:50
+yogur-arandanos-chia,Yogur con arándanos y chía,Yogurt with blueberries and chia,breakfast,yogur-griego:100:350|arandanos:30:200|semillas-chia:5:30
+tostadas-cottage-palta,Tostadas con cottage y palta,Toast with cottage cheese and avocado,breakfast,queso-cottage:50:250|pan-integral:30:150|palta:30:150
+avena-leche-mani,Avena con leche y mantequilla de maní,Oats with milk and peanut butter,breakfast,leche-entera:100:400|avena:20:100|mantequilla-mani:10:40
+queso-panceta,Provolone con panceta,Provolone with bacon,meal,queso-provolone:30:150|panceta:10:80
+fruta-banana,Una banana,A banana,side,banana:100:250
+fruta-manzana,Una manzana,An apple,side,manzana:120:300
+fruta-naranja,Una naranja,An orange,side,naranja:120:300
+fruta-mixta,Frutillas con kiwi,Strawberries with kiwi,side,frutillas:100:300|kiwi:70:200
+uvas,Un racimo de uvas,A bunch of grapes,side,uvas:80:300
+arroz-solo,Arroz blanco,White rice,side,arroz-blanco:100:350
+papa-hervida-sola,Papa hervida,Boiled potato,side,papa-hervida:120:400
+batata-horno,Batata al horno,Roasted sweet potato,side,batata:100:350
+pan-mermelada,Pan con mermelada,Toast with jam,side,pan-integral:40:120|mermelada:15:40
+pan-miel,Pan con miel,Toast with honey,side,pan-blanco:40:120|miel:10:30
+yogur-fruta,Yogur con banana,Yogurt with banana,side,yogur-natural:150:300|banana:60:150
+avena-banana,Avena con banana,Oats with banana,side,avena:30:90|banana:60:150
+galletas-dulce,Galletitas de agua con dulce de leche,Crackers with dulce de leche,side,galletas-agua:20:80|dulce-leche:15:40
