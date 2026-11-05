@@ -83,6 +83,7 @@ func NewRouter(d Deps) http.Handler {
 				r.Post("/me/entries", dh.logEntry)
 				r.Delete("/me/entries/{id}", dh.deleteEntry)
 				r.Get("/me/day", dh.day)
+				r.Get("/me/week", dh.week)
 			}
 			if d.Suggestions != nil {
 				sh := &suggestionHandlers{uc: d.Suggestions, h: h}

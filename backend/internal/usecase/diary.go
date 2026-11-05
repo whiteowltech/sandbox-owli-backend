@@ -107,11 +107,7 @@ func (s *DiaryService) Day(ctx context.Context, userID domain.UserID, date strin
 		meals[i] = e.MealEntry
 	}
 	totals, micros := domain.DayTotals(meals)
-	plan, err := domain.DefaultGoalPolicy.PlanFor(domain.PlanInput{Bio: profile.Bio, Goal: profile.Goal, Pace: profile.Pace, TargetWeightKg: profile.TargetWeightKg})
-	if err != nil {
-		return ports.DayView{}, err
-	}
-	targets, err := domain.DefaultMacroSplit.TargetsFor(plan.DailyTarget, profile.Bio.WeightKg, profile.Goal, profile.Diet)
+	plan, targets, err := planAndTargets(profile)
 	if err != nil {
 		return ports.DayView{}, err
 	}
@@ -126,6 +122,86 @@ func (s *DiaryService) Day(ctx context.Context, userID domain.UserID, date strin
 	}
 	mood := domain.EvaluateMood(domain.MacroBudget{Calories: float64(plan.DailyTarget), ProteinG: targets.ProteinG}, totals, progress)
 	return ports.DayView{Date: date, Entries: entries, Totals: totals, Micros: micros, Plan: plan, Targets: targets, Mood: mood}, nil
+}
+
+// planAndTargets: el objetivo diario y el reparto de macros del perfil.
+func planAndTargets(p domain.UserProfile) (domain.Plan, domain.MacroTargets, error) {
+	plan, err := domain.DefaultGoalPolicy.PlanFor(domain.PlanInput{Bio: p.Bio, Goal: p.Goal, Pace: p.Pace, TargetWeightKg: p.TargetWeightKg})
+	if err != nil {
+		return domain.Plan{}, domain.MacroTargets{}, err
+	}
+	targets, err := domain.DefaultMacroSplit.TargetsFor(plan.DailyTarget, p.Bio.WeightKg, p.Goal, p.Diet)
+	return plan, targets, err
+}
+
+// weekDays es el largo del resumen semanal.
+const weekDays = 7
+
+func (s *DiaryService) Week(ctx context.Context, userID domain.UserID, end string) (ports.WeekView, error) {
+	profile, err := s.profiles.Get(ctx, userID)
+	if errors.Is(err, ports.ErrNotFound) {
+		return ports.WeekView{}, ports.ErrProfileRequired
+	}
+	if err != nil {
+		return ports.WeekView{}, fmt.Errorf("leyendo perfil: %w", err)
+	}
+	today, err := domain.Today(s.now(), profile.Timezone)
+	if err != nil {
+		return ports.WeekView{}, err
+	}
+	if end == "" {
+		end = today
+	}
+	if end > today { // AAAA-MM-DD se ordena como texto
+		return ports.WeekView{}, fmt.Errorf("%w: la semana no puede terminar en el futuro (%s)", domain.ErrInvalidProfile, end)
+	}
+	loc, _ := time.LoadLocation(profile.Timezone) // ya validada por Today
+	endDay, err := time.ParseInLocation("2006-01-02", end, loc)
+	if err != nil {
+		return ports.WeekView{}, fmt.Errorf("%w: fecha %q (se espera AAAA-MM-DD)", domain.ErrInvalidProfile, end)
+	}
+	start := endDay.AddDate(0, 0, -(weekDays - 1)).Format("2006-01-02")
+	from, _, err := domain.DayBounds(start, profile.Timezone)
+	if err != nil {
+		return ports.WeekView{}, err
+	}
+	_, to, err := domain.DayBounds(end, profile.Timezone)
+	if err != nil {
+		return ports.WeekView{}, err
+	}
+	entries, err := s.entries.List(ctx, userID, from, to)
+	if err != nil {
+		return ports.WeekView{}, fmt.Errorf("listando comidas: %w", err)
+	}
+	plan, targets, err := planAndTargets(profile)
+	if err != nil {
+		return ports.WeekView{}, err
+	}
+
+	// Una sola consulta para los 7 días; se agrupan por la fecha local del usuario.
+	byDate := map[string][]domain.MealEntry{}
+	for _, e := range entries {
+		date := e.EatenAt.In(loc).Format("2006-01-02")
+		byDate[date] = append(byDate[date], e.MealEntry)
+	}
+	budget := domain.MacroBudget{Calories: float64(plan.DailyTarget), ProteinG: targets.ProteinG}
+	days := make([]domain.WeekDay, 0, weekDays)
+	for i := range weekDays {
+		date := endDay.AddDate(0, 0, i-(weekDays-1)).Format("2006-01-02")
+		totals, _ := domain.DayTotals(byDate[date])
+		progress := 1.0
+		if date == today {
+			progress = domain.DayProgress(s.now().In(loc))
+		}
+		days = append(days, domain.WeekDay{
+			Date: date, Totals: totals, Entries: len(byDate[date]), InProgress: date == today,
+			Mood: domain.EvaluateMood(budget, totals, progress),
+		})
+	}
+	return ports.WeekView{
+		Start: start, End: end, Today: today, Days: days, Plan: plan, Targets: targets,
+		Review: domain.ReviewWeek(days, budget),
+	}, nil
 }
 
 var _ ports.DiaryUseCase = (*DiaryService)(nil)

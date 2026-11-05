@@ -12,10 +12,9 @@ import (
 // ingrediente se resuelven para lo que falta. Combinar ingredientes al azar da
 // platos que cuadran en números pero nadie comería (aprendido en el prototipo v5).
 
-// Tolerancia de un plato "que cierra" (CLAUDE.md): ±5 % de calorías y ±5 g de proteína.
+// Un plato "cierra" con las mismas tolerancias que el día (mood.go):
+// ClosingCalorieTolerance (±5 % de calorías) y ClosingProteinToleranceG (±5 g de proteína).
 const (
-	ClosingKcalTolerance    = 0.05
-	ClosingProteinTolerance = 5.0
 	// MaxSuggestions: cuántos platos se sugieren como mucho.
 	MaxSuggestions = 10
 	// maxPerProtein: variedad, que no salgan 10 variantes de pollo.
@@ -131,13 +130,13 @@ func SuggestDishes(templates []DishTemplate, req ClosingRequest) []DishSuggestio
 		carbs := s.Macros.CarbsG
 		if keto {
 			carbs = s.Macros.NetCarbsG()
-			if carbs > req.Need.CarbsG+ClosingProteinTolerance {
+			if carbs > req.Need.CarbsG+ClosingProteinToleranceG {
 				continue // no entra en el margen de carbos netos del día
 			}
 		}
 		need := req.Need
-		s.Exact = math.Abs(s.Macros.Calories-need.Calories) <= need.Calories*ClosingKcalTolerance &&
-			math.Abs(s.Macros.ProteinG-need.ProteinG) <= ClosingProteinTolerance
+		s.Exact = math.Abs(s.Macros.Calories-need.Calories) <= need.Calories*ClosingCalorieTolerance &&
+			math.Abs(s.Macros.ProteinG-need.ProteinG) <= ClosingProteinToleranceG
 		s.score = math.Abs(s.Macros.Calories-need.Calories)/math.Max(need.Calories, 100) +
 			math.Abs(s.Macros.ProteinG-need.ProteinG)/math.Max(need.ProteinG, 10) +
 			0.5*(math.Abs(carbs-need.CarbsG)/math.Max(need.CarbsG, 15)+math.Abs(s.Macros.FatG-need.FatG)/math.Max(need.FatG, 8))

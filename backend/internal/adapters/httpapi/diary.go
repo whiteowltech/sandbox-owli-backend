@@ -195,3 +195,54 @@ func (d *diaryHandlers) day(w http.ResponseWriter, r *http.Request) {
 	}
 	writeJSON(w, http.StatusOK, toDayDTO(view))
 }
+
+type weekDayDTO struct {
+	Date       string    `json:"date"`
+	Totals     macrosDTO `json:"totals"`
+	Entries    int       `json:"entries"`
+	InProgress bool      `json:"inProgress"`
+	Mood       string    `json:"mood"`
+	Closed     bool      `json:"closed"`
+}
+
+type weekDTO struct {
+	Start  string       `json:"start"`
+	End    string       `json:"end"`
+	Today  string       `json:"today"`
+	Days   []weekDayDTO `json:"days"`
+	Target struct {
+		Kcal     int     `json:"kcal"`
+		ProteinG float64 `json:"proteinG"`
+	} `json:"target"`
+	Review struct {
+		LoggedDays       int      `json:"loggedDays"`
+		ClosedDays       int      `json:"closedDays"`
+		ProteinShortDays int      `json:"proteinShortDays"`
+		OverDays         int      `json:"overDays"`
+		AvgKcal          *float64 `json:"avgKcal"` // null si no hay días anotados
+		AvgProteinG      *float64 `json:"avgProteinG"`
+		Streak           int      `json:"streak"`
+	} `json:"review"`
+}
+
+// week: los 7 días que terminan en ?end=AAAA-MM-DD (por defecto, hoy).
+func (d *diaryHandlers) week(w http.ResponseWriter, r *http.Request) {
+	v, err := d.diary.Week(r.Context(), userID(r.Context()), r.URL.Query().Get("end"))
+	if err != nil {
+		fail(w, d.h.log, err)
+		return
+	}
+	out := weekDTO{Start: v.Start, End: v.End, Today: v.Today, Days: make([]weekDayDTO, len(v.Days))}
+	for i, day := range v.Days {
+		out.Days[i] = weekDayDTO{Date: day.Date, Totals: toMacrosDTO(day.Totals), Entries: day.Entries,
+			InProgress: day.InProgress, Mood: string(day.Mood), Closed: day.Closed()}
+	}
+	out.Target.Kcal, out.Target.ProteinG = v.Plan.DailyTarget, v.Targets.ProteinG
+	rv := v.Review
+	out.Review.LoggedDays, out.Review.ClosedDays, out.Review.Streak = rv.LoggedDays, rv.ClosedDays, rv.Streak
+	out.Review.ProteinShortDays, out.Review.OverDays = rv.ProteinShortDays, rv.OverDays
+	if rv.HasAverages {
+		out.Review.AvgKcal, out.Review.AvgProteinG = &rv.AvgKcal, &rv.AvgProteinG
+	}
+	writeJSON(w, http.StatusOK, out)
+}

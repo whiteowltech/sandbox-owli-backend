@@ -92,8 +92,8 @@ func TestSuggestDishesClosesTheGap(t *testing.T) {
 		t.Errorf("el mejor plato debería cerrar dentro de la tolerancia: %s %+v", best.ID, best.Macros)
 	}
 	for _, s := range got {
-		inTol := math.Abs(s.Macros.Calories-need.Calories) <= need.Calories*ClosingKcalTolerance &&
-			math.Abs(s.Macros.ProteinG-need.ProteinG) <= ClosingProteinTolerance
+		inTol := math.Abs(s.Macros.Calories-need.Calories) <= need.Calories*ClosingCalorieTolerance &&
+			math.Abs(s.Macros.ProteinG-need.ProteinG) <= ClosingProteinToleranceG
 		if s.Exact != inTol {
 			t.Errorf("%s: Exact = %v pero está %s de tolerancia (%+v)", s.ID, s.Exact, map[bool]string{true: "dentro", false: "fuera"}[inTol], s.Macros)
 		}

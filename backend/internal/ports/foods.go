@@ -53,6 +53,19 @@ type DayView struct {
 	Mood domain.OwliMood
 }
 
+// WeekView es el resumen de 7 días para "Tu semana".
+//
+// El objetivo es el del perfil actual: si el usuario cambió su plan, los días
+// anteriores se comparan con el nuevo (todavía no se guarda el historial del plan).
+type WeekView struct {
+	Start, End string // AAAA-MM-DD en la zona horaria del usuario
+	Today      string
+	Days       []domain.WeekDay
+	Plan       domain.Plan
+	Targets    domain.MacroTargets
+	Review     domain.WeekReview
+}
+
 // DiaryUseCase: registro manual y resumen del día (implementado en usecase.DiaryService).
 // Registrar a mano es siempre gratis: no toca créditos.
 type DiaryUseCase interface {
@@ -61,4 +74,6 @@ type DiaryUseCase interface {
 	Delete(ctx context.Context, userID domain.UserID, entryID string) error
 	// Day: date vacío = hoy en la zona horaria del usuario.
 	Day(ctx context.Context, userID domain.UserID, date string) (DayView, error)
+	// Week: los 7 días que terminan en end (vacío = hoy). No puede ser un día futuro.
+	Week(ctx context.Context, userID domain.UserID, end string) (WeekView, error)
 }

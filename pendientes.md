@@ -39,12 +39,19 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 - [ ] **Micronutrientes, fase 2**:
   - Panel completo y tendencias.
   - Que el cierre del día desempate por micros ("este plato te suma potasio").
-- [ ] **Recalcular el plan** desde la cuenta sin repetir todo el onboarding.
+- [x] **Tu semana**: 7 días con calorías y proteína contra el objetivo, días cerrados, racha y tabla accesible.
+- [ ] **Historial del plan**: guardar el objetivo de cada día para que "Tu semana" compare cada día con el plan vigente ese día (hoy usa el actual).
+- [x] **Recalcular el plan** desde la cuenta sin repetir el onboarding: "Tu cuenta" edita cuerpo, objetivo, dieta, comidas por día y nombre con el objetivo recalculado en vivo; también créditos, idioma, unidades y borrar la cuenta (4 de noviembre de 2026). Las comidas por día ahora se eligen en el onboarding (antes quedaban fijas en 4).
+- [ ] **Motor de sugerencias, fase 1.5** (visto con datos reales el 4 de noviembre de 2026: con carbos 2/192 g y grasa 97/53 g sugirió huevos con manteca):
+  - Descartar platos que suman a un macro ya pasado (grasa pasada → nada con manteca, aceite, palta ni panceta).
+  - Acompañamientos sin fuente de proteína para cuando faltan carbos o calorías (fruta, arroz, papa, pan, yogur con fruta).
+  - Deducir qué comida es por las comidas hechas y el tiempo desde la última, no solo por la hora (de 16 a 19 h hoy asume merienda). En la última comida del día, no dividir.
+  - Explicar arriba de la lista qué falta para esta comida y por qué.
 - [ ] **Crear alimentos propios** en el registro manual cuando no están en la base.
 
 ## Cuentas y sesiones
 
-- [ ] **URL de la API en Railway** para `environment.prod.ts` (hoy es un valor provisional).
+- [x] **URL de la API en Railway** en `environment.prod.ts` (sandbox: `sandbox-owli-backend-production.up.railway.app`).
 - [ ] **Guardar la sesión en el almacenamiento seguro** del teléfono (Keychain en iOS, Keystore en Android) en vez de `localStorage`, al armar la app nativa.
 - [ ] **Revocar el token de Sign in with Apple al eliminar la cuenta** (exigencia de Apple). Necesita la clave privada de Sign in with Apple de la cuenta de desarrollador.
 - [ ] **Botones de Apple y Google en la app** (pantalla "¿Guardo tu progreso?"). El backend ya verifica los tokens; falta configurar los client IDs en las consolas de Apple y Google.
@@ -78,7 +85,8 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 - [ ] **Cámara nativa con Capacitor** (hoy es el `<input type=file capture>` del navegador) y permisos de cámara en iOS y Android.
 - [ ] **Explicar la cuota diaria** cuando se gasta el último crédito de bienvenida (CLAUDE.md, Comunicación).
 - [ ] Probar el análisis por foto con Gemini real desde el teléfono (las pruebas usan la IA simulada).
-- [ ] Playwright para los flujos críticos: onboarding, registro y confirmación, compra.
+- [x] Playwright para onboarding, registro manual, foto, voz, sugerencias y semana (44 pruebas).
+- [ ] Playwright para la compra (cuando esté RevenueCat).
 - [ ] Repetir el benchmark con fotos reales de celular, no solo Nutrition5k.
 - [ ] Ejecutar `/setup-ui-ux-skills` (respuestas recomendadas: estética propia, Owli exento de la regla de mascotas, WCAG AA, voz directa, Ionicons, pantallas de 375 y 430 px).
 
@@ -86,7 +94,8 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 
 Un usuario normal no gana nada con varias cuentas (pierde su historial; < $0,05 de IA por cuenta). El riesgo real son los bots creando cuentas anónimas en cadena.
 
-- [ ] **Con la autenticación**: tope global de gasto diario en IA (si se supera, los análisis esperan y no se cobra al usuario) y límite de cuentas nuevas y de análisis por IP y dispositivo, en Redis.
+- [x] **Con la autenticación**: tope global de gasto diario en IA y límites de cuentas nuevas, de inicios de sesión y de análisis por IP y por usuario, en Redis.
+- [ ] Límite por **dispositivo** (necesita la app nativa: Play Integrity / App Attest, abajo).
 - [ ] **Con la app nativa**: Play Integrity (Android) y App Attest (iOS) al crear cuentas y en los endpoints de IA.
 - [ ] **Créditos de bienvenida, una sola vez**: por dispositivo con DeviceCheck en iOS (sobrevive a reinstalar) y por identidad al vincular Apple o Google.
 - [ ] **Correo**: bloquear dominios descartables y normalizar `nombre+algo@gmail.com`.
@@ -95,7 +104,7 @@ Un usuario normal no gana nada con varias cuentas (pierde su historial; < $0,05 
 ## App Store
 
 - [ ] Etiquetas de privacidad (Privacy Nutrition Labels): datos de salud y fotos que no se guardan.
-- [ ] Eliminar la cuenta desde la app (ya está en el prototipo v5).
+- [x] Eliminar la cuenta desde la app (borra también la cuenta del servidor).
 - [ ] Sign in with Apple.
 - [ ] Pedir calificación solo con el aviso nativo, nunca en el onboarding.
 - [ ] Textos de permisos de HealthKit, cámara, micrófono y notificaciones.

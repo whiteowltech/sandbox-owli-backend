@@ -4,7 +4,7 @@ Owli es una app SaaS de nutrición predictiva y seguimiento de comidas. Sus pila
 
 Actúa como Arquitecto de Software Principal y Full-Stack Senior (Go, Ionic/Angular, sistemas con IA). El código debe quedar listo para producción: manejo de errores completo, inyección de dependencias explícita y reglas de negocio documentadas en el código.
 
-> Estado: backend con dominio, auth JWT, base nutricional, registro manual, por foto y por voz con créditos, y sugerencias para cerrar el día; app Ionic con onboarding, día, los tres registros y las sugerencias. El diseño de referencia es el prototipo v5 (Design canvas) y las tareas abiertas están en [pendientes.md](pendientes.md). Cuando existan comandos nuevos, añádelos en la sección **Comandos**.
+> Estado: backend con dominio, auth JWT, base nutricional, registro manual, por foto y por voz con créditos, sugerencias para cerrar el día y resumen semanal; app Ionic con onboarding, día, los tres registros, las sugerencias, "Tu semana" y "Tu cuenta" (editar el plan, créditos, preferencias, borrar la cuenta). Repos: `sandbox-owli-backend` (esta carpeta, sin `app/`) y `sandbox-owli-app` (`app/`); deploy en Railway y Cloudflare Pages. El diseño de referencia es el prototipo v5 (Design canvas) y las tareas abiertas están en [pendientes.md](pendientes.md). Cuando existan comandos nuevos, añádelos en la sección **Comandos**.
 
 ---
 
@@ -82,7 +82,7 @@ Precios de referencia de noviembre de 2026. Costo estimado por análisis: ≈ $0
   | Claude Haiku 5.5 | 44.3 % | **+39 % (sobreestima)** | 68 % | 1.3 s / 1.9 s | $0.23 |
 
   Haiku sobreestima de forma sistemática. Aplicando un factor de ×0.71 (calculado con la mitad de los platos y validado con la otra mitad), su error baja a ~31 %, todavía peor que Gemini.
-- **Visión, respaldo:** `claude-haiku-5-5` (Anthropic), **solo por disponibilidad**: cuando Gemini devuelve 429 o 503 o supera el timeout. Se elige otro proveedor porque los 503 de Google afectan a todos sus modelos a la vez, así que un respaldo dentro de Google no protege. Los gramos de Haiku se multiplican por un **factor de calibración configurable (por defecto 0.71)**. El reintento **no cobra** un crédito extra.
+- **Visión, respaldo:** `claude-haiku-5-5` (Anthropic), **solo por disponibilidad**: cuando Gemini falla por cualquier motivo (429, 503, timeout, respuesta inválida) o está mal configurado (key inválida, sin facturación: se registra como error para corregirlo; decidido el 4 de noviembre de 2026, tras una key mal cargada en Railway). Se elige otro proveedor porque los 503 de Google afectan a todos sus modelos a la vez, así que un respaldo dentro de Google no protege. Los gramos de Haiku se multiplican por un **factor de calibración configurable (por defecto 0.71)**. El reintento **no cobra** un crédito extra.
   - Haiku 5.5 rechaza el parámetro `temperature`. La salida estructurada se fuerza con `tool_choice` (ver `adapters/anthropic`).
   - `gemini-3.8-flash` queda descartado: no mejora la precisión, es lento y no acepta `thinkingLevel: minimal`.
 - **La `confidence` que devuelve el modelo no está calibrada.** En Gemini nunca bajó de 0.6. En Claude varía más, pero en ambos la correlación con el error real fue ~0 (≤ 0.10). No se usa para tomar decisiones (ni para reintentar ni para saltarse la confirmación). La pantalla de confirmación se muestra **siempre** y debe permitir ajustar los gramos rápido, porque el error típico es de ±20–25 %.
@@ -141,6 +141,13 @@ Precios de referencia de noviembre de 2026. Costo estimado por análisis: ≈ $0
 - El estado de ánimo se calcula con reglas de dominio puras a partir del progreso de macros del día. Ejemplos: enérgico si va en rango, cansado ante un déficit severo de proteína, satisfecho al cerrar el balance calórico.
 - Los comentarios salen de **plantillas** indexadas por (estado de ánimo × dieta × contexto): no llaman a la IA ni consumen créditos.
 - El tono depende de la dieta: cazador/fuerza para Carnívoro, enfoque metabólico para Keto, apoyo estratégico para déficit calórico.
+
+### "Tu semana"
+- `GET /v1/me/week?end=AAAA-MM-DD`: los 7 días que terminan en `end` (por defecto, hoy; nunca en el futuro). Implementado en [week.go](backend/internal/domain/week.go) (`ReviewWeek`).
+- Un día está **cerrado** con el mismo criterio que el estado "satisfecho" de Owli (calorías ±5 %, proteína a 5 g o más).
+- Los días sin anotar no cuentan como "cortos" ni "pasados": son días sin datos. El día en curso no entra en los promedios ni en los cortos.
+- Racha: días seguidos anotando; si hoy todavía no se anotó, cuenta hasta ayer.
+- Todos los días se comparan con el objetivo **actual** del perfil: todavía no se guarda el historial del plan.
 
 ### "Día" del usuario
 - Los totales diarios se cortan según la **zona horaria del usuario** (guardada en su perfil), no la del servidor. Los timestamps se almacenan en UTC (`timestamptz`).

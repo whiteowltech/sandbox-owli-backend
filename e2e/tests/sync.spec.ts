@@ -72,7 +72,9 @@ test('borrar el perfil desde la cuenta elimina también la cuenta del servidor',
   await expect.poll(async () => (await serverProfile(request, s!.accessToken)).status).toBe(200);
 
   await page.getByRole('link', { name: 'Ver tu cuenta' }).click();
-  await page.getByRole('button', { name: 'Borrar el perfil y volver a empezar' }).click();
+  await page.getByRole('button', { name: 'Borrar mi cuenta' }).click();
+  await expect(page.getByRole('alertdialog', { name: '¿Borrar tu cuenta?' })).toBeVisible();
+  await page.getByRole('button', { name: 'Borrar definitivamente' }).click();
   await expect(page).toHaveURL(/\/onboarding$/);
   expect((await serverProfile(request, s!.accessToken)).status).toBe(404);
   expect(await session(page)).toBeNull();
