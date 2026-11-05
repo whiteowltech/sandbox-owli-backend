@@ -110,6 +110,24 @@ func TestFallbackWhenPrimaryFailsOrIsSlow(t *testing.T) {
 	}
 }
 
+// badKey simula un principal mal configurado: falla siempre con un error no transitorio.
+type badKey struct{ ports.FoodRecognizer }
+
+func (badKey) RecognizeImage(context.Context, ports.Image) (ports.RecognitionResult, error) {
+	return ports.RecognitionResult{}, errors.New("gemini: HTTP 400: API key not valid")
+}
+
+func TestFallbackWhenPrimaryIsMisconfigured(t *testing.T) {
+	env := newAnalysis(t, badKey{}, fakeai.Recognizer{Model: "respaldo"})
+	got, err := env.svc.AnalyzePhoto(context.Background(), env.user, photo("plato"))
+	if err != nil {
+		t.Fatalf("una key inválida en el principal no debe dejar al usuario sin IA: %v", err)
+	}
+	if !got.Fallback || got.Provider != "respaldo" || got.Wallet.UsedToday != 1 {
+		t.Errorf("debía responder el respaldo cobrando un solo crédito: %+v", got)
+	}
+}
+
 // onlyFor hace que el reconocedor falle o tarde según el contenido, pero que el
 // respaldo reciba una imagen "normal" (simula proveedores distintos).
 type failing struct {

@@ -229,21 +229,30 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 	return out, nil
 }
 
-// recognize prueba el proveedor principal con su límite de tiempo y, si falla
-// por un motivo transitorio o por tiempo, el de respaldo. El reintento no cobra.
+// recognize prueba el proveedor principal con su límite de tiempo y, si falla por
+// cualquier motivo, el de respaldo. El reintento no cobra. Un fallo que no es
+// transitorio (key inválida, sin facturación, modelo dado de baja) también pasa al
+// respaldo para que el usuario no se quede sin IA, pero se registra como error
+// porque es de configuración y alguien tiene que corregirlo.
 // gramsFactor corrige el sesgo conocido del respaldo (1 = sin corrección).
 func (s *AnalysisService) recognize(ctx context.Context, primary, fallback recognizeFunc, gramsFactor float64) (recognized, error) {
 	pctx, cancel := context.WithTimeout(ctx, s.cfg.PrimaryTimeout)
 	res, err := primary(pctx)
 	cancel()
 	if err == nil {
-		return recognized{res: res}, res.Recognition.Validate()
+		if err = res.Recognition.Validate(); err == nil {
+			return recognized{res: res}, nil
+		}
+		err = fmt.Errorf("respuesta inválida: %w", err)
 	}
-	transient := ports.IsRetryable(err) || errors.Is(err, context.DeadlineExceeded)
-	if !transient || fallback == nil || ctx.Err() != nil {
+	if fallback == nil || ctx.Err() != nil {
 		return recognized{}, err
 	}
-	s.log.Info("IA principal no disponible: usando respaldo", "err", err)
+	if ports.IsRetryable(err) || errors.Is(err, context.DeadlineExceeded) {
+		s.log.Info("IA principal no disponible: usando respaldo", "err", err)
+	} else {
+		s.log.Error("IA principal falla por un error que no es transitorio (¿configuración?): usando respaldo", "err", err)
+	}
 	fctx, fcancel := context.WithTimeout(ctx, s.cfg.FallbackTimeout)
 	defer fcancel()
 	res, ferr := fallback(fctx)
