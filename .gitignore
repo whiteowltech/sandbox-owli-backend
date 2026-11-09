@@ -43,3 +43,6 @@ backend/.fdc-cache/
 
 # La app tiene su propio repositorio (sandbox-owli-app)
 app/
+
+# Configuración local de Claude Code
+.claude/settings.local.json

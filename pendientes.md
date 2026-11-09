@@ -1,6 +1,6 @@
 # Pendientes de Owli
 
-Última actualización: 3 de noviembre de 2026.
+Última actualización: 5 de noviembre de 2026.
 
 ## Decisiones abiertas
 
@@ -17,17 +17,23 @@
 
 El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y fuera de git) muestra una mascota que reacciona y cambia de escena según el tema. Para Owli:
 
-- [ ] **Owli reacciona a lo que haces**: salta al guardar una comida, se le iluminan los ojos al cerrar el día, bosteza cuando falta proteína.
-- [ ] **Transiciones entre estados de ánimo**: pasar de cansado a satisfecho con animación, no de golpe.
-- [ ] **Ilustración según el contexto**: como el mapache que duerme en la pantalla de ayuno o bucea en la de hidratación. Owli podría tener escenas para los micros, la semana o el cierre del día.
-- [ ] **Celebración breve al cerrar el día**: una sola, corta, que se pueda saltar.
-- [ ] **Microinteracciones**: barras que se llenan, el número de calorías que cuenta hacia abajo, la hoja de confirmación que sube.
+- [x] **Fase A, movimiento y terminación** (5 de noviembre de 2026), sin librerías nuevas (`animate.enter`/`animate.leave` de Angular):
+  - Hojas que suben con el fondo oscurecido y se cierran arrastrando desde la manija o el encabezado (`owliSheetDrag`).
+  - Calorías que cuentan hasta el valor nuevo (`tweened`); el lector de pantalla anuncia solo el final.
+  - Comida nueva resaltada; borrar ofrece "Deshacer" 5 s (vuelve a anotarla con su hora y su origen).
+  - Owli se funde de un ánimo al otro y salta al anotar; vibración suave (`HapticsService`).
+  - Celebración corta al cerrar el día (cartel y chispas, se cierra con un toque).
+  - Presentación del plan al terminar el onboarding: barra de macros con gramos y curva de peso hasta la fecha.
+  - Botones que se hunden al tocarlos.
+- [ ] **Escenas de Owli generadas con IA** (decidido el 5 de noviembre de 2026): partir de las 4 imágenes actuales como referencia para mantener al personaje. Escenas: agua, día cerrado, de noche, la semana, sin análisis, micros. Mismo encuadre, fondo transparente y 512 px. Recordar que el arte generado con IA tiene protección de copyright limitada (ver Marca).
 - [ ] **Herramienta**: Rive (máquina de estados, liviano, funciona en iOS y Android dentro de Capacitor).
   - Requiere que un ilustrador arme a Owli por partes (ojos, alas, cuerpo) para animarlo.
   - Respetar `prefers-reduced-motion` y no usar animaciones lentas (regla de CLAUDE.md).
 
 ## Producto
 
+- [ ] **Agua** (decidido el 5 de noviembre de 2026): meta diaria y botones rápidos (+250 ml, +500 ml) en Hoy, gratis. Falta definir la meta por defecto (p. ej. 35 ml/kg, validar con un profesional) y si cuenta el agua de los alimentos.
+- [ ] **Fase B**: cambiar los gramos de una comida anotada, recientes y "repetir" en la búsqueda, agrupar en comidas, peso con su gráfico, aviso "Sin análisis" y micros con suplementos.
 - [ ] **Agrupar los alimentos en comidas** (desayuno, almuerzo…). Hoy el ritmo del día para el ánimo de Owli sale de la hora; con comidas se puede usar "comidas hechas / comidas por día".
 
 - [x] **Sugerencias de platos (top 10)**: Meal Closing Engine con 49 platos curados, en el backend y en la app ("Ver qué comer ahora").

@@ -55,12 +55,24 @@ test('anotar a mano: buscar con un error de tipeo, elegir porción y ver lo que 
   await expect(today.getByText('Pechuga de pollo asada')).toBeVisible();
   await expect(today.getByText('Palta')).toBeVisible();
 
-  // Borrar una comida devuelve las calorías.
+  // Borrar una comida devuelve las calorías, y se puede deshacer.
+  const palta = today.locator('.entry', { hasText: 'Palta' });
   await today.getByRole('button', { name: 'Quitar Palta' }).click();
-  await expect(today.getByText('Palta')).toHaveCount(0);
+  await expect(palta).toHaveCount(0);
+  await expect(today.getByText('Borraste Palta.')).toBeVisible();
+  await expect(today.locator('.status .big')).toHaveText(new RegExp(String(target - 330)));
+  await today.getByRole('button', { name: 'Deshacer' }).click();
+  await expect(palta).toContainText('110 g');
+  await page.reload();
+  await expect(palta).toHaveCount(1);
+
+  // Borrada de verdad: después de recargar no vuelve.
+  await today.getByRole('button', { name: 'Quitar Palta' }).click();
+  await expect(palta).toHaveCount(0);
   await expect(today.locator('.status .big')).toHaveText(new RegExp(String(target - 330)));
   await page.reload();
-  await expect(today.getByText('Palta')).toHaveCount(0);
+  await expect(today.getByText('Pechuga de pollo asada')).toBeVisible();
+  await expect(palta).toHaveCount(0);
 });
 
 test('avisa (sin bloquear) cuando un alimento no encaja con la dieta o la restricción', async ({ page }) => {
