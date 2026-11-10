@@ -59,6 +59,14 @@ type Food struct {
 	AllergensVerified  bool
 	UpdatedAt          pgtype.Timestamptz
 	OwnerUserID        *uuid.UUID
+	ServingG           *float64
+}
+
+type FoodMiss struct {
+	Name      string
+	Misses    int32
+	FirstSeen pgtype.Timestamptz
+	LastSeen  pgtype.Timestamptz
 }
 
 type Identity struct {

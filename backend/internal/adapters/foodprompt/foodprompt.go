@@ -6,6 +6,7 @@ package foodprompt
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"strings"
 
 	"github.com/whiteowltech/owli/backend/internal/domain"
@@ -23,6 +24,8 @@ Reglas:
 - "grams": usa referencias visuales (tamaño del plato, cubiertos) para estimar. Incluye salsas o aderezos visibles como ítems propios.
 - "confidence": 0 a 1, qué tan seguro estás de la identificación Y de los gramos.
 - "per_100g": tu mejor estimación de proteína, carbohidratos totales, fibra, grasa y alcohol, en gramos cada 100 g del ítem tal como está servido (con su cocción y su aceite o salsa). No des calorías.
+- Unidades: si el ítem se cuenta en unidades naturales (huevos, empanadas, rebanadas, vasos, tazas, cucharadas, cucharaditas, fetas), completa "quantity" (cuántas), "unit_one" y "unit_many" (la unidad en español en singular y plural, p. ej. "huevo"/"huevos", "cucharada"/"cucharadas") y "unit_grams" (cuánto pesa UNA, p. ej. un huevo ≈ 50 g). "grams" debe ser quantity × unit_grams. Si no se cuenta en unidades, quantity 0 y las unidades vacías.
+- "recipe": en una foto siempre {"is_recipe": false, "name": "", "servings": 0}.
 - Si la imagen no contiene comida, devuelve "items": [].`
 
 // User es el mensaje que acompaña a la imagen.
@@ -40,8 +43,11 @@ Reglas:
 - Separa los componentes ("milanesa con puré" son dos ítems; "estofado de carne con papas" son carne, papas y la salsa), salvo que el plato sea indivisible (pizza, empanada, sándwich, pancake).
 - "name": nombre en inglés, en minúsculas, con la preparación (p. ej. "white rice", "beef empanada", "protein pancake").
 - "display_name": nombre corto en español, como lo dijo la persona.
-- "confidence": 0 a 1, qué tan seguro estás del alimento Y de los gramos (más bajo si la cantidad no se dijo).
+- "confidence": 0 a 1, qué tan seguro estás del alimento Y de los gramos. Si la cantidad no se dijo o es vaga ("un poco", "algo de", "un chorrito"), usa una porción típica y una confianza de 0.5 o menos.
 - "per_100g": tu mejor estimación de proteína, carbohidratos totales, fibra, grasa y alcohol, en gramos cada 100 g del alimento tal como se come (si es una marca o receta conocida, úsala). No des calorías.
+- Unidades: si el ítem se cuenta en unidades naturales (huevos, empanadas, rebanadas, vasos, tazas, cucharadas, cucharaditas, fetas), completa "quantity" (cuántas), "unit_one" y "unit_many" (la unidad en español en singular y plural, p. ej. "huevo"/"huevos", "cucharada"/"cucharadas") y "unit_grams" (cuánto pesa UNA, p. ej. un huevo ≈ 50 g). "grams" debe ser quantity × unit_grams. Si no se cuenta en unidades, quantity 0 y las unidades vacías.
+- "recipe": si cuenta una receta que cocinó con sus ingredientes ("hice unos waffles con dos huevos, leche…"), "is_recipe": true, "name" con el nombre del plato en español ("Waffles proteicos") y "servings" con las porciones que rinde si las dijo o se pueden deducir (p. ej. "salieron 6 waffles" = 6; si no, 0). Los ítems son los ingredientes con TODA la cantidad que usó: cuánto comió se pregunta después. Si no es una receta, {"is_recipe": false, "name": "", "servings": 0}.
+- Ingredientes que no aportan (sal, especias, esencia de vainilla, agua) se omiten.
 - Si no menciona comida (silencio, ruido u otro tema), devuelve "items": [].`
 
 // TextUser arma el mensaje con la transcripción, delimitada para que no se
@@ -66,12 +72,33 @@ var JSONSchema = map[string]any{
 					"grams":        map[string]any{"type": "number"},
 					"confidence":   map[string]any{"type": "number"},
 					"per_100g":     Per100gSchema("object", "number"),
+					"quantity":     map[string]any{"type": "number"},
+					"unit_one":     map[string]any{"type": "string"},
+					"unit_many":    map[string]any{"type": "string"},
+					"unit_grams":   map[string]any{"type": "number"},
 				},
-				"required": []string{"name", "display_name", "grams", "confidence", "per_100g"},
+				"required": ItemFields,
 			},
 		},
+		"recipe": RecipeSchema("object", "boolean", "string", "number"),
 	},
-	"required": []string{"items"},
+	"required": []string{"items", "recipe"},
+}
+
+// ItemFields son los campos de cada ítem, en el orden en que se piden.
+var ItemFields = []string{"name", "display_name", "grams", "confidence", "per_100g", "quantity", "unit_one", "unit_many", "unit_grams"}
+
+// RecipeSchema arma el objeto "recipe" con los nombres de tipo de cada proveedor.
+func RecipeSchema(objectType, boolType, stringType, numberType string) map[string]any {
+	return map[string]any{
+		"type": objectType,
+		"properties": map[string]any{
+			"is_recipe": map[string]any{"type": boolType},
+			"name":      map[string]any{"type": stringType},
+			"servings":  map[string]any{"type": numberType},
+		},
+		"required": []string{"is_recipe", "name", "servings"},
+	}
 }
 
 // Per100gFields son los nutrientes que estima la IA, en el orden en que se piden.
@@ -98,7 +125,16 @@ type recognitionJSON struct {
 		Grams       float64     `json:"grams"`
 		Confidence  float64     `json:"confidence"`
 		Per100g     *per100JSON `json:"per_100g"`
+		Quantity    float64     `json:"quantity"`
+		UnitOne     string      `json:"unit_one"`
+		UnitMany    string      `json:"unit_many"`
+		UnitGrams   float64     `json:"unit_grams"`
 	} `json:"items"`
+	Recipe *struct {
+		IsRecipe bool    `json:"is_recipe"`
+		Name     string  `json:"name"`
+		Servings float64 `json:"servings"`
+	} `json:"recipe"`
 }
 
 type per100JSON struct {
@@ -123,13 +159,25 @@ func Decode(raw []byte) (domain.FoodRecognition, error) {
 			DisplayName: it.DisplayName,
 			Grams:       it.Grams,
 			Confidence:  it.Confidence,
+			Quantity:    it.Quantity,
+			UnitOne:     strings.TrimSpace(it.UnitOne),
+			UnitMany:    strings.TrimSpace(it.UnitMany),
+			UnitGrams:   it.UnitGrams,
 		}
+		item.NormalizeUnits()
 		// Una estimación que no cierra no invalida el reconocimiento: el ítem queda
 		// sin ella y el usuario lo resuelve a mano (se valida en el caso de uso).
 		if p := it.Per100g; p != nil {
 			item.Estimate = &domain.NutrientEstimate{ProteinG: p.ProteinG, CarbsG: p.CarbsG, FiberG: p.FiberG, FatG: p.FatG, AlcoholG: p.AlcoholG}
 		}
 		rec.Items = append(rec.Items, item)
+	}
+	if r := out.Recipe; r != nil && r.IsRecipe && strings.TrimSpace(r.Name) != "" && len(rec.Items) > 0 {
+		servings := r.Servings
+		if servings < 0 || servings > domain.MaxRecipeServings {
+			servings = 0
+		}
+		rec.Recipe = &domain.RecipeInfo{Name: strings.TrimSpace(r.Name), Servings: math.Round(servings)}
 	}
 	if err := rec.Validate(); err != nil {
 		return domain.FoodRecognition{}, err

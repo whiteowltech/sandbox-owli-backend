@@ -123,3 +123,73 @@ func TestNamesMatch(t *testing.T) {
 		}
 	}
 }
+
+func TestNewUserRecipe(t *testing.T) {
+	egg := Food{ID: "huevo", NameES: "Huevo entero", Per100g: Macros{Calories: 143, ProteinG: 12.6, CarbsG: 0.7, FatG: 9.5}}
+	milk := Food{ID: "leche", NameES: "Leche entera", Per100g: Macros{Calories: 61, ProteinG: 3.2, CarbsG: 4.8, FatG: 3.3}}
+	cocoa, _ := NewEstimatedFood("u-1", "Cacao en polvo", "", NutrientEstimate{ProteinG: 20, CarbsG: 58, FiberG: 33, FatG: 14})
+	ings := []RecipeIngredient{{Food: egg, Grams: 100}, {Food: milk, Grams: 200}, {Food: cocoa, Grams: 30}}
+
+	r, err := NewUserRecipe("u-1", "waffles proteicos", 4, ings)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !r.IsRecipe() || r.Estimated() || r.Owner != "u-1" || r.NameES != "Waffles proteicos" {
+		t.Errorf("receta = %+v", r)
+	}
+	// Total: 143 + 122 + 30 × cacao. Cada 100 g: total / 330 g × 100.
+	cocoaKcal := cocoa.Per100g.Calories * 0.3
+	want := (143 + 122 + cocoaKcal) / 330 * 100
+	if math.Abs(r.Per100g.Calories-want) > 0.01 {
+		t.Errorf("kcal/100 g = %.2f, se esperaba %.2f", r.Per100g.Calories, want)
+	}
+	if r.ServingGrams != 82.5 || RecipeTotalGrams(ings) != 330 {
+		t.Errorf("porción = %.1f g (330 g en 4 porciones = 82,5)", r.ServingGrams)
+	}
+	// Volver a dictarla con el mismo nombre es la misma receta (se actualiza).
+	again, _ := NewUserRecipe("u-1", "Waffles Proteicos", 0, ings[:2])
+	if again.ID != r.ID || again.ServingGrams != 0 {
+		t.Errorf("misma receta: %q / %q, porción %.1f", r.ID, again.ID, again.ServingGrams)
+	}
+
+	privateOfOther, _ := NewEstimatedFood("u-2", "Cacao", "", NutrientEstimate{CarbsG: 50})
+	for name, in := range map[string][]RecipeIngredient{
+		"sin ingredientes":       nil,
+		"ingrediente de otro":    {{Food: privateOfOther, Grams: 10}},
+		"ingrediente sin gramos": {{Food: egg, Grams: 0}},
+		"ingrediente gigantesco": {{Food: egg, Grams: 5000}},
+	} {
+		if _, err := NewUserRecipe("u-1", "x", 1, in); err == nil {
+			t.Errorf("%s: debería fallar", name)
+		}
+	}
+	if _, err := NewUserRecipe("u-1", "x", MaxRecipeServings+1, ings); err == nil {
+		t.Error("demasiadas porciones: debería fallar")
+	}
+}
+
+func TestNormalizeUnits(t *testing.T) {
+	cases := []struct {
+		name  string
+		in    RecognizedFood
+		grams float64
+		units bool
+	}{
+		{"dos huevos", RecognizedFood{Grams: 90, Quantity: 2, UnitOne: "huevo", UnitMany: "huevos", UnitGrams: 50}, 100, true},
+		{"sin plural", RecognizedFood{Grams: 15, Quantity: 1, UnitOne: "cucharada", UnitGrams: 15}, 15, true},
+		{"solo gramos", RecognizedFood{Grams: 120}, 120, false},
+		{"unidad sin peso", RecognizedFood{Grams: 80, Quantity: 2, UnitOne: "huevo"}, 80, false},
+		{"cantidad absurda", RecognizedFood{Grams: 80, Quantity: 5000, UnitOne: "grano", UnitGrams: 0.05}, 80, false},
+		{"pasa el máximo", RecognizedFood{Grams: 80, Quantity: 20, UnitOne: "plato", UnitGrams: 400}, 80, false},
+	}
+	for _, c := range cases {
+		it := c.in
+		it.NormalizeUnits()
+		if it.Grams != c.grams || it.HasUnits() != c.units {
+			t.Errorf("%s: %.0f g, unidades %v (se esperaba %.0f g, %v)", c.name, it.Grams, it.HasUnits(), c.grams, c.units)
+		}
+		if c.units && it.UnitMany == "" {
+			t.Errorf("%s: falta el plural", c.name)
+		}
+	}
+}

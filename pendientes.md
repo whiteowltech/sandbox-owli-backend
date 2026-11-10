@@ -51,7 +51,9 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 - [ ] **Validar con un profesional** las reglas nuevas del motor: 22 h como última comida, 2 h 30 entre comidas, 10 g de margen para un macro pasado y 15 g de proteína para ofrecer acompañamientos.
 - [x] **Alimentos que no están en la base** (9 de noviembre de 2026): en foto y voz, la IA estima la composición cada 100 g y se guarda como alimento privado del usuario; el catálogo solo se usa si el nombre coincide con las mismas palabras (ver CLAUDE.md, "Pipeline de registro").
 - [ ] **Repetir el benchmark** (`go run ./cmd/benchmark -n 100`): el prompt cambió (preparaciones y `per_100g`) y puede mover el error de gramos.
-- [ ] **Buscar mis alimentos estimados** en el registro manual ("pancake proteico" sin volver a gastar un análisis) y poder corregir sus valores.
+- [x] **Unidades, recetas y platos propios** (10 de noviembre de 2026): "2 huevos" en unidades, recetas con "¿cuánto comiste?" guardadas como platos propios, que la app reconoce la próxima vez y muestra primero en la búsqueda. Lo que falta en el catálogo se cuenta en `food_misses`.
+- [ ] **Sumar al catálogo los más pedidos** de `food_misses` con datos de USDA (revisar la tabla cada tanto; hoy no hay pantalla).
+- [ ] **Editar mis platos**: corregir los valores de un alimento estimado, renombrar o borrar una receta, y ver sus ingredientes.
 - [ ] **Crear alimentos propios** a mano en el registro manual cuando no están en la base.
 
 ## Cuentas y sesiones

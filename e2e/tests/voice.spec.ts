@@ -106,6 +106,44 @@ test('algo que no está en la base: lo estima la IA y se guarda sin elegir nada'
   await expect(day.getByText('Pancake proteico')).toBeVisible();
 });
 
+test('receta: unidades, cuánto comiste y queda como plato propio', async ({ page }) => {
+  await deviceSpeech(page, 'Hice unos waffles proteicos con dos huevos, un vaso de leche y tres cucharadas de cacao');
+  await onboard(page);
+
+  await page.getByRole('button', { name: 'Contar lo que comiste' }).click();
+  const sheet = page.locator('owli-photo-review-sheet');
+  await expect(sheet.getByText(/waffles proteicos con dos huevos/)).toBeVisible();
+  await sheet.getByRole('button', { name: 'Listo' }).click();
+
+  // La receta: rinde 4, empieza en una porción; los ingredientes en sus unidades.
+  await expect(sheet.getByText('Receta: Waffles proteicos')).toBeVisible();
+  await expect(sheet.getByText(/Rinde 4 porciones/)).toBeVisible();
+  await expect(sheet.getByText('1 de 4 porciones')).toBeVisible();
+  await expect(sheet.getByText(/2\s+huevos/)).toBeVisible();
+  await expect(sheet.getByText(/1\s+vaso\b/)).toBeVisible();
+  await expect(sheet.getByText(/3\s+cucharadas/)).toBeVisible();
+
+  // Un huevo más y uno menos: se mueve de a una unidad.
+  await sheet.getByRole('button', { name: 'Más Huevo entero' }).click();
+  await expect(sheet.getByText(/3\s+huevos/)).toBeVisible();
+  await sheet.getByRole('button', { name: 'Menos Huevo entero' }).click();
+  await expect(sheet.getByText(/2\s+huevos/)).toBeVisible();
+
+  // Comí 2 de las 4 porciones: se anota la mitad de la receta (330 g → 165 g).
+  await sheet.getByRole('button', { name: 'Una porción más' }).click();
+  await expect(sheet.getByText('2 de 4 porciones')).toBeVisible();
+  await sheet.getByRole('button', { name: 'Guardar receta y anotar' }).click();
+  await expect(sheet).toHaveCount(0);
+  const day = page.locator('owli-today-page .entries');
+  await expect(day.getByText('Waffles proteicos')).toBeVisible();
+  await expect(day.getByText(/165 g/)).toBeVisible();
+
+  // Queda como plato propio: aparece en la búsqueda (primero, marcado).
+  await page.getByRole('button', { name: 'Anotar a mano' }).click();
+  await page.getByLabel('Buscar un alimento').fill('waffles');
+  await expect(page.getByRole('button', { name: /Waffles proteicos\s+Tu receta/ })).toBeVisible();
+});
+
 test('respaldo: sin reconocimiento en el navegador, transcribe el servidor', async ({ page }) => {
   await noDeviceSpeech(page);
   await onboard(page);

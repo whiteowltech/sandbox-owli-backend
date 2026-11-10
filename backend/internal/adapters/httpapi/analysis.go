@@ -56,12 +56,23 @@ type analysisItemDTO struct {
 	Confidence  float64  `json:"confidence"`
 	NeedsReview bool     `json:"needsReview"`
 	Food        *foodDTO `json:"food"` // null: el usuario lo elige a mano
+	// Unidades ("2 huevos"): quantity 0 = solo gramos. grams = quantity × unitGrams.
+	Quantity  float64 `json:"quantity,omitempty"`
+	UnitOne   string  `json:"unitOne,omitempty"`
+	UnitMany  string  `json:"unitMany,omitempty"`
+	UnitGrams float64 `json:"unitGrams,omitempty"`
+}
+
+type recipeInfoDTO struct {
+	Name     string  `json:"name"`
+	Servings float64 `json:"servings"` // 0 = no se sabe
 }
 
 type analysisDTO struct {
 	ID         string            `json:"id"`
 	Items      []analysisItemDTO `json:"items"`
 	Transcript string            `json:"transcript,omitempty"` // solo en voz
+	Recipe     *recipeInfoDTO    `json:"recipe,omitempty"`     // es una receta: la app pregunta cuánto se comió
 	NoFood     bool              `json:"noFood"`
 	Fallback   bool              `json:"fallback"`
 	Credits    walletDTO         `json:"credits"`
@@ -172,13 +183,20 @@ func (a *analysisHandlers) respond(w http.ResponseWriter, r *http.Request, res p
 	out := analysisDTO{ID: res.ID, NoFood: res.NoFood, Fallback: res.Fallback, Transcript: res.Transcript,
 		Items: []analysisItemDTO{}, Credits: toWalletDTO(res.Wallet, policy)}
 	for _, it := range res.Items {
-		item := analysisItemDTO{Name: it.Recognized.Name, DisplayName: it.Recognized.DisplayName, Grams: it.Recognized.Grams,
-			Confidence: it.Recognized.Confidence, NeedsReview: it.NeedsReview}
+		rec := it.Recognized
+		item := analysisItemDTO{Name: rec.Name, DisplayName: rec.DisplayName, Grams: rec.Grams,
+			Confidence: rec.Confidence, NeedsReview: it.NeedsReview}
+		if rec.HasUnits() {
+			item.Quantity, item.UnitOne, item.UnitMany, item.UnitGrams = rec.Quantity, rec.UnitOne, rec.UnitMany, rec.UnitGrams
+		}
 		if it.Food != nil {
 			f := toFoodDTO(*it.Food)
 			item.Food = &f
 		}
 		out.Items = append(out.Items, item)
+	}
+	if rc := res.Recipe; rc != nil {
+		out.Recipe = &recipeInfoDTO{Name: rc.Name, Servings: rc.Servings}
 	}
 	writeJSON(w, http.StatusOK, out)
 }

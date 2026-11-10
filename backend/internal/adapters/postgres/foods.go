@@ -107,6 +107,13 @@ func toFood(r db.Food) domain.Food {
 	if r.OwnerUserID != nil {
 		f.Owner = domain.UserID(r.OwnerUserID.String())
 	}
+	switch r.Source {
+	case string(domain.OriginAIEstimate), string(domain.OriginUserRecipe):
+		f.Origin = domain.FoodOrigin(r.Source)
+	}
+	if r.ServingG != nil {
+		f.ServingGrams = *r.ServingG
+	}
 	return f
 }
 
@@ -127,12 +134,22 @@ func (f *Foods) Get(ctx context.Context, id domain.FoodID) (domain.Food, error) 
 	return toFood(r), nil
 }
 
-func (f *Foods) Search(ctx context.Context, query string, limit int) ([]domain.Food, error) {
+// ownerParam: el usuario para las consultas que suman sus alimentos propios. Sin
+// usuario (o con uno que no es UUID) no coincide con ningún dueño: solo el catálogo.
+func ownerParam(u domain.UserID) uuid.UUID {
+	id, err := uuid.Parse(string(u))
+	if err != nil {
+		return uuid.Nil
+	}
+	return id
+}
+
+func (f *Foods) Search(ctx context.Context, owner domain.UserID, query string, limit int) ([]domain.Food, error) {
 	q := domain.NormalizeSearch(query)
 	if q == "" {
 		return []domain.Food{}, nil
 	}
-	rows, err := f.s.q.SearchFoods(ctx, db.SearchFoodsParams{Query: q, MaxResults: int32(limit)})
+	rows, err := f.s.q.SearchFoods(ctx, db.SearchFoodsParams{Query: q, Owner: ownerParam(owner), MaxResults: int32(limit)})
 	if err != nil {
 		return nil, fmt.Errorf("buscando alimentos: %w", err)
 	}
@@ -143,7 +160,7 @@ func (f *Foods) Search(ctx context.Context, query string, limit int) ([]domain.F
 	return out, nil
 }
 
-func (f *Foods) Match(ctx context.Context, names []string) (domain.Food, bool, error) {
+func (f *Foods) Match(ctx context.Context, owner domain.UserID, names []string) (domain.Food, bool, error) {
 	queries := make([]string, 0, len(names))
 	for _, n := range names {
 		if q := domain.NormalizeSearch(n); q != "" {
@@ -153,21 +170,72 @@ func (f *Foods) Match(ctx context.Context, names []string) (domain.Food, bool, e
 	if len(queries) == 0 {
 		return domain.Food{}, false, nil
 	}
-	rows, err := f.s.q.MatchFoodCandidates(ctx, queries)
+	rows, err := f.s.q.MatchFoodCandidates(ctx, db.MatchFoodCandidatesParams{Queries: queries, Owner: ownerParam(owner)})
 	if err != nil {
 		return domain.Food{}, false, fmt.Errorf("cruzando alimento: %w", err)
 	}
-	// Gana el primer nombre de la IA que tenga un candidato con las mismas palabras.
-	for _, q := range queries {
-		for _, r := range rows {
-			for _, term := range strings.Split(r.SearchText, " | ") {
-				if domain.NamesMatch(q, term) {
-					return toFood(r), true, nil
+	// Primero los propios del usuario y después el catálogo; en cada grupo gana el
+	// primer nombre de la IA que tenga un candidato con las mismas palabras.
+	for _, own := range []bool{true, false} {
+		for _, q := range queries {
+			for _, r := range rows {
+				if (r.OwnerUserID != nil) != own {
+					continue
+				}
+				for _, term := range strings.Split(r.SearchText, " | ") {
+					if domain.NamesMatch(q, term) {
+						return toFood(r), true, nil
+					}
 				}
 			}
 		}
 	}
 	return domain.Food{}, false, nil
+}
+
+func (f *Foods) SaveRecipe(ctx context.Context, food domain.Food) (domain.Food, error) {
+	if !food.IsRecipe() {
+		return domain.Food{}, fmt.Errorf("guardando receta: %q no es una receta propia", food.ID)
+	}
+	owner, err := parseUserID(food.Owner)
+	if err != nil {
+		return domain.Food{}, err
+	}
+	m, mi := food.Per100g, food.Micros
+	var serving *float64
+	if food.ServingGrams > 0 {
+		serving = &food.ServingGrams
+	}
+	err = f.s.q.UpsertUserRecipe(ctx, db.UpsertUserRecipeParams{
+		ID: string(food.ID), NameEs: food.NameES, NameEn: food.NameEN,
+		SearchText:  domain.NormalizeSearch(food.NameES),
+		OwnerUserID: &owner, ServingG: serving,
+		Kcal: m.Calories, ProteinG: m.ProteinG, CarbsG: m.CarbsG, FiberG: m.FiberG, FatG: m.FatG,
+		VitaminCMg: mi.VitaminCMg, CalciumMg: mi.CalciumMg, IronMg: mi.IronMg, MagnesiumMg: mi.MagnesiumMg,
+		PotassiumMg: mi.PotassiumMg, SodiumMg: mi.SodiumMg, ZincMg: mi.ZincMg, VitaminB12Ug: mi.VitaminB12Ug,
+	})
+	if err != nil {
+		return domain.Food{}, fmt.Errorf("guardando receta: %w", err)
+	}
+	saved, err := f.Get(ctx, food.ID)
+	if err != nil {
+		return domain.Food{}, err
+	}
+	if saved.Owner != food.Owner {
+		return domain.Food{}, fmt.Errorf("guardando receta: %w: %q", ports.ErrNotFound, food.ID)
+	}
+	return saved, nil
+}
+
+func (f *Foods) RecordMiss(ctx context.Context, name string) error {
+	n := domain.NormalizeSearch(name)
+	if n == "" {
+		return nil
+	}
+	if err := f.s.q.RecordFoodMiss(ctx, n); err != nil {
+		return fmt.Errorf("registrando alimento faltante: %w", err)
+	}
+	return nil
 }
 
 func (f *Foods) SaveEstimate(ctx context.Context, food domain.Food) (domain.Food, error) {

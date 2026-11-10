@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"math"
 	"strings"
 	"testing"
 	"time"
@@ -413,9 +414,15 @@ func TestAnalyzeUsesAIEstimateWhenNotInCatalog(t *testing.T) {
 	if _, err := env.diary.Log(ctx, other, f.ID, 100, time.Time{}, domain.SourceManual); !errors.Is(err, ports.ErrNotFound) {
 		t.Errorf("otro usuario anotó un alimento privado: err = %v", err)
 	}
-	// Y no aparece en la búsqueda del catálogo.
-	if found, _ := env.diary.SearchFoods(ctx, "pancake", 10); len(found) != 0 {
-		t.Errorf("la búsqueda devolvió alimentos privados: %+v", found)
+	// Su dueño lo encuentra en la búsqueda (sin gastar otro análisis); el otro usuario no.
+	if found, _ := env.diary.SearchFoods(ctx, env.user, "pancake", 10); len(found) != 1 {
+		t.Errorf("el dueño no encuentra su pancake: %+v", found)
+	}
+	if found, _ := env.diary.SearchFoods(ctx, other, "pancake", 10); len(found) != 0 {
+		t.Errorf("otro usuario encontró el pancake: %+v", found)
+	}
+	if env.store.Misses()["protein pancake"] != 1 {
+		t.Errorf("faltantes = %v (la segunda vez ya es propio: no cuenta)", env.store.Misses())
 	}
 }
 
@@ -438,4 +445,62 @@ type fixedText struct{ items []domain.RecognizedFood }
 
 func (f fixedText) RecognizeText(context.Context, string) (ports.RecognitionResult, error) {
 	return ports.RecognitionResult{Model: "fijo", Recognition: domain.FoodRecognition{Items: f.items}}, nil
+}
+
+// --- Recetas propias ---
+
+func TestLogRecipeAndRecognizeItLater(t *testing.T) {
+	env := newVoice(t, fakeai.Recognizer{Model: "texto"}, nil)
+	ctx := context.Background()
+
+	// Un ingrediente estimado por la IA (el pancake) y uno del catálogo (el pollo).
+	got, err := env.svc.AnalyzeTranscript(ctx, env.user, "pancake proteico")
+	if err != nil {
+		t.Fatal(err)
+	}
+	pancake := got.Items[0].Food.ID
+
+	in := ports.RecipeInput{Name: "Bowl de pollo", Servings: 3, EatenGrams: 100, Source: domain.SourceVoice,
+		Ingredients: []ports.RecipeIngredientInput{{FoodID: "pechuga-pollo", Grams: 200}, {FoodID: pancake, Grams: 100}}}
+	recipe, entry, err := env.diary.LogRecipe(ctx, env.user, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !recipe.IsRecipe() || recipe.ServingGrams != 100 || recipe.NameES != "Bowl de pollo" {
+		t.Errorf("receta = %+v", recipe)
+	}
+	// 300 g de receta: 330 kcal de pollo + 221 de pancake = 551. Comió 100 g = 183,7 kcal.
+	if entry.Grams != 100 || entry.FoodNameES != "Bowl de pollo" || math.Abs(entry.Macros.Calories-551.0/3) > 0.1 {
+		t.Errorf("comida anotada = %+v", entry)
+	}
+
+	// La próxima vez, "dos porciones de bowl de pollo" es su receta: 2 × 100 g.
+	env.svc.textPrimary = fixedText{items: []domain.RecognizedFood{{Name: "chicken bowl", DisplayName: "Bowl de pollo",
+		Grams: 500, Confidence: 0.8, Quantity: 2, UnitOne: "porción", UnitMany: "porciones", UnitGrams: 250}}}
+	later, err := env.svc.AnalyzeTranscript(ctx, env.user, "dos porciones de bowl de pollo")
+	if err != nil {
+		t.Fatal(err)
+	}
+	it := later.Items[0]
+	if it.Food == nil || it.Food.ID != recipe.ID || it.Recognized.Grams != 200 || it.Recognized.UnitGrams != 100 {
+		t.Errorf("receta reconocida = %+v (se esperaban 2 porciones de 100 g)", it)
+	}
+
+	// Errores: comer más de lo que rinde, sin ingredientes, o con un alimento ajeno.
+	other, _ := env.store.CreateUser(ctx)
+	theirs, _ := domain.NewEstimatedFood(other, "Algo de otro", "", domain.NutrientEstimate{CarbsG: 10})
+	if _, err := env.store.FoodsRepo().SaveEstimate(ctx, theirs); err != nil {
+		t.Fatal(err)
+	}
+	bad := map[string]ports.RecipeInput{
+		"comió de más":     {Name: "X", EatenGrams: 500, Ingredients: in.Ingredients},
+		"sin ingredientes": {Name: "X", EatenGrams: 10},
+		"ingrediente ajeno": {Name: "X", EatenGrams: 10,
+			Ingredients: []ports.RecipeIngredientInput{{FoodID: theirs.ID, Grams: 50}}},
+	}
+	for name, b := range bad {
+		if _, _, err := env.diary.LogRecipe(ctx, env.user, b); err == nil {
+			t.Errorf("%s: debería fallar", name)
+		}
+	}
 }

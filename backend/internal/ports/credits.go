@@ -49,6 +49,9 @@ type Analysis struct {
 	Fallback   bool
 	// NoFood: no se detectó comida; el crédito se devolvió.
 	NoFood bool
+	// Recipe: lo analizado es una receta (los ítems son sus ingredientes, con toda la
+	// cantidad); la app pregunta cuánto se comió y la guarda como plato propio.
+	Recipe *domain.RecipeInfo
 	Wallet domain.CreditWallet
 }
 

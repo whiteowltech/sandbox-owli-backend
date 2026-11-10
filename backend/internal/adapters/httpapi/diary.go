@@ -68,6 +68,9 @@ type foodDTO struct {
 	Traits  traitsDTO `json:"traits"`
 	// Estimated: los valores los estimó la IA (no está en la base); la app lo marca.
 	Estimated bool `json:"estimated"`
+	// Recipe: receta propia del usuario; ServingGrams es el peso de una porción (0 = sin dato).
+	Recipe       bool    `json:"recipe"`
+	ServingGrams float64 `json:"servingGrams,omitempty"`
 }
 
 func toFoodDTO(f domain.Food) foodDTO {
@@ -77,7 +80,7 @@ func toFoodDTO(f domain.Food) foodDTO {
 			ContainsGrain: t.ContainsGrain, ContainsLegume: t.ContainsLegume, ContainsDairy: t.ContainsDairy,
 			ContainsAddedSugar: t.ContainsAddedSugar, ContainsGluten: t.ContainsGluten, ContainsLactose: t.ContainsLactose,
 			AllergensVerified: t.AllergensVerified},
-		Estimated: f.Estimated()}
+		Estimated: f.Estimated(), Recipe: f.IsRecipe(), ServingGrams: f.ServingGrams}
 }
 
 type entryDTO struct {
@@ -142,7 +145,7 @@ func (d *diaryHandlers) searchFoods(w http.ResponseWriter, r *http.Request) {
 	if limit == 0 {
 		limit = 20
 	}
-	foods, err := d.diary.SearchFoods(r.Context(), r.URL.Query().Get("q"), limit)
+	foods, err := d.diary.SearchFoods(r.Context(), userID(r.Context()), r.URL.Query().Get("q"), limit)
 	if err != nil {
 		fail(w, d.h.log, err)
 		return
@@ -180,6 +183,42 @@ func (d *diaryHandlers) logEntry(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, http.StatusCreated, toEntryDTO(e))
+}
+
+type recipeRequest struct {
+	Name        string  `json:"name"`
+	Servings    float64 `json:"servings"` // 0 = no se sabe
+	Ingredients []struct {
+		FoodID string  `json:"foodId"`
+		Grams  float64 `json:"grams"`
+	} `json:"ingredients"`
+	EatenGrams float64    `json:"eatenGrams"` // cuánto se comió de toda la receta
+	EatenAt    *time.Time `json:"eatenAt"`
+	Source     string     `json:"source"` // photo, voice o manual
+}
+
+// logRecipe guarda la receta como plato propio y anota lo que se comió.
+func (d *diaryHandlers) logRecipe(w http.ResponseWriter, r *http.Request) {
+	var req recipeRequest
+	if !decode(w, r, &req) {
+		return
+	}
+	in := ports.RecipeInput{Name: req.Name, Servings: req.Servings, EatenGrams: req.EatenGrams, Source: domain.SourceManual}
+	if req.EatenAt != nil {
+		in.EatenAt = *req.EatenAt
+	}
+	if req.Source != "" {
+		in.Source = domain.EntrySource(req.Source)
+	}
+	for _, it := range req.Ingredients {
+		in.Ingredients = append(in.Ingredients, ports.RecipeIngredientInput{FoodID: domain.FoodID(it.FoodID), Grams: it.Grams})
+	}
+	food, entry, err := d.diary.LogRecipe(r.Context(), userID(r.Context()), in)
+	if err != nil {
+		fail(w, d.h.log, err)
+		return
+	}
+	writeJSON(w, http.StatusCreated, map[string]any{"food": toFoodDTO(food), "entry": toEntryDTO(entry)})
 }
 
 func (d *diaryHandlers) deleteEntry(w http.ResponseWriter, r *http.Request) {

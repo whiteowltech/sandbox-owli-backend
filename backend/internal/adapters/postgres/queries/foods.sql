@@ -47,15 +47,16 @@ LATERAL (
            max(similarity(sqlc.arg(query)::text, t)) AS whole -- desempate: el término más parecido entero
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE foods.owner_user_id IS NULL -- solo el catálogo: los estimados son privados
+WHERE (foods.owner_user_id IS NULL OR foods.owner_user_id = sqlc.arg(owner)::uuid) -- catálogo + los propios
   AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, s.whole DESC,
+ORDER BY (foods.owner_user_id IS NOT NULL) DESC, -- primero los propios (sus recetas, lo que ya anotó)
+    s.rank DESC, s.sim DESC, s.whole DESC,
     length(foods.name_es), -- a igualdad, el más genérico ("Milanesa de pollo frita" antes que "… al horno")
     foods.name_es
 LIMIT sqlc.arg(max_results);
 
 -- name: MatchFoodCandidates :many
--- Candidatos del catálogo para los nombres que devolvió la IA (el genérico en inglés
+-- Candidatos (los propios del usuario primero, después el catálogo) para los nombres que devolvió la IA (el genérico en inglés
 -- y el que se muestra en español), del más al menos parecido. La decisión final la
 -- toma el dominio (domain.NamesMatch: las mismas palabras): un candidato que solo
 -- comparte una palabra ("stewed beef" → "Bife magro a la parrilla") se descarta y
@@ -70,9 +71,9 @@ LATERAL (
            max(word_similarity(q, t)) AS sim
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE foods.owner_user_id IS NULL
+WHERE (foods.owner_user_id IS NULL OR foods.owner_user_id = sqlc.arg(owner)::uuid)
   AND q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
+ORDER BY (foods.owner_user_id IS NOT NULL) DESC, s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
 LIMIT 25;
 
 -- name: InsertEstimatedFood :exec
@@ -85,3 +86,29 @@ INSERT INTO foods (
     $1, $2, $3, $4, 'ai_estimate', $5, $6, $7, $8, $9, $10, false
 )
 ON CONFLICT (id) DO NOTHING;
+
+-- name: UpsertUserRecipe :exec
+-- Receta propia: volver a guardarla (mismo dueño y nombre) la actualiza. Las
+-- comidas ya anotadas no cambian: guardan su copia de los valores.
+INSERT INTO foods (
+    id, name_es, name_en, search_text, source, owner_user_id, serving_g,
+    kcal, protein_g, carbs_g, fiber_g, fat_g,
+    vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug,
+    allergens_verified, updated_at
+) VALUES (
+    $1, $2, $3, $4, 'user_recipe', $5, $6, $7, $8, $9, $10, $11,
+    $12, $13, $14, $15, $16, $17, $18, $19, false, now()
+)
+ON CONFLICT (id) DO UPDATE SET
+    name_es = EXCLUDED.name_es, name_en = EXCLUDED.name_en, search_text = EXCLUDED.search_text,
+    serving_g = EXCLUDED.serving_g,
+    kcal = EXCLUDED.kcal, protein_g = EXCLUDED.protein_g, carbs_g = EXCLUDED.carbs_g,
+    fiber_g = EXCLUDED.fiber_g, fat_g = EXCLUDED.fat_g,
+    vitamin_c_mg = EXCLUDED.vitamin_c_mg, calcium_mg = EXCLUDED.calcium_mg, iron_mg = EXCLUDED.iron_mg,
+    magnesium_mg = EXCLUDED.magnesium_mg, potassium_mg = EXCLUDED.potassium_mg, sodium_mg = EXCLUDED.sodium_mg,
+    zinc_mg = EXCLUDED.zinc_mg, vitamin_b12_ug = EXCLUDED.vitamin_b12_ug, updated_at = now()
+WHERE foods.owner_user_id = EXCLUDED.owner_user_id; -- nunca pisa el alimento de otro
+
+-- name: RecordFoodMiss :exec
+INSERT INTO food_misses (name) VALUES ($1)
+ON CONFLICT (name) DO UPDATE SET misses = food_misses.misses + 1, last_seen = now();

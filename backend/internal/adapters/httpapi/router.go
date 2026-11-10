@@ -81,6 +81,7 @@ func NewRouter(d Deps) http.Handler {
 				dh := &diaryHandlers{diary: d.Diary, h: h}
 				r.Get("/foods", dh.searchFoods)
 				r.Post("/me/entries", dh.logEntry)
+				r.Post("/me/recipes", dh.logRecipe)
 				r.Delete("/me/entries/{id}", dh.deleteEntry)
 				r.Get("/me/day", dh.day)
 				r.Get("/me/week", dh.week)

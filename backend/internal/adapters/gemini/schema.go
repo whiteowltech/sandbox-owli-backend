@@ -17,13 +17,19 @@ var recognitionSchema = map[string]any{
 					"grams":        map[string]any{"type": "NUMBER"},
 					"confidence":   map[string]any{"type": "NUMBER"},
 					"per_100g":     foodprompt.Per100gSchema("OBJECT", "NUMBER"),
+					"quantity":     map[string]any{"type": "NUMBER"},
+					"unit_one":     map[string]any{"type": "STRING"},
+					"unit_many":    map[string]any{"type": "STRING"},
+					"unit_grams":   map[string]any{"type": "NUMBER"},
 				},
-				"required":         []string{"name", "display_name", "grams", "confidence", "per_100g"},
-				"propertyOrdering": []string{"name", "display_name", "grams", "confidence", "per_100g"},
+				"required":         foodprompt.ItemFields,
+				"propertyOrdering": foodprompt.ItemFields,
 			},
 		},
+		"recipe": foodprompt.RecipeSchema("OBJECT", "BOOLEAN", "STRING", "NUMBER"),
 	},
-	"required": []string{"items"},
+	"required":         []string{"items", "recipe"},
+	"propertyOrdering": []string{"items", "recipe"},
 }
 
 // --- Tipos de la API REST generateContent ---

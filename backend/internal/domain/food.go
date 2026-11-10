@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"math"
 	"strings"
 	"time"
 	"unicode"
@@ -20,13 +21,29 @@ type Food struct {
 	Per100g Macros
 	Micros  Micros // por 100 g; campos nil = sin dato
 	Traits  FoodTraits
-	// Owner es el usuario dueño de un alimento estimado por la IA (vacío en el
-	// catálogo). Un alimento estimado es privado: solo su dueño lo ve y lo anota.
-	Owner UserID
+	// Owner es el usuario dueño de un alimento propio (vacío en el catálogo). Un
+	// alimento propio es privado: solo su dueño lo ve, lo busca y lo anota.
+	Owner  UserID
+	Origin FoodOrigin
+	// ServingGrams es el peso de una porción de una receta propia (0 = sin dato):
+	// "comí dos waffles" son dos porciones.
+	ServingGrams float64
 }
 
+// FoodOrigin dice de dónde salen los valores de un alimento.
+type FoodOrigin string
+
+const (
+	OriginCatalog    FoodOrigin = ""            // catálogo curado (USDA o recetas de Owli)
+	OriginAIEstimate FoodOrigin = "ai_estimate" // propio: lo estimó la IA
+	OriginUserRecipe FoodOrigin = "user_recipe" // propio: receta del usuario, calculada con sus ingredientes
+)
+
 // Estimated indica que los valores los estimó la IA (no salen de la base).
-func (f Food) Estimated() bool { return f.Owner != "" }
+func (f Food) Estimated() bool { return f.Origin == OriginAIEstimate }
+
+// IsRecipe indica que es una receta propia del usuario.
+func (f Food) IsRecipe() bool { return f.Origin == OriginUserRecipe }
 
 // VisibleTo indica si el usuario puede ver y anotar el alimento.
 func (f Food) VisibleTo(u UserID) bool { return f.Owner == "" || f.Owner == u }
@@ -50,23 +67,85 @@ func NewEstimatedFood(owner UserID, nameES, nameEN string, e NutrientEstimate) (
 	if nameEN == "" {
 		nameEN = nameES
 	}
-	key := NormalizeSearch(nameES)
-	if key == "" {
-		return Food{}, fmt.Errorf("%w: alimento estimado sin nombre", ErrInvalidMacros)
+	id, err := ownFoodID("ai", owner, nameES)
+	if err != nil {
+		return Food{}, err
 	}
 	per100, err := e.Per100g()
 	if err != nil {
 		return Food{}, err
 	}
+	return Food{ID: id, NameES: nameES, NameEN: nameEN, Per100g: per100, Owner: owner, Origin: OriginAIEstimate}, nil
+}
+
+// ownFoodID: el ID de un alimento propio sale del dueño y del nombre normalizado,
+// así que el mismo nombre es siempre el mismo alimento de ese usuario.
+func ownFoodID(prefix string, owner UserID, name string) (FoodID, error) {
+	key := NormalizeSearch(name)
+	if key == "" {
+		return "", fmt.Errorf("%w: alimento propio sin nombre", ErrInvalidMacros)
+	}
 	sum := sha256.Sum256([]byte(string(owner) + "|" + key))
-	return Food{
-		ID:      FoodID("ai-" + hex.EncodeToString(sum[:10])),
-		NameES:  nameES,
-		NameEN:  nameEN,
-		Per100g: per100,
-		Owner:   owner,
-		Traits:  FoodTraits{AllergensVerified: false},
-	}, nil
+	return FoodID(prefix + "-" + hex.EncodeToString(sum[:10])), nil
+}
+
+// RecipeIngredient es un ingrediente de una receta propia: un alimento que el
+// usuario puede ver (del catálogo o propio) y los gramos que lleva.
+type RecipeIngredient struct {
+	Food  Food
+	Grams float64
+}
+
+// MaxRecipeServings acota las porciones de una receta propia.
+const MaxRecipeServings = 50
+
+// NewUserRecipe arma la receta propia de un usuario ("Waffles proteicos") con sus
+// ingredientes. Los valores por 100 g salen de ComposeRecipe con el peso de los
+// ingredientes como peso final (no sabemos cuánta agua pierde al cocinarse). Con
+// servings > 0, una porción pesa el total dividido por las porciones. El ID sale
+// del dueño y del nombre: volver a dictar la receta la actualiza.
+func NewUserRecipe(owner UserID, name string, servings float64, ingredients []RecipeIngredient) (Food, error) {
+	if owner == "" {
+		return Food{}, fmt.Errorf("%w: una receta propia necesita dueño", ErrInvalidMacros)
+	}
+	if servings < 0 || servings > MaxRecipeServings {
+		return Food{}, fmt.Errorf("%w: %.1f porciones (0 a %d)", ErrInvalidMacros, servings, MaxRecipeServings)
+	}
+	name = clipName(name)
+	id, err := ownFoodID("rc", owner, name)
+	if err != nil {
+		return Food{}, err
+	}
+	parts := make([]RecipePart, 0, len(ingredients))
+	total := 0.0
+	for _, in := range ingredients {
+		if !in.Food.VisibleTo(owner) {
+			return Food{}, fmt.Errorf("%w: ingrediente %q", ErrInvalidMacros, in.Food.ID)
+		}
+		if in.Grams > MaxEntryGrams {
+			return Food{}, fmt.Errorf("%w: ingrediente con %.0f g", ErrInvalidMacros, in.Grams)
+		}
+		parts = append(parts, RecipePart{Per100g: in.Food.Per100g, Micros: in.Food.Micros, Grams: in.Grams})
+		total += in.Grams
+	}
+	per100, micros, err := ComposeRecipe(parts, 0)
+	if err != nil {
+		return Food{}, err
+	}
+	f := Food{ID: id, NameES: name, NameEN: name, Per100g: per100, Micros: micros, Owner: owner, Origin: OriginUserRecipe}
+	if servings > 0 {
+		f.ServingGrams = math.Round(total/servings*10) / 10
+	}
+	return f, nil
+}
+
+// RecipeTotalGrams es el peso de toda la receta (la suma de sus ingredientes).
+func RecipeTotalGrams(ingredients []RecipeIngredient) float64 {
+	t := 0.0
+	for _, in := range ingredients {
+		t += in.Grams
+	}
+	return t
 }
 
 func clipName(s string) string {

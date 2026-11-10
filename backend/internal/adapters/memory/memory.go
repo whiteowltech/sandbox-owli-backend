@@ -35,6 +35,7 @@ type Store struct {
 	identities map[string]domain.UserID // provider|subject → usuario
 	sessions   []*session
 	profiles   map[domain.UserID]domain.UserProfile
+	misses     map[string]int // nombres que no estaban en el catálogo
 }
 
 func NewStore() *Store {
@@ -209,20 +210,26 @@ func (f *Foods) Get(_ context.Context, id domain.FoodID) (domain.Food, error) {
 	return food, nil
 }
 
-func (f *Foods) Search(_ context.Context, query string, limit int) ([]domain.Food, error) {
+func (f *Foods) Search(_ context.Context, owner domain.UserID, query string, limit int) ([]domain.Food, error) {
 	f.s.mu.Lock()
 	defer f.s.mu.Unlock()
 	q := domain.NormalizeSearch(query)
 	out := []domain.Food{}
 	for _, food := range f.s.foods {
-		if food.Estimated() {
-			continue // el catálogo no incluye los alimentos privados
+		if !food.VisibleTo(owner) {
+			continue // los alimentos propios de otros usuarios no existen para este
 		}
 		if strings.Contains(domain.NormalizeSearch(food.NameES+" "+food.NameEN), q) {
 			out = append(out, food)
 		}
 	}
-	sort.Slice(out, func(i, j int) bool { return out[i].NameES < out[j].NameES })
+	// Primero los propios, después por nombre.
+	sort.Slice(out, func(i, j int) bool {
+		if (out[i].Owner != "") != (out[j].Owner != "") {
+			return out[i].Owner != ""
+		}
+		return out[i].NameES < out[j].NameES
+	})
 	if len(out) > limit {
 		out = out[:limit]
 	}
@@ -231,26 +238,68 @@ func (f *Foods) Search(_ context.Context, query string, limit int) ([]domain.Foo
 
 // Match: un alimento del catálogo cuyo nombre en español o en inglés sea el mismo
 // que alguno de los nombres según domain.NamesMatch (como Postgres, sin sinónimos).
-func (f *Foods) Match(_ context.Context, names []string) (domain.Food, bool, error) {
+func (f *Foods) Match(_ context.Context, owner domain.UserID, names []string) (domain.Food, bool, error) {
 	f.s.mu.Lock()
 	defer f.s.mu.Unlock()
-	for _, n := range names {
-		q := domain.NormalizeSearch(n)
-		if q == "" {
-			continue
-		}
-		var hits []domain.Food
-		for _, food := range f.s.foods {
-			if !food.Estimated() && (domain.NamesMatch(q, food.NameES) || domain.NamesMatch(q, food.NameEN)) {
-				hits = append(hits, food)
+	// Primero los propios del usuario, después el catálogo.
+	for _, own := range []bool{true, false} {
+		for _, n := range names {
+			q := domain.NormalizeSearch(n)
+			if q == "" {
+				continue
 			}
-		}
-		if len(hits) > 0 {
-			sort.Slice(hits, func(i, j int) bool { return hits[i].NameES < hits[j].NameES })
-			return hits[0], true, nil
+			var hits []domain.Food
+			for _, food := range f.s.foods {
+				mine := owner != "" && food.Owner == owner
+				if mine != own || (!own && food.Owner != "") {
+					continue
+				}
+				if domain.NamesMatch(q, food.NameES) || domain.NamesMatch(q, food.NameEN) {
+					hits = append(hits, food)
+				}
+			}
+			if len(hits) > 0 {
+				sort.Slice(hits, func(i, j int) bool { return hits[i].NameES < hits[j].NameES })
+				return hits[0], true, nil
+			}
 		}
 	}
 	return domain.Food{}, false, nil
+}
+
+func (f *Foods) SaveRecipe(_ context.Context, food domain.Food) (domain.Food, error) {
+	f.s.mu.Lock()
+	defer f.s.mu.Unlock()
+	if !food.IsRecipe() {
+		return domain.Food{}, fmt.Errorf("memory: %q no es una receta propia", food.ID)
+	}
+	if !f.s.users[food.Owner] {
+		return domain.Food{}, ports.ErrNotFound
+	}
+	f.s.foods[food.ID] = food // se actualiza si ya existía
+	return food, nil
+}
+
+// Misses: lo que la IA identificó y no estaba en el catálogo (para las pruebas).
+func (f *Foods) RecordMiss(_ context.Context, name string) error {
+	f.s.mu.Lock()
+	defer f.s.mu.Unlock()
+	if f.s.misses == nil {
+		f.s.misses = map[string]int{}
+	}
+	f.s.misses[domain.NormalizeSearch(name)]++
+	return nil
+}
+
+// Misses devuelve cuántas veces faltó cada alimento en el catálogo.
+func (s *Store) Misses() map[string]int {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	out := map[string]int{}
+	for k, v := range s.misses {
+		out[k] = v
+	}
+	return out
 }
 
 func (f *Foods) SaveEstimate(_ context.Context, food domain.Food) (domain.Food, error) {

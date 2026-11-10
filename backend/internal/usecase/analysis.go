@@ -211,7 +211,8 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 		return ports.Analysis{}, fmt.Errorf("%w: %v", ports.ErrAIUnavailable, err)
 	}
 
-	out := ports.Analysis{ID: id, Provider: r.res.Model, Fallback: r.fallback, Transcript: r.transcript, Wallet: wallet}
+	out := ports.Analysis{ID: id, Provider: r.res.Model, Fallback: r.fallback, Transcript: r.transcript, Wallet: wallet,
+		Recipe: r.res.Recognition.Recipe}
 	if r.res.Recognition.IsEmpty() {
 		// No se cobra si no hay comida (la IA sí se usó: el gasto queda).
 		s.refund(ctx, userID, id)
@@ -223,6 +224,11 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 		item := ports.AnalysisItem{Recognized: it, NeedsReview: it.Confidence < domain.LowConfidenceThreshold}
 		if f, ok := s.resolve(ctx, userID, it); ok {
 			item.Food = &f
+			// "Dos waffles" de una receta propia: cada uno pesa una porción de la receta.
+			if f.ServingGrams > 0 && it.HasUnits() {
+				item.Recognized.UnitGrams = f.ServingGrams
+				item.Recognized.NormalizeUnits()
+			}
 		} else {
 			item.NeedsReview = true
 		}
@@ -231,13 +237,17 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 	return out, nil
 }
 
-// resolve elige los valores nutricionales de un alimento identificado: el catálogo
-// (USDA) si el nombre coincide exacto, porque es más preciso; si no, la estimación
-// de la IA, guardada como alimento privado del usuario. ok = false si tampoco hay
+// resolve elige los valores nutricionales de un alimento identificado: un alimento
+// propio del usuario (su receta, lo que ya estimó la IA) o del catálogo (USDA) si el
+// nombre coincide; si no, la estimación de la IA, guardada como alimento propio. ok = false si tampoco hay
 // estimación válida: el usuario lo elige a mano en la confirmación.
 func (s *AnalysisService) resolve(ctx context.Context, userID domain.UserID, it domain.RecognizedFood) (domain.Food, bool) {
-	if f, ok := s.match(ctx, it); ok {
+	if f, ok := s.match(ctx, userID, it); ok {
 		return f, true
+	}
+	// No estaba en el catálogo ni entre los propios: se cuenta para sumarlo al catálogo.
+	if err := s.foods.RecordMiss(ctx, it.Name); err != nil {
+		s.log.Warn("no se pudo registrar el alimento faltante", "food", it.Name, "err", err)
 	}
 	if it.Estimate == nil {
 		return domain.Food{}, false
@@ -295,8 +305,8 @@ func (s *AnalysisService) recognize(ctx context.Context, primary, fallback recog
 // match busca el alimento en el catálogo con los dos nombres de la IA: el que se
 // muestra en español (en voz, lo que dijo el usuario: "bife") y el genérico en
 // inglés ("beef steak"). Solo coincidencias exactas (ver ports.FoodRepository.Match).
-func (s *AnalysisService) match(ctx context.Context, it domain.RecognizedFood) (domain.Food, bool) {
-	f, ok, err := s.foods.Match(ctx, []string{it.DisplayName, it.Name})
+func (s *AnalysisService) match(ctx context.Context, userID domain.UserID, it domain.RecognizedFood) (domain.Food, bool) {
+	f, ok, err := s.foods.Match(ctx, userID, []string{it.DisplayName, it.Name})
 	if err != nil {
 		s.log.Warn("no se pudo cruzar con la base", "food", it.Name, "err", err)
 		return domain.Food{}, false

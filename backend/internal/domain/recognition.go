@@ -3,6 +3,7 @@ package domain
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -25,6 +26,39 @@ type RecognizedFood struct {
 	Grams       float64           // porción estimada
 	Confidence  float64           // 0–1
 	Estimate    *NutrientEstimate // composición estimada por la IA; nil si no la dio
+	// Unidades: lo que dijo o se ve ("2 huevos", "1 vaso", "3 cucharadas"). Quantity 0 =
+	// solo gramos. Grams es siempre Quantity × UnitGrams (ver NormalizeUnits).
+	Quantity  float64
+	UnitOne   string // "huevo", "vaso", "cucharada"
+	UnitMany  string // "huevos", "vasos", "cucharadas"
+	UnitGrams float64
+}
+
+// HasUnits indica que la porción se cuenta en unidades (huevos, vasos…) y no solo en gramos.
+func (r RecognizedFood) HasUnits() bool { return r.Quantity > 0 && r.UnitGrams > 0 && r.UnitOne != "" }
+
+// maxQuantity acota las unidades de un ítem ("40 almendras" sí; "4000" es un error).
+const maxQuantity = 200
+
+// NormalizeUnits hace que los gramos sean las unidades por su peso. Si las unidades
+// no tienen sentido, se descartan y quedan los gramos que dio la IA.
+func (r *RecognizedFood) NormalizeUnits() {
+	if r.Quantity <= 0 || r.Quantity > maxQuantity || r.UnitGrams <= 0 || r.UnitOne == "" ||
+		r.Quantity*r.UnitGrams > MaxEntryGrams {
+		r.Quantity, r.UnitOne, r.UnitMany, r.UnitGrams = 0, "", "", 0
+		return
+	}
+	if r.UnitMany == "" {
+		r.UnitMany = r.UnitOne
+	}
+	r.Grams = math.Max(1, math.Round(r.Quantity*r.UnitGrams))
+}
+
+// RecipeInfo indica que lo que se analizó es una receta (se cocinó para varias
+// porciones): la app pregunta cuánto se comió antes de guardar.
+type RecipeInfo struct {
+	Name     string  // "Waffles proteicos"
+	Servings float64 // porciones que rinde; 0 = no se sabe
 }
 
 // NutrientEstimate es la composición que estima la IA, en gramos cada 100 g del
@@ -59,7 +93,8 @@ func (e NutrientEstimate) Per100g() (Macros, error) {
 // FoodRecognition es el resultado de analizar una foto o un texto transcrito.
 // Items vacío significa "no se detectó comida" (y no se cobra el crédito).
 type FoodRecognition struct {
-	Items []RecognizedFood
+	Items  []RecognizedFood
+	Recipe *RecipeInfo // nil si no es una receta
 }
 
 // Validate comprueba el contrato de la respuesta de la IA.

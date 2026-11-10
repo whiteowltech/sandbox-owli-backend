@@ -62,8 +62,16 @@ e2e/                    # Playwright
    - Si no, se usa la estimación de la IA, guardada como **alimento privado del usuario** (`domain.NewEstimatedFood`, `foods.owner_user_id`, origen `ai_estimate`). Se reutiliza la próxima vez con los mismos valores. Sin micros y sin alérgenos verificados. No aparece en la búsqueda ni en las sugerencias, y solo su dueño puede anotarlo.
    - Si la estimación no cierra (suma más de 100 g, más fibra que carbos), el usuario elige el alimento a mano.
    - Los macros de la porción se calculan en el dominio a partir de los gramos.
-4. **Confirmación**: el usuario revisa y puede corregir alimentos y gramos antes de guardar. Lo estimado por la IA se marca ("Estimado por IA") y se puede cambiar por un alimento de la base. Los ítems con baja confianza o sin alimento se resaltan.
-5. **Persistencia**: solo se guardan las comidas confirmadas.
+   - Primero se buscan los **alimentos propios** del usuario (sus recetas y lo que ya estimó la IA), después el catálogo.
+   - Lo que no está en el catálogo se cuenta en `food_misses` (solo el nombre, sin usuario) para sumar los más pedidos con datos de USDA. Las estimaciones de la IA nunca pasan solas al catálogo general.
+4. **Unidades** ("2 huevos", "1 vaso", "3 cucharadas"): la IA da la cantidad, la unidad en singular y plural y el peso de una. Los gramos son siempre cantidad × peso (`RecognizedFood.NormalizeUnits`), y en la confirmación los botones suman o restan de a una unidad. Una cantidad vaga ("un poco") baja la confianza y se resalta.
+5. **Recetas** ("hice unos waffles con…"): la IA marca `recipe` (nombre y porciones que rinde) y los ítems son los ingredientes con toda la cantidad.
+   - La app pregunta "¿Cuánto comiste?": en porciones si se sabe cuántas rinde (empieza en una), o todo, ¾, la mitad o ¼.
+   - `POST /v1/me/recipes` la guarda como **plato propio** (`domain.NewUserRecipe`, origen `user_recipe`, con el peso de una porción) y anota solo lo comido.
+   - Volver a dictarla con el mismo nombre la actualiza. "Comí dos waffles proteicos" la reconoce: cada uno pesa una porción de la receta.
+   - Los platos propios aparecen primero en la búsqueda manual, marcados.
+6. **Confirmación**: el usuario revisa y puede corregir alimentos y gramos antes de guardar. Lo estimado por la IA se marca ("Estimado por IA") y se puede cambiar por un alimento de la base. Los ítems con baja confianza o sin alimento se resaltan.
+7. **Persistencia**: solo se guardan las comidas confirmadas.
 - **Fotos**: se descartan tras el análisis y no se almacenan.
 
 ## Selección de modelos de IA

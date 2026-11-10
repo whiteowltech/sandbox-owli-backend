@@ -12,7 +12,7 @@ import (
 )
 
 const getFood = `-- name: GetFood :one
-SELECT id, name_es, name_en, search_text, source, source_ref, kcal, protein_g, carbs_g, fiber_g, fat_g, vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug, animal_origin, plant_origin, contains_meat, contains_fish, contains_grain, contains_legume, contains_dairy, contains_added_sugar, contains_gluten, contains_lactose, allergens_verified, updated_at, owner_user_id FROM foods WHERE id = $1
+SELECT id, name_es, name_en, search_text, source, source_ref, kcal, protein_g, carbs_g, fiber_g, fat_g, vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug, animal_origin, plant_origin, contains_meat, contains_fish, contains_grain, contains_legume, contains_dairy, contains_added_sugar, contains_gluten, contains_lactose, allergens_verified, updated_at, owner_user_id, serving_g FROM foods WHERE id = $1
 `
 
 func (q *Queries) GetFood(ctx context.Context, id string) (Food, error) {
@@ -51,6 +51,7 @@ func (q *Queries) GetFood(ctx context.Context, id string) (Food, error) {
 		&i.AllergensVerified,
 		&i.UpdatedAt,
 		&i.OwnerUserID,
+		&i.ServingG,
 	)
 	return i, err
 }
@@ -97,7 +98,7 @@ func (q *Queries) InsertEstimatedFood(ctx context.Context, arg InsertEstimatedFo
 }
 
 const matchFoodCandidates = `-- name: MatchFoodCandidates :many
-SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id FROM foods, unnest($1::text[]) AS q,
+SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id, foods.serving_g FROM foods, unnest($1::text[]) AS q,
 LATERAL (
     SELECT max(CASE
                    WHEN t = q THEN 4
@@ -107,19 +108,24 @@ LATERAL (
            max(word_similarity(q, t)) AS sim
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE foods.owner_user_id IS NULL
+WHERE (foods.owner_user_id IS NULL OR foods.owner_user_id = $2::uuid)
   AND q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
+ORDER BY (foods.owner_user_id IS NOT NULL) DESC, s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
 LIMIT 25
 `
 
-// Candidatos del catálogo para los nombres que devolvió la IA (el genérico en inglés
+type MatchFoodCandidatesParams struct {
+	Queries []string
+	Owner   uuid.UUID
+}
+
+// Candidatos (los propios del usuario primero, después el catálogo) para los nombres que devolvió la IA (el genérico en inglés
 // y el que se muestra en español), del más al menos parecido. La decisión final la
 // toma el dominio (domain.NamesMatch: las mismas palabras): un candidato que solo
 // comparte una palabra ("stewed beef" → "Bife magro a la parrilla") se descarta y
 // se usa la estimación de la IA.
-func (q *Queries) MatchFoodCandidates(ctx context.Context, queries []string) ([]Food, error) {
-	rows, err := q.db.Query(ctx, matchFoodCandidates, queries)
+func (q *Queries) MatchFoodCandidates(ctx context.Context, arg MatchFoodCandidatesParams) ([]Food, error) {
+	rows, err := q.db.Query(ctx, matchFoodCandidates, arg.Queries, arg.Owner)
 	if err != nil {
 		return nil, err
 	}
@@ -160,6 +166,7 @@ func (q *Queries) MatchFoodCandidates(ctx context.Context, queries []string) ([]
 			&i.AllergensVerified,
 			&i.UpdatedAt,
 			&i.OwnerUserID,
+			&i.ServingG,
 		); err != nil {
 			return nil, err
 		}
@@ -171,8 +178,20 @@ func (q *Queries) MatchFoodCandidates(ctx context.Context, queries []string) ([]
 	return items, nil
 }
 
+const recordFoodMiss = `-- name: RecordFoodMiss :exec
+
+INSERT INTO food_misses (name) VALUES ($1)
+ON CONFLICT (name) DO UPDATE SET misses = food_misses.misses + 1, last_seen = now()
+`
+
+// nunca pisa el alimento de otro
+func (q *Queries) RecordFoodMiss(ctx context.Context, name string) error {
+	_, err := q.db.Exec(ctx, recordFoodMiss, name)
+	return err
+}
+
 const searchFoods = `-- name: SearchFoods :many
-SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id FROM foods,
+SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id, foods.serving_g FROM foods,
 LATERAL (
     SELECT max(CASE
                    WHEN t = $1::text THEN 4
@@ -183,16 +202,18 @@ LATERAL (
            max(similarity($1::text, t)) AS whole -- desempate: el término más parecido entero
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE foods.owner_user_id IS NULL -- solo el catálogo: los estimados son privados
+WHERE (foods.owner_user_id IS NULL OR foods.owner_user_id = $2::uuid) -- catálogo + los propios
   AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, s.whole DESC,
+ORDER BY (foods.owner_user_id IS NOT NULL) DESC, -- primero los propios (sus recetas, lo que ya anotó)
+    s.rank DESC, s.sim DESC, s.whole DESC,
     length(foods.name_es), -- a igualdad, el más genérico ("Milanesa de pollo frita" antes que "… al horno")
     foods.name_es
-LIMIT $2
+LIMIT $3
 `
 
 type SearchFoodsParams struct {
 	Query      string
+	Owner      uuid.UUID
 	MaxResults int32
 }
 
@@ -207,7 +228,7 @@ type SearchFoodsParams struct {
 // de tipeo (0.57–0.89) de las coincidencias falsas (≤ 0.5).
 // Con un catálogo de cientos de alimentos el recorrido completo es instantáneo.
 func (q *Queries) SearchFoods(ctx context.Context, arg SearchFoodsParams) ([]Food, error) {
-	rows, err := q.db.Query(ctx, searchFoods, arg.Query, arg.MaxResults)
+	rows, err := q.db.Query(ctx, searchFoods, arg.Query, arg.Owner, arg.MaxResults)
 	if err != nil {
 		return nil, err
 	}
@@ -248,6 +269,7 @@ func (q *Queries) SearchFoods(ctx context.Context, arg SearchFoodsParams) ([]Foo
 			&i.AllergensVerified,
 			&i.UpdatedAt,
 			&i.OwnerUserID,
+			&i.ServingG,
 		); err != nil {
 			return nil, err
 		}
@@ -351,6 +373,76 @@ func (q *Queries) UpsertFood(ctx context.Context, arg UpsertFoodParams) error {
 		arg.ContainsGluten,
 		arg.ContainsLactose,
 		arg.AllergensVerified,
+	)
+	return err
+}
+
+const upsertUserRecipe = `-- name: UpsertUserRecipe :exec
+INSERT INTO foods (
+    id, name_es, name_en, search_text, source, owner_user_id, serving_g,
+    kcal, protein_g, carbs_g, fiber_g, fat_g,
+    vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug,
+    allergens_verified, updated_at
+) VALUES (
+    $1, $2, $3, $4, 'user_recipe', $5, $6, $7, $8, $9, $10, $11,
+    $12, $13, $14, $15, $16, $17, $18, $19, false, now()
+)
+ON CONFLICT (id) DO UPDATE SET
+    name_es = EXCLUDED.name_es, name_en = EXCLUDED.name_en, search_text = EXCLUDED.search_text,
+    serving_g = EXCLUDED.serving_g,
+    kcal = EXCLUDED.kcal, protein_g = EXCLUDED.protein_g, carbs_g = EXCLUDED.carbs_g,
+    fiber_g = EXCLUDED.fiber_g, fat_g = EXCLUDED.fat_g,
+    vitamin_c_mg = EXCLUDED.vitamin_c_mg, calcium_mg = EXCLUDED.calcium_mg, iron_mg = EXCLUDED.iron_mg,
+    magnesium_mg = EXCLUDED.magnesium_mg, potassium_mg = EXCLUDED.potassium_mg, sodium_mg = EXCLUDED.sodium_mg,
+    zinc_mg = EXCLUDED.zinc_mg, vitamin_b12_ug = EXCLUDED.vitamin_b12_ug, updated_at = now()
+WHERE foods.owner_user_id = EXCLUDED.owner_user_id
+`
+
+type UpsertUserRecipeParams struct {
+	ID           string
+	NameEs       string
+	NameEn       string
+	SearchText   string
+	OwnerUserID  *uuid.UUID
+	ServingG     *float64
+	Kcal         float64
+	ProteinG     float64
+	CarbsG       float64
+	FiberG       float64
+	FatG         float64
+	VitaminCMg   *float64
+	CalciumMg    *float64
+	IronMg       *float64
+	MagnesiumMg  *float64
+	PotassiumMg  *float64
+	SodiumMg     *float64
+	ZincMg       *float64
+	VitaminB12Ug *float64
+}
+
+// Receta propia: volver a guardarla (mismo dueño y nombre) la actualiza. Las
+// comidas ya anotadas no cambian: guardan su copia de los valores.
+func (q *Queries) UpsertUserRecipe(ctx context.Context, arg UpsertUserRecipeParams) error {
+	_, err := q.db.Exec(ctx, upsertUserRecipe,
+		arg.ID,
+		arg.NameEs,
+		arg.NameEn,
+		arg.SearchText,
+		arg.OwnerUserID,
+		arg.ServingG,
+		arg.Kcal,
+		arg.ProteinG,
+		arg.CarbsG,
+		arg.FiberG,
+		arg.FatG,
+		arg.VitaminCMg,
+		arg.CalciumMg,
+		arg.IronMg,
+		arg.MagnesiumMg,
+		arg.PotassiumMg,
+		arg.SodiumMg,
+		arg.ZincMg,
+		arg.VitaminB12Ug,
 	)
 	return err
 }

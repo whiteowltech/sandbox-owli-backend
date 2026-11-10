@@ -40,13 +40,13 @@ func saveProfile(t *testing.T, store *memory.Store, u domain.UserID) {
 }
 
 func TestSearchFoods(t *testing.T) {
-	svc, _, _ := newDiary(t)
+	svc, _, u := newDiary(t)
 	ctx := context.Background()
-	got, _ := svc.SearchFoods(ctx, "pollo", 10)
+	got, _ := svc.SearchFoods(ctx, u, "pollo", 10)
 	if len(got) != 1 || got[0].ID != "pechuga-pollo" {
 		t.Errorf("pollo = %v", got)
 	}
-	if got, _ := svc.SearchFoods(ctx, "p", 10); len(got) != 0 {
+	if got, _ := svc.SearchFoods(ctx, u, "p", 10); len(got) != 0 {
 		t.Error("una sola letra no busca")
 	}
 }

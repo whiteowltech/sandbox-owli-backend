@@ -46,6 +46,20 @@ func (r Recognizer) respond(ctx context.Context, data []byte, empty string) (por
 		return ports.RecognitionResult{}, ctx.Err()
 	case bytes.Contains(data, []byte(empty)):
 		return ports.RecognitionResult{Model: r.Model}, nil
+	case bytes.Contains(bytes.ToLower(data), []byte("waffle")):
+		// Una receta: los ingredientes con toda la cantidad, en unidades; rinde 4.
+		return ports.RecognitionResult{Model: r.Model, Recognition: domain.FoodRecognition{
+			Recipe: &domain.RecipeInfo{Name: "Waffles proteicos", Servings: 4},
+			Items: []domain.RecognizedFood{
+				{Name: "whole egg", DisplayName: "Huevo entero", Grams: 100, Confidence: 0.9,
+					Quantity: 2, UnitOne: "huevo", UnitMany: "huevos", UnitGrams: 50},
+				{Name: "whole milk", DisplayName: "Leche entera", Grams: 200, Confidence: 0.8,
+					Quantity: 1, UnitOne: "vaso", UnitMany: "vasos", UnitGrams: 200},
+				{Name: "cocoa powder", DisplayName: "Cacao en polvo", Grams: 30, Confidence: 0.8,
+					Quantity: 3, UnitOne: "cucharada", UnitMany: "cucharadas", UnitGrams: 10,
+					Estimate: &domain.NutrientEstimate{ProteinG: 20, CarbsG: 58, FiberG: 33, FatG: 14}},
+			},
+		}}, nil
 	case bytes.Contains(bytes.ToLower(data), []byte("pancake")):
 		// Algo que no está en el catálogo: se usa la estimación de la IA.
 		return ports.RecognitionResult{Model: r.Model, Recognition: domain.FoodRecognition{Items: []domain.RecognizedFood{

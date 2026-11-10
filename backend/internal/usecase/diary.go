@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/whiteowltech/owli/backend/internal/domain"
@@ -33,12 +34,12 @@ func NewDiaryService(foods ports.FoodRepository, entries ports.EntryRepository, 
 	return &DiaryService{foods: foods, entries: entries, profiles: profiles, now: now}
 }
 
-func (s *DiaryService) SearchFoods(ctx context.Context, query string, limit int) ([]domain.Food, error) {
+func (s *DiaryService) SearchFoods(ctx context.Context, userID domain.UserID, query string, limit int) ([]domain.Food, error) {
 	if len([]rune(domain.NormalizeSearch(query))) < minQueryRunes {
 		return []domain.Food{}, nil
 	}
 	limit = min(max(limit, 1), MaxSearchResults)
-	foods, err := s.foods.Search(ctx, query, limit)
+	foods, err := s.foods.Search(ctx, userID, query, limit)
 	if err != nil {
 		return nil, fmt.Errorf("buscando alimentos: %w", err)
 	}
@@ -72,6 +73,43 @@ func (s *DiaryService) Log(ctx context.Context, userID domain.UserID, foodID dom
 	}
 	entry.ID = id
 	return ports.LoggedEntry{MealEntry: entry, FoodNameES: food.NameES, FoodNameEN: food.NameEN}, nil
+}
+
+// LogRecipe guarda la receta como plato propio (con los valores de sus ingredientes)
+// y anota lo que se comió. Volver a dictar la misma receta la actualiza; las comidas
+// ya anotadas no cambian porque guardan su copia de los valores.
+func (s *DiaryService) LogRecipe(ctx context.Context, userID domain.UserID, in ports.RecipeInput) (domain.Food, ports.LoggedEntry, error) {
+	if len(in.Ingredients) == 0 || len(in.Ingredients) > ports.MaxRecipeIngredients {
+		return domain.Food{}, ports.LoggedEntry{}, fmt.Errorf("%w: una receta lleva de 1 a %d ingredientes", domain.ErrInvalidMacros, ports.MaxRecipeIngredients)
+	}
+	ings := make([]domain.RecipeIngredient, 0, len(in.Ingredients))
+	for _, it := range in.Ingredients {
+		f, err := s.foods.Get(ctx, it.FoodID)
+		if err != nil {
+			return domain.Food{}, ports.LoggedEntry{}, fmt.Errorf("buscando ingrediente: %w", err)
+		}
+		if !f.VisibleTo(userID) {
+			return domain.Food{}, ports.LoggedEntry{}, fmt.Errorf("buscando ingrediente: %w: %q", ports.ErrNotFound, it.FoodID)
+		}
+		ings = append(ings, domain.RecipeIngredient{Food: f, Grams: it.Grams})
+	}
+	recipe, err := domain.NewUserRecipe(userID, in.Name, in.Servings, ings)
+	if err != nil {
+		return domain.Food{}, ports.LoggedEntry{}, err
+	}
+	// Se puede comer de 1 g a toda la receta (con un margen por el redondeo de la app).
+	if total := domain.RecipeTotalGrams(ings); in.EatenGrams <= 0 || in.EatenGrams > total*1.01 {
+		return domain.Food{}, ports.LoggedEntry{}, fmt.Errorf("%w: comiste %.0f g de una receta de %.0f g", domain.ErrInvalidMacros, in.EatenGrams, total)
+	}
+	saved, err := s.foods.SaveRecipe(ctx, recipe)
+	if err != nil {
+		return domain.Food{}, ports.LoggedEntry{}, fmt.Errorf("guardando receta: %w", err)
+	}
+	entry, err := s.Log(ctx, userID, saved.ID, math.Round(in.EatenGrams), in.EatenAt, in.Source)
+	if err != nil {
+		return domain.Food{}, ports.LoggedEntry{}, err
+	}
+	return saved, entry, nil
 }
 
 func (s *DiaryService) Delete(ctx context.Context, userID domain.UserID, entryID string) error {
