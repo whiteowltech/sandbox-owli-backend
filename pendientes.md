@@ -49,7 +49,10 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
 - [x] **Recalcular el plan** desde la cuenta sin repetir el onboarding: "Tu cuenta" edita cuerpo, objetivo, dieta, comidas por día y nombre con el objetivo recalculado en vivo; también créditos, idioma, unidades y borrar la cuenta (4 de noviembre de 2026). Las comidas por día ahora se eligen en el onboarding (antes quedaban fijas en 4).
 - [x] **Motor de sugerencias, fase 1.5** (caso real del 4 de noviembre de 2026: con carbos 2/192 g y grasa 97/53 g sugería huevos con manteca). Descarta platos que suman a un macro ya pasado, ofrece acompañamientos sin proteína, deduce la comida por lo anotado y la hora (la última no se divide) y explica arriba de la lista por qué.
 - [ ] **Validar con un profesional** las reglas nuevas del motor: 22 h como última comida, 2 h 30 entre comidas, 10 g de margen para un macro pasado y 15 g de proteína para ofrecer acompañamientos.
-- [ ] **Crear alimentos propios** en el registro manual cuando no están en la base.
+- [x] **Alimentos que no están en la base** (9 de noviembre de 2026): en foto y voz, la IA estima la composición cada 100 g y se guarda como alimento privado del usuario; el catálogo solo se usa si el nombre coincide con las mismas palabras (ver CLAUDE.md, "Pipeline de registro").
+- [ ] **Repetir el benchmark** (`go run ./cmd/benchmark -n 100`): el prompt cambió (preparaciones y `per_100g`) y puede mover el error de gramos.
+- [ ] **Buscar mis alimentos estimados** en el registro manual ("pancake proteico" sin volver a gastar un análisis) y poder corregir sus valores.
+- [ ] **Crear alimentos propios** a mano en el registro manual cuando no están en la base.
 
 ## Cuentas y sesiones
 

@@ -7,10 +7,12 @@ package db
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const getFood = `-- name: GetFood :one
-SELECT id, name_es, name_en, search_text, source, source_ref, kcal, protein_g, carbs_g, fiber_g, fat_g, vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug, animal_origin, plant_origin, contains_meat, contains_fish, contains_grain, contains_legume, contains_dairy, contains_added_sugar, contains_gluten, contains_lactose, allergens_verified, updated_at FROM foods WHERE id = $1
+SELECT id, name_es, name_en, search_text, source, source_ref, kcal, protein_g, carbs_g, fiber_g, fat_g, vitamin_c_mg, calcium_mg, iron_mg, magnesium_mg, potassium_mg, sodium_mg, zinc_mg, vitamin_b12_ug, animal_origin, plant_origin, contains_meat, contains_fish, contains_grain, contains_legume, contains_dairy, contains_added_sugar, contains_gluten, contains_lactose, allergens_verified, updated_at, owner_user_id FROM foods WHERE id = $1
 `
 
 func (q *Queries) GetFood(ctx context.Context, id string) (Food, error) {
@@ -48,31 +50,76 @@ func (q *Queries) GetFood(ctx context.Context, id string) (Food, error) {
 		&i.ContainsLactose,
 		&i.AllergensVerified,
 		&i.UpdatedAt,
+		&i.OwnerUserID,
 	)
 	return i, err
 }
 
-const matchFood = `-- name: MatchFood :many
-SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at FROM foods, unnest($1::text[]) AS q,
+const insertEstimatedFood = `-- name: InsertEstimatedFood :exec
+INSERT INTO foods (
+    id, name_es, name_en, search_text, source, owner_user_id,
+    kcal, protein_g, carbs_g, fiber_g, fat_g, allergens_verified
+) VALUES (
+    $1, $2, $3, $4, 'ai_estimate', $5, $6, $7, $8, $9, $10, false
+)
+ON CONFLICT (id) DO NOTHING
+`
+
+type InsertEstimatedFoodParams struct {
+	ID          string
+	NameEs      string
+	NameEn      string
+	SearchText  string
+	OwnerUserID *uuid.UUID
+	Kcal        float64
+	ProteinG    float64
+	CarbsG      float64
+	FiberG      float64
+	FatG        float64
+}
+
+// Alimento privado estimado por la IA. Si ya existe (mismo dueño y nombre), queda
+// el anterior: el mismo alimento conserva sus valores.
+func (q *Queries) InsertEstimatedFood(ctx context.Context, arg InsertEstimatedFoodParams) error {
+	_, err := q.db.Exec(ctx, insertEstimatedFood,
+		arg.ID,
+		arg.NameEs,
+		arg.NameEn,
+		arg.SearchText,
+		arg.OwnerUserID,
+		arg.Kcal,
+		arg.ProteinG,
+		arg.CarbsG,
+		arg.FiberG,
+		arg.FatG,
+	)
+	return err
+}
+
+const matchFoodCandidates = `-- name: MatchFoodCandidates :many
+SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id FROM foods, unnest($1::text[]) AS q,
 LATERAL (
     SELECT max(CASE
                    WHEN t = q THEN 4
                    WHEN t LIKE q || '%' THEN 3
                    WHEN t LIKE '%' || q || '%' THEN 2
                    ELSE 0 END) AS rank,
-           max(word_similarity(q, t)) AS sim,
-           max(similarity(q, t)) AS whole
+           max(word_similarity(q, t)) AS sim
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, s.whole DESC, length(foods.name_es), foods.name_es
-LIMIT 1
+WHERE foods.owner_user_id IS NULL
+  AND q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
+ORDER BY s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
+LIMIT 25
 `
 
-// El mejor alimento para alguno de los nombres que devolvió la IA (el genérico en
-// inglés y el que se muestra en español): gana la coincidencia más fuerte entre todos.
-func (q *Queries) MatchFood(ctx context.Context, queries []string) ([]Food, error) {
-	rows, err := q.db.Query(ctx, matchFood, queries)
+// Candidatos del catálogo para los nombres que devolvió la IA (el genérico en inglés
+// y el que se muestra en español), del más al menos parecido. La decisión final la
+// toma el dominio (domain.NamesMatch: las mismas palabras): un candidato que solo
+// comparte una palabra ("stewed beef" → "Bife magro a la parrilla") se descarta y
+// se usa la estimación de la IA.
+func (q *Queries) MatchFoodCandidates(ctx context.Context, queries []string) ([]Food, error) {
+	rows, err := q.db.Query(ctx, matchFoodCandidates, queries)
 	if err != nil {
 		return nil, err
 	}
@@ -112,6 +159,7 @@ func (q *Queries) MatchFood(ctx context.Context, queries []string) ([]Food, erro
 			&i.ContainsLactose,
 			&i.AllergensVerified,
 			&i.UpdatedAt,
+			&i.OwnerUserID,
 		); err != nil {
 			return nil, err
 		}
@@ -124,7 +172,7 @@ func (q *Queries) MatchFood(ctx context.Context, queries []string) ([]Food, erro
 }
 
 const searchFoods = `-- name: SearchFoods :many
-SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at FROM foods,
+SELECT foods.id, foods.name_es, foods.name_en, foods.search_text, foods.source, foods.source_ref, foods.kcal, foods.protein_g, foods.carbs_g, foods.fiber_g, foods.fat_g, foods.vitamin_c_mg, foods.calcium_mg, foods.iron_mg, foods.magnesium_mg, foods.potassium_mg, foods.sodium_mg, foods.zinc_mg, foods.vitamin_b12_ug, foods.animal_origin, foods.plant_origin, foods.contains_meat, foods.contains_fish, foods.contains_grain, foods.contains_legume, foods.contains_dairy, foods.contains_added_sugar, foods.contains_gluten, foods.contains_lactose, foods.allergens_verified, foods.updated_at, foods.owner_user_id FROM foods,
 LATERAL (
     SELECT max(CASE
                    WHEN t = $1::text THEN 4
@@ -135,7 +183,8 @@ LATERAL (
            max(similarity($1::text, t)) AS whole -- desempate: el término más parecido entero
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE s.rank > 0 OR s.sim >= 0.5
+WHERE foods.owner_user_id IS NULL -- solo el catálogo: los estimados son privados
+  AND (s.rank > 0 OR s.sim >= 0.5)
 ORDER BY s.rank DESC, s.sim DESC, s.whole DESC,
     length(foods.name_es), -- a igualdad, el más genérico ("Milanesa de pollo frita" antes que "… al horno")
     foods.name_es
@@ -198,6 +247,7 @@ func (q *Queries) SearchFoods(ctx context.Context, arg SearchFoodsParams) ([]Foo
 			&i.ContainsLactose,
 			&i.AllergensVerified,
 			&i.UpdatedAt,
+			&i.OwnerUserID,
 		); err != nil {
 			return nil, err
 		}

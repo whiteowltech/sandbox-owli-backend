@@ -23,3 +23,10 @@ sql:
             go_type:
               type: float64
               pointer: true
+          # Dueño de un alimento estimado por la IA: NULL = catálogo.
+          - db_type: uuid
+            nullable: true
+            go_type:
+              import: github.com/google/uuid
+              type: UUID
+              pointer: true

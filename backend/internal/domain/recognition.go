@@ -15,14 +15,45 @@ var ErrInvalidRecognition = errors.New("reconocimiento de alimentos inválido")
 // real, así que nunca decide reintentos ni permite saltarse la confirmación.
 const LowConfidenceThreshold = 0.6
 
-// RecognizedFood es un alimento identificado por la IA. Solo contiene
-// identificación y gramos: los macros se calculan después con la base
-// nutricional (ver ForGrams), nunca los aporta la IA.
+// RecognizedFood es un alimento identificado por la IA: qué es, cuántos gramos y
+// una estimación de su composición cada 100 g. La estimación solo se usa cuando el
+// alimento no está en la base nutricional (con coincidencia exacta): la base, que
+// sale de USDA, es más precisa (regla de CLAUDE.md, "Pipeline de registro").
 type RecognizedFood struct {
-	Name        string  // nombre genérico en inglés, para buscar en la base nutricional
-	DisplayName string  // nombre para mostrar al usuario (español)
-	Grams       float64 // porción estimada
-	Confidence  float64 // 0–1
+	Name        string            // nombre genérico en inglés, para buscar en la base nutricional
+	DisplayName string            // nombre para mostrar al usuario (español)
+	Grams       float64           // porción estimada
+	Confidence  float64           // 0–1
+	Estimate    *NutrientEstimate // composición estimada por la IA; nil si no la dio
+}
+
+// NutrientEstimate es la composición que estima la IA, en gramos cada 100 g del
+// alimento tal como se sirve. La IA no da calorías: se calculan aquí (Atwater).
+type NutrientEstimate struct {
+	ProteinG float64
+	CarbsG   float64 // totales, con la fibra
+	FiberG   float64
+	FatG     float64
+	AlcoholG float64
+}
+
+// estimateSlackG: margen para el redondeo de la IA al sumar los macros de 100 g.
+const estimateSlackG = 3
+
+// Per100g valida la estimación y calcula las calorías con los factores de Atwater
+// (proteína y carbohidratos digeribles 4 kcal/g, fibra 2, grasa 9, alcohol 7).
+// Calcularlas aquí evita que la IA dé calorías que no cierran con sus macros.
+func (e NutrientEstimate) Per100g() (Macros, error) {
+	switch {
+	case e.ProteinG < 0 || e.CarbsG < 0 || e.FiberG < 0 || e.FatG < 0 || e.AlcoholG < 0:
+		return Macros{}, fmt.Errorf("%w: estimación con valores negativos", ErrInvalidMacros)
+	case e.FiberG > e.CarbsG:
+		return Macros{}, fmt.Errorf("%w: estimación con más fibra (%.1f g) que carbohidratos (%.1f g)", ErrInvalidMacros, e.FiberG, e.CarbsG)
+	case e.ProteinG+e.CarbsG+e.FatG+e.AlcoholG > 100+estimateSlackG:
+		return Macros{}, fmt.Errorf("%w: la estimación suma más de 100 g cada 100 g", ErrInvalidMacros)
+	}
+	kcal := 4*e.ProteinG + 4*(e.CarbsG-e.FiberG) + 2*e.FiberG + 9*e.FatG + 7*e.AlcoholG
+	return Macros{Calories: kcal, ProteinG: e.ProteinG, CarbsG: e.CarbsG, FiberG: e.FiberG, FatG: e.FatG}, nil
 }
 
 // FoodRecognition es el resultado de analizar una foto o un texto transcrito.

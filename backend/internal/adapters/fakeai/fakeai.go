@@ -46,16 +46,29 @@ func (r Recognizer) respond(ctx context.Context, data []byte, empty string) (por
 		return ports.RecognitionResult{}, ctx.Err()
 	case bytes.Contains(data, []byte(empty)):
 		return ports.RecognitionResult{Model: r.Model}, nil
+	case bytes.Contains(bytes.ToLower(data), []byte("pancake")):
+		// Algo que no está en el catálogo: se usa la estimación de la IA.
+		return ports.RecognitionResult{Model: r.Model, Recognition: domain.FoodRecognition{Items: []domain.RecognizedFood{
+			{Name: "protein pancake", DisplayName: "Pancake proteico", Grams: 120, Confidence: 0.8, Estimate: &PancakeEstimate},
+		}}}, nil
 	}
 	return ports.RecognitionResult{
 		Model: r.Model,
 		Recognition: domain.FoodRecognition{Items: []domain.RecognizedFood{
-			{Name: "chicken breast", DisplayName: "Pechuga de pollo", Grams: 150, Confidence: 0.85},
-			{Name: "white rice", DisplayName: "Arroz blanco", Grams: 120, Confidence: 0.8},
+			// En el catálogo: se usan sus valores aunque la IA estime otros.
+			{Name: "roasted chicken breast", DisplayName: "Pechuga de pollo asada", Grams: 150, Confidence: 0.85,
+				Estimate: &domain.NutrientEstimate{ProteinG: 30, FatG: 4}},
+			{Name: "white rice", DisplayName: "Arroz blanco", Grams: 120, Confidence: 0.8,
+				Estimate: &domain.NutrientEstimate{ProteinG: 3, CarbsG: 28, FiberG: 0.4}},
+			// Ni en el catálogo ni con estimación: el usuario lo elige a mano.
 			{Name: "dragon glaze", DisplayName: "Glaseado", Grams: 30, Confidence: 0.4},
 		}},
 	}, nil
 }
+
+// PancakeEstimate es lo que "estima" la IA simulada para el pancake proteico:
+// 4·20 + 4·(25−2) + 2·2 + 9·5 = 221 kcal cada 100 g.
+var PancakeEstimate = domain.NutrientEstimate{ProteinG: 20, CarbsG: 25, FiberG: 2, FatG: 5}
 
 // Phrase es lo que "escucha" el transcriptor simulado.
 const Phrase = "Comí pechuga de pollo con arroz blanco y un poco de glaseado"

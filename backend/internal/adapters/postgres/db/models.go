@@ -58,6 +58,7 @@ type Food struct {
 	ContainsLactose    bool
 	AllergensVerified  bool
 	UpdatedAt          pgtype.Timestamptz
+	OwnerUserID        *uuid.UUID
 }
 
 type Identity struct {

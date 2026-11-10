@@ -36,9 +36,11 @@ type AIConfig struct {
 
 // AnalysisService implementa el registro por foto y por voz (CLAUDE.md, "Pipeline de registro de comidas"):
 //  1. cobra 1 crédito (atómico); 2. reserva el gasto en el tope diario;
-//  3. pide a la IA solo alimentos y gramos (primario → respaldo, sin cobrar de nuevo);
-//     en voz, antes transcribe con Whisper y la extracción es en modo texto;
-//  4. si falla o no hay comida, devuelve el crédito; 5. cruza con la base nutricional.
+//  3. pide a la IA alimentos, gramos y su composición estimada (primario → respaldo,
+//     sin cobrar de nuevo); en voz, antes transcribe con Whisper y la extracción es en modo texto;
+//  4. si falla o no hay comida, devuelve el crédito;
+//  5. resuelve cada alimento: el catálogo si coincide exacto; si no, la estimación de la IA
+//     como alimento privado del usuario; si la estimación no cierra, el usuario lo elige.
 //
 // Ni la foto ni el audio se guardan: solo viven en memoria durante el pedido.
 type AnalysisService struct {
@@ -219,7 +221,7 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 	}
 	for _, it := range r.res.Recognition.Items {
 		item := ports.AnalysisItem{Recognized: it, NeedsReview: it.Confidence < domain.LowConfidenceThreshold}
-		if f, ok := s.match(ctx, it); ok {
+		if f, ok := s.resolve(ctx, userID, it); ok {
 			item.Food = &f
 		} else {
 			item.NeedsReview = true
@@ -227,6 +229,30 @@ func (s *AnalysisService) analyze(ctx context.Context, userID domain.UserID, cos
 		out.Items = append(out.Items, item)
 	}
 	return out, nil
+}
+
+// resolve elige los valores nutricionales de un alimento identificado: el catálogo
+// (USDA) si el nombre coincide exacto, porque es más preciso; si no, la estimación
+// de la IA, guardada como alimento privado del usuario. ok = false si tampoco hay
+// estimación válida: el usuario lo elige a mano en la confirmación.
+func (s *AnalysisService) resolve(ctx context.Context, userID domain.UserID, it domain.RecognizedFood) (domain.Food, bool) {
+	if f, ok := s.match(ctx, it); ok {
+		return f, true
+	}
+	if it.Estimate == nil {
+		return domain.Food{}, false
+	}
+	est, err := domain.NewEstimatedFood(userID, it.DisplayName, it.Name, *it.Estimate)
+	if err != nil {
+		s.log.Warn("estimación de la IA descartada", "food", it.Name, "err", err)
+		return domain.Food{}, false
+	}
+	saved, err := s.foods.SaveEstimate(ctx, est)
+	if err != nil {
+		s.log.Warn("no se pudo guardar la estimación", "food", it.Name, "err", err)
+		return domain.Food{}, false
+	}
+	return saved, true
 }
 
 // recognize prueba el proveedor principal con su límite de tiempo y, si falla por
@@ -266,9 +292,9 @@ func (s *AnalysisService) recognize(ctx context.Context, primary, fallback recog
 	return recognized{res: res, fallback: true}, res.Recognition.Validate()
 }
 
-// match busca el alimento en la base con los dos nombres de la IA: el que se muestra
-// en español (en voz, lo que dijo el usuario: "bife") y el genérico en inglés
-// ("beef steak"). Gana la coincidencia más fuerte; si no hay, el usuario elige a mano.
+// match busca el alimento en el catálogo con los dos nombres de la IA: el que se
+// muestra en español (en voz, lo que dijo el usuario: "bife") y el genérico en
+// inglés ("beef steak"). Solo coincidencias exactas (ver ports.FoodRepository.Match).
 func (s *AnalysisService) match(ctx context.Context, it domain.RecognizedFood) (domain.Food, bool) {
 	f, ok, err := s.foods.Match(ctx, []string{it.DisplayName, it.Name})
 	if err != nil {

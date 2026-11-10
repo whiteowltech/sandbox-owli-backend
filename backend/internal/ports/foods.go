@@ -14,14 +14,22 @@ var ErrProfileRequired = errors.New("primero hay que completar el perfil")
 
 // FoodRepository es el catálogo de alimentos.
 type FoodRepository interface {
-	// Get devuelve ErrNotFound si el alimento no existe.
+	// Get devuelve ErrNotFound si el alimento no existe. Incluye los alimentos
+	// estimados (con dueño): quien llama comprueba que el usuario pueda verlo.
 	Get(ctx context.Context, id domain.FoodID) (domain.Food, error)
-	// Search busca por nombre o sinónimo, tolerando acentos y errores de tipeo.
+	// Search busca en el catálogo por nombre o sinónimo, tolerando acentos y errores
+	// de tipeo. No devuelve alimentos estimados.
 	Search(ctx context.Context, query string, limit int) ([]domain.Food, error)
-	// Match devuelve el alimento que mejor coincide con alguno de los nombres (lo que
-	// identificó la IA: el genérico en inglés y el que se muestra en español).
-	// ok = false si ninguno coincide lo suficiente: el usuario lo elige a mano.
+	// Match busca en el catálogo un alimento cuyo nombre o sinónimo sea el mismo que
+	// uno de los nombres (lo que identificó la IA: el genérico en inglés y el que se
+	// muestra en español) según domain.NamesMatch. Una coincidencia solo parecida
+	// reemplazaba lo que vio la IA por otro alimento ("estofado" → "bife").
+	// ok = false si ninguno coincide: se usa la estimación de la IA.
 	Match(ctx context.Context, names []string) (food domain.Food, ok bool, err error)
+	// SaveEstimate guarda un alimento estimado por la IA (domain.NewEstimatedFood) si
+	// todavía no existe y devuelve el guardado: si ya estaba, gana el anterior, para
+	// que el mismo alimento tenga siempre los mismos valores.
+	SaveEstimate(ctx context.Context, f domain.Food) (domain.Food, error)
 }
 
 // LoggedEntry es una comida registrada con el nombre del alimento, para mostrarla.

@@ -47,15 +47,19 @@ LATERAL (
            max(similarity(sqlc.arg(query)::text, t)) AS whole -- desempate: el término más parecido entero
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE s.rank > 0 OR s.sim >= 0.5
+WHERE foods.owner_user_id IS NULL -- solo el catálogo: los estimados son privados
+  AND (s.rank > 0 OR s.sim >= 0.5)
 ORDER BY s.rank DESC, s.sim DESC, s.whole DESC,
     length(foods.name_es), -- a igualdad, el más genérico ("Milanesa de pollo frita" antes que "… al horno")
     foods.name_es
 LIMIT sqlc.arg(max_results);
 
--- name: MatchFood :many
--- El mejor alimento para alguno de los nombres que devolvió la IA (el genérico en
--- inglés y el que se muestra en español): gana la coincidencia más fuerte entre todos.
+-- name: MatchFoodCandidates :many
+-- Candidatos del catálogo para los nombres que devolvió la IA (el genérico en inglés
+-- y el que se muestra en español), del más al menos parecido. La decisión final la
+-- toma el dominio (domain.NamesMatch: las mismas palabras): un candidato que solo
+-- comparte una palabra ("stewed beef" → "Bife magro a la parrilla") se descarta y
+-- se usa la estimación de la IA.
 SELECT foods.* FROM foods, unnest(sqlc.arg(queries)::text[]) AS q,
 LATERAL (
     SELECT max(CASE
@@ -63,10 +67,21 @@ LATERAL (
                    WHEN t LIKE q || '%' THEN 3
                    WHEN t LIKE '%' || q || '%' THEN 2
                    ELSE 0 END) AS rank,
-           max(word_similarity(q, t)) AS sim,
-           max(similarity(q, t)) AS whole
+           max(word_similarity(q, t)) AS sim
     FROM unnest(string_to_array(foods.search_text, ' | ')) AS t
 ) s
-WHERE q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
-ORDER BY s.rank DESC, s.sim DESC, s.whole DESC, length(foods.name_es), foods.name_es
-LIMIT 1;
+WHERE foods.owner_user_id IS NULL
+  AND q <> '' AND (s.rank > 0 OR s.sim >= 0.5)
+ORDER BY s.rank DESC, s.sim DESC, length(foods.name_es), foods.name_es
+LIMIT 25;
+
+-- name: InsertEstimatedFood :exec
+-- Alimento privado estimado por la IA. Si ya existe (mismo dueño y nombre), queda
+-- el anterior: el mismo alimento conserva sus valores.
+INSERT INTO foods (
+    id, name_es, name_en, search_text, source, owner_user_id,
+    kcal, protein_g, carbs_g, fiber_g, fat_g, allergens_verified
+) VALUES (
+    $1, $2, $3, $4, 'ai_estimate', $5, $6, $7, $8, $9, $10, false
+)
+ON CONFLICT (id) DO NOTHING;

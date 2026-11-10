@@ -5,6 +5,7 @@ package memory
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"sort"
 	"strings"
 	"sync"
@@ -214,6 +215,9 @@ func (f *Foods) Search(_ context.Context, query string, limit int) ([]domain.Foo
 	q := domain.NormalizeSearch(query)
 	out := []domain.Food{}
 	for _, food := range f.s.foods {
+		if food.Estimated() {
+			continue // el catálogo no incluye los alimentos privados
+		}
 		if strings.Contains(domain.NormalizeSearch(food.NameES+" "+food.NameEN), q) {
 			out = append(out, food)
 		}
@@ -225,17 +229,44 @@ func (f *Foods) Search(_ context.Context, query string, limit int) ([]domain.Foo
 	return out, nil
 }
 
-// Match: el primer nombre que coincide con algún alimento (versión simple para pruebas).
-func (f *Foods) Match(ctx context.Context, names []string) (domain.Food, bool, error) {
+// Match: un alimento del catálogo cuyo nombre en español o en inglés sea el mismo
+// que alguno de los nombres según domain.NamesMatch (como Postgres, sin sinónimos).
+func (f *Foods) Match(_ context.Context, names []string) (domain.Food, bool, error) {
+	f.s.mu.Lock()
+	defer f.s.mu.Unlock()
 	for _, n := range names {
-		if n == "" {
+		q := domain.NormalizeSearch(n)
+		if q == "" {
 			continue
 		}
-		if found, _ := f.Search(ctx, n, 1); len(found) > 0 {
-			return found[0], true, nil
+		var hits []domain.Food
+		for _, food := range f.s.foods {
+			if !food.Estimated() && (domain.NamesMatch(q, food.NameES) || domain.NamesMatch(q, food.NameEN)) {
+				hits = append(hits, food)
+			}
+		}
+		if len(hits) > 0 {
+			sort.Slice(hits, func(i, j int) bool { return hits[i].NameES < hits[j].NameES })
+			return hits[0], true, nil
 		}
 	}
 	return domain.Food{}, false, nil
+}
+
+func (f *Foods) SaveEstimate(_ context.Context, food domain.Food) (domain.Food, error) {
+	f.s.mu.Lock()
+	defer f.s.mu.Unlock()
+	if !food.Estimated() {
+		return domain.Food{}, fmt.Errorf("memory: %q no es un alimento estimado", food.ID)
+	}
+	if !f.s.users[food.Owner] {
+		return domain.Food{}, ports.ErrNotFound // igual que la clave foránea de Postgres
+	}
+	if prev, ok := f.s.foods[food.ID]; ok {
+		return prev, nil
+	}
+	f.s.foods[food.ID] = food
+	return food, nil
 }
 
 type Entries struct{ s *Store }

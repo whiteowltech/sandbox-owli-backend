@@ -35,8 +35,8 @@ test('foto → confirmación → guardar: cobra un análisis y suma las comidas'
   await expect(sheet.getByRole('heading', { name: 'Revisa tu comida' })).toBeVisible();
   await expect(sheet.getByText('Pechuga de pollo asada')).toBeVisible();
   await expect(sheet.getByText('Arroz blanco cocido')).toBeVisible();
-  // El glaseado no está en la base: queda marcada y no se guarda sin elegir un alimento.
-  await expect(sheet.getByText('Todavía no está en la base: elige uno parecido o quítalo.')).toBeVisible();
+  // El glaseado no está en la base ni la IA pudo estimarlo: queda marcado y no se guarda sin elegir un alimento.
+  await expect(sheet.getByText('No pude estimarlo: elige uno parecido o quítalo.')).toBeVisible();
   await expect(sheet.getByText('1 sin alimento elegido: no se guardará.')).toBeVisible();
 
   // Corregir: +10 % al pollo y quitar el glaseado.

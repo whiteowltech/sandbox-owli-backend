@@ -202,6 +202,12 @@ func TestMatchFoodWithRealCatalog(t *testing.T) {
 		{[]string{"salsa chimichurri", "chimichurri sauce"}, "chimichurri"},
 		{[]string{"", "white rice"}, "arroz-blanco"},
 		{[]string{"Glaseado", "dragon glaze"}, ""},
+		// Casos reales del 9 de noviembre de 2026: un estofado terminaba como "Bife magro
+		// a la parrilla", "Puré de papas" y "Ketchup". Ahora no coinciden y se usa la
+		// estimación de la IA.
+		{[]string{"Carne del estofado", "stewed beef"}, ""},
+		{[]string{"Papas guisadas", "stewed potatoes"}, ""},
+		{[]string{"Pancake proteico", "protein pancake"}, ""},
 		{[]string{"", ""}, ""},
 	}
 	for _, tt := range tests {
@@ -212,5 +218,68 @@ func TestMatchFoodWithRealCatalog(t *testing.T) {
 		if (tt.want == "") == ok || (ok && got.ID != tt.want) {
 			t.Errorf("Match(%q) = %s (%v), se esperaba %q", tt.names, got.ID, ok, tt.want)
 		}
+	}
+}
+
+func TestMatchAndEstimates(t *testing.T) {
+	s, pool := testStore(t)
+	ctx := context.Background()
+	if _, err := pool.Exec(ctx, "TRUNCATE foods CASCADE"); err != nil {
+		t.Fatal(err)
+	}
+	seedFoods(t, s)
+	foods := s.Foods()
+
+	// Mismas palabras (sin "cocido", plurales ni acentos): coincide.
+	if f, ok, err := foods.Match(ctx, []string{"Pechuga de pollo", "roasted chicken breast"}); err != nil || !ok || f.ID != "pechuga-pollo" {
+		t.Errorf("Match pechuga = %v, %v, %v", f.ID, ok, err)
+	}
+	if f, ok, _ := foods.Match(ctx, []string{"jugo de limon"}); !ok || f.ID != "jugo-limon" {
+		t.Errorf("Match limón = %v, %v", f.ID, ok)
+	}
+	// Solo compartir una palabra no alcanza: se usa la estimación de la IA.
+	for _, q := range [][]string{{"Pollo al curry", "chicken curry"}, {"Jugo de naranja", "orange juice"}} {
+		if f, ok, _ := foods.Match(ctx, q); ok {
+			t.Errorf("Match(%v) = %v; no debería coincidir", q, f.ID)
+		}
+	}
+
+	alice, _ := s.CreateUser(ctx)
+	est, err := domain.NewEstimatedFood(alice, "Pancake proteico", "protein pancake",
+		domain.NutrientEstimate{ProteinG: 20, CarbsG: 25, FiberG: 2, FatG: 5})
+	if err != nil {
+		t.Fatal(err)
+	}
+	saved, err := foods.SaveEstimate(ctx, est)
+	if err != nil {
+		t.Fatalf("SaveEstimate: %v", err)
+	}
+	if saved.Owner != alice || !saved.Estimated() || saved.Per100g.Calories != 221 {
+		t.Errorf("guardado = %+v", saved)
+	}
+	// Si ya existe, gana el anterior (el mismo alimento conserva sus valores).
+	changed := est
+	changed.Per100g.Calories = 999
+	if again, _ := foods.SaveEstimate(ctx, changed); again.Per100g.Calories != 221 {
+		t.Errorf("la segunda estimación pisó la primera: %+v", again.Per100g)
+	}
+	// Privado: no aparece en la búsqueda ni en el cruce del catálogo.
+	if found, _ := foods.Search(ctx, "pancake", 10); len(found) != 0 {
+		t.Errorf("Search devolvió un alimento privado: %v", ids(found))
+	}
+	if _, ok, _ := foods.Match(ctx, []string{"Pancake proteico"}); ok {
+		t.Error("Match devolvió un alimento privado")
+	}
+
+	// Anotarlo y borrar la cuenta: se van la comida y el alimento.
+	e, _ := domain.NewEntry(saved, 120, time.Date(2026, 11, 9, 12, 0, 0, 0, time.UTC), domain.SourceVoice)
+	if _, err := s.Entries().Insert(ctx, alice, e); err != nil {
+		t.Fatal(err)
+	}
+	if err := s.DeleteUser(ctx, alice); err != nil {
+		t.Fatalf("DeleteUser: %v", err)
+	}
+	if _, err := foods.Get(ctx, saved.ID); !errors.Is(err, ports.ErrNotFound) {
+		t.Errorf("el alimento estimado sobrevivió a la cuenta: %v", err)
 	}
 }

@@ -94,7 +94,7 @@ func (s *Store) UpsertFoods(ctx context.Context, foods []CatalogFood) error {
 }
 
 func toFood(r db.Food) domain.Food {
-	return domain.Food{
+	f := domain.Food{
 		ID: domain.FoodID(r.ID), NameES: r.NameEs, NameEN: r.NameEn,
 		Per100g: domain.Macros{Calories: r.Kcal, ProteinG: r.ProteinG, CarbsG: r.CarbsG, FiberG: r.FiberG, FatG: r.FatG},
 		Micros: domain.Micros{VitaminCMg: r.VitaminCMg, CalciumMg: r.CalciumMg, IronMg: r.IronMg, MagnesiumMg: r.MagnesiumMg,
@@ -104,6 +104,10 @@ func toFood(r db.Food) domain.Food {
 			ContainsDairy: r.ContainsDairy, ContainsAddedSugar: r.ContainsAddedSugar, ContainsGluten: r.ContainsGluten,
 			ContainsLactose: r.ContainsLactose, AllergensVerified: r.AllergensVerified},
 	}
+	if r.OwnerUserID != nil {
+		f.Owner = domain.UserID(r.OwnerUserID.String())
+	}
+	return f
 }
 
 // Foods implementa ports.FoodRepository (separado de Store para no chocar con
@@ -149,14 +153,43 @@ func (f *Foods) Match(ctx context.Context, names []string) (domain.Food, bool, e
 	if len(queries) == 0 {
 		return domain.Food{}, false, nil
 	}
-	rows, err := f.s.q.MatchFood(ctx, queries)
+	rows, err := f.s.q.MatchFoodCandidates(ctx, queries)
 	if err != nil {
 		return domain.Food{}, false, fmt.Errorf("cruzando alimento: %w", err)
 	}
-	if len(rows) == 0 {
-		return domain.Food{}, false, nil
+	// Gana el primer nombre de la IA que tenga un candidato con las mismas palabras.
+	for _, q := range queries {
+		for _, r := range rows {
+			for _, term := range strings.Split(r.SearchText, " | ") {
+				if domain.NamesMatch(q, term) {
+					return toFood(r), true, nil
+				}
+			}
+		}
 	}
-	return toFood(rows[0]), true, nil
+	return domain.Food{}, false, nil
+}
+
+func (f *Foods) SaveEstimate(ctx context.Context, food domain.Food) (domain.Food, error) {
+	if !food.Estimated() {
+		return domain.Food{}, fmt.Errorf("guardando estimación: %q no tiene dueño", food.ID)
+	}
+	owner, err := parseUserID(food.Owner)
+	if err != nil {
+		return domain.Food{}, err
+	}
+	m := food.Per100g
+	err = f.s.q.InsertEstimatedFood(ctx, db.InsertEstimatedFoodParams{
+		ID: string(food.ID), NameEs: food.NameES, NameEn: food.NameEN,
+		SearchText:  domain.NormalizeSearch(food.NameES) + " | " + domain.NormalizeSearch(food.NameEN),
+		OwnerUserID: &owner,
+		Kcal:        m.Calories, ProteinG: m.ProteinG, CarbsG: m.CarbsG, FiberG: m.FiberG, FatG: m.FatG,
+	})
+	if err != nil {
+		return domain.Food{}, fmt.Errorf("guardando estimación: %w", err)
+	}
+	// Si ya existía, se devuelve el guardado (conserva sus valores).
+	return f.Get(ctx, food.ID)
 }
 
 // Entries implementa ports.EntryRepository.

@@ -1,5 +1,7 @@
 package gemini
 
+import "github.com/whiteowltech/owli/backend/internal/adapters/foodprompt"
+
 // recognitionSchema es el responseSchema (subconjunto OpenAPI, tipos en
 // mayúsculas) que fuerza la estructura definida en foodprompt.
 var recognitionSchema = map[string]any{
@@ -14,9 +16,10 @@ var recognitionSchema = map[string]any{
 					"display_name": map[string]any{"type": "STRING"},
 					"grams":        map[string]any{"type": "NUMBER"},
 					"confidence":   map[string]any{"type": "NUMBER"},
+					"per_100g":     foodprompt.Per100gSchema("OBJECT", "NUMBER"),
 				},
-				"required":         []string{"name", "display_name", "grams", "confidence"},
-				"propertyOrdering": []string{"name", "display_name", "grams", "confidence"},
+				"required":         []string{"name", "display_name", "grams", "confidence", "per_100g"},
+				"propertyOrdering": []string{"name", "display_name", "grams", "confidence", "per_100g"},
 			},
 		},
 	},

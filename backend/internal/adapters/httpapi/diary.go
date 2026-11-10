@@ -66,6 +66,8 @@ type foodDTO struct {
 	Per100g macrosDTO `json:"per100g"`
 	Micros  microsDTO `json:"micros"`
 	Traits  traitsDTO `json:"traits"`
+	// Estimated: los valores los estimó la IA (no está en la base); la app lo marca.
+	Estimated bool `json:"estimated"`
 }
 
 func toFoodDTO(f domain.Food) foodDTO {
@@ -74,7 +76,8 @@ func toFoodDTO(f domain.Food) foodDTO {
 		Traits: traitsDTO{AnimalOrigin: t.AnimalOrigin, PlantOrigin: t.PlantOrigin, ContainsMeat: t.ContainsMeat, ContainsFish: t.ContainsFish,
 			ContainsGrain: t.ContainsGrain, ContainsLegume: t.ContainsLegume, ContainsDairy: t.ContainsDairy,
 			ContainsAddedSugar: t.ContainsAddedSugar, ContainsGluten: t.ContainsGluten, ContainsLactose: t.ContainsLactose,
-			AllergensVerified: t.AllergensVerified}}
+			AllergensVerified: t.AllergensVerified},
+		Estimated: f.Estimated()}
 }
 
 type entryDTO struct {

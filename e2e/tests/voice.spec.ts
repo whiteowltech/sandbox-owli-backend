@@ -79,6 +79,33 @@ test('voz en el dispositivo: texto en vivo → confirmación → guardar', async
   await expect(credits(page)).toHaveText(/15 análisis/);
 });
 
+test('algo que no está en la base: lo estima la IA y se guarda sin elegir nada', async ({ page }) => {
+  await deviceSpeech(page, 'Pancake proteico');
+  await onboard(page);
+
+  await page.getByRole('button', { name: 'Contar lo que comiste' }).click();
+  const sheet = page.locator('owli-photo-review-sheet');
+  await expect(sheet.getByText('«Pancake proteico»')).toBeVisible();
+  await sheet.getByRole('button', { name: 'Listo' }).click();
+
+  // La IA simulada estima 221 kcal cada 100 g: 120 g = 265 kcal.
+  await expect(sheet.getByRole('heading', { name: 'Revisa tu comida' })).toBeVisible();
+  await expect(sheet.getByText('Pancake proteico', { exact: true })).toBeVisible();
+  await expect(sheet.getByText('Estimado por IA.')).toBeVisible();
+  await expect(sheet.getByText('265 kcal')).toBeVisible();
+  await expect(sheet.getByText('elige uno parecido')).toHaveCount(0);
+
+  await sheet.getByRole('button', { name: 'Guardar (1)' }).click();
+  await expect(sheet).toHaveCount(0);
+  const day = page.locator('owli-today-page .entries');
+  await expect(day.getByText('Pancake proteico')).toBeVisible();
+  await expect(day.getByText('265 kcal')).toBeVisible();
+
+  // Queda guardado en el servidor como alimento propio.
+  await page.reload();
+  await expect(day.getByText('Pancake proteico')).toBeVisible();
+});
+
 test('respaldo: sin reconocimiento en el navegador, transcribe el servidor', async ({ page }) => {
   await noDeviceSpeech(page);
   await onboard(page);

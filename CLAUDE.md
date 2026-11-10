@@ -56,9 +56,13 @@ e2e/                    # Playwright
 
 ## Pipeline de registro de comidas
 1. **Captura**: foto comprimida en el cliente, o audio.
-2. **Identificación (IA)**: Gemini (o Whisper → Gemini texto) devuelve **solo** los alimentos identificados, los gramos estimados y la confianza. **La IA no calcula macros.**
-3. **Resolución nutricional**: cada alimento se cruza con la base nutricional (Postgres, con caché en Redis para los frecuentes) y los macros se calculan en el dominio a partir de los gramos.
-4. **Confirmación**: el usuario revisa y puede corregir alimentos y gramos antes de guardar. Los ítems con baja confianza o sin coincidencia en la base se resaltan para revisarlos.
+2. **Identificación (IA)**: Gemini (o Whisper → Gemini texto) devuelve los alimentos tal como son (con su preparación: "carne del estofado", no "bife"), los gramos, la confianza y **su composición estimada cada 100 g** (proteína, carbos, fibra, grasa, alcohol). **La IA no da calorías**: el dominio las calcula con Atwater (`domain.NutrientEstimate.Per100g`).
+3. **Resolución nutricional** (decidido el 9 de noviembre de 2026; antes la base reemplazaba lo que veía la IA por el alimento más parecido, y un estofado terminaba como "bife a la parrilla, puré y ketchup"):
+   - Si el nombre coincide con uno del catálogo con **las mismas palabras** (`domain.NamesMatch`: sin acentos, plurales ni "cocido"), se usan los valores de la base (USDA, más precisos). Compartir una palabra no alcanza.
+   - Si no, se usa la estimación de la IA, guardada como **alimento privado del usuario** (`domain.NewEstimatedFood`, `foods.owner_user_id`, origen `ai_estimate`). Se reutiliza la próxima vez con los mismos valores. Sin micros y sin alérgenos verificados. No aparece en la búsqueda ni en las sugerencias, y solo su dueño puede anotarlo.
+   - Si la estimación no cierra (suma más de 100 g, más fibra que carbos), el usuario elige el alimento a mano.
+   - Los macros de la porción se calculan en el dominio a partir de los gramos.
+4. **Confirmación**: el usuario revisa y puede corregir alimentos y gramos antes de guardar. Lo estimado por la IA se marca ("Estimado por IA") y se puede cambiar por un alimento de la base. Los ítems con baja confianza o sin alimento se resaltan.
 5. **Persistencia**: solo se guardan las comidas confirmadas.
 - **Fotos**: se descartan tras el análisis y no se almacenan.
 

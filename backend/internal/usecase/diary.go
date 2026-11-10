@@ -58,6 +58,10 @@ func (s *DiaryService) Log(ctx context.Context, userID domain.UserID, foodID dom
 	if err != nil {
 		return ports.LoggedEntry{}, fmt.Errorf("buscando alimento: %w", err)
 	}
+	// Un alimento estimado por la IA es privado: para otro usuario no existe.
+	if !food.VisibleTo(userID) {
+		return ports.LoggedEntry{}, fmt.Errorf("buscando alimento: %w: %q", ports.ErrNotFound, foodID)
+	}
 	entry, err := domain.NewEntry(food, grams, eatenAt, src)
 	if err != nil {
 		return ports.LoggedEntry{}, err

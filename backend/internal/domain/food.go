@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"strings"
 	"time"
@@ -18,6 +20,66 @@ type Food struct {
 	Per100g Macros
 	Micros  Micros // por 100 g; campos nil = sin dato
 	Traits  FoodTraits
+	// Owner es el usuario dueño de un alimento estimado por la IA (vacío en el
+	// catálogo). Un alimento estimado es privado: solo su dueño lo ve y lo anota.
+	Owner UserID
+}
+
+// Estimated indica que los valores los estimó la IA (no salen de la base).
+func (f Food) Estimated() bool { return f.Owner != "" }
+
+// VisibleTo indica si el usuario puede ver y anotar el alimento.
+func (f Food) VisibleTo(u UserID) bool { return f.Owner == "" || f.Owner == u }
+
+// maxEstimatedNameRunes acota el nombre que llega de la IA.
+const maxEstimatedNameRunes = 80
+
+// NewEstimatedFood arma el alimento privado de un usuario a partir de lo que
+// identificó y estimó la IA. El ID sale del dueño y del nombre normalizado, así que
+// el mismo alimento ("pancake proteico") se reutiliza la próxima vez con los mismos
+// valores. No tiene micros (la IA no los estima) ni alérgenos verificados: para las
+// restricciones, "no sabemos" equivale a "no apto".
+func NewEstimatedFood(owner UserID, nameES, nameEN string, e NutrientEstimate) (Food, error) {
+	if owner == "" {
+		return Food{}, fmt.Errorf("%w: un alimento estimado necesita dueño", ErrInvalidMacros)
+	}
+	nameES, nameEN = clipName(nameES), clipName(nameEN)
+	if nameES == "" {
+		nameES = nameEN
+	}
+	if nameEN == "" {
+		nameEN = nameES
+	}
+	key := NormalizeSearch(nameES)
+	if key == "" {
+		return Food{}, fmt.Errorf("%w: alimento estimado sin nombre", ErrInvalidMacros)
+	}
+	per100, err := e.Per100g()
+	if err != nil {
+		return Food{}, err
+	}
+	sum := sha256.Sum256([]byte(string(owner) + "|" + key))
+	return Food{
+		ID:      FoodID("ai-" + hex.EncodeToString(sum[:10])),
+		NameES:  nameES,
+		NameEN:  nameEN,
+		Per100g: per100,
+		Owner:   owner,
+		Traits:  FoodTraits{AllergensVerified: false},
+	}, nil
+}
+
+func clipName(s string) string {
+	s = strings.Join(strings.Fields(s), " ")
+	if r := []rune(s); len(r) > maxEstimatedNameRunes {
+		s = string(r[:maxEstimatedNameRunes])
+	}
+	// "pancake proteico" → "Pancake proteico": como los nombres del catálogo.
+	r := []rune(s)
+	if len(r) > 0 {
+		r[0] = unicode.ToUpper(r[0])
+	}
+	return string(r)
 }
 
 // MaxEntryGrams acota una porción registrada (evita errores de tipeo como 25000 g).
@@ -121,4 +183,52 @@ func NormalizeSearch(s string) string {
 		}
 	}
 	return strings.TrimSpace(b.String())
+}
+
+// matchFiller son palabras que no cambian qué alimento es: "cooked white rice" es
+// el mismo que "white rice". Las preparaciones que sí cambian los valores (frito,
+// guisado, crudo, a la parrilla) no están: "stewed beef" no es "beef steak".
+var matchFiller = map[string]bool{
+	"cooked": true, "cocido": true, "cocida": true, "cocidos": true, "cocidas": true,
+	"de": true, "del": true, "con": true, "el": true, "la": true, "los": true, "las": true, "al": true, "a": true, "y": true,
+	"the": true, "of": true, "with": true, "and": true,
+}
+
+// NamesMatch indica si dos nombres de alimento son el mismo: las mismas palabras,
+// sin acentos, sin mayúsculas, sin plurales y sin las de matchFiller. Es la regla
+// para cruzar lo que identificó la IA con el catálogo: una coincidencia parecida
+// (que comparte una palabra) reemplazaba el alimento por otro.
+func NamesMatch(a, b string) bool {
+	wa, wb := matchWords(a), matchWords(b)
+	if len(wa) == 0 || len(wa) != len(wb) {
+		return false
+	}
+	for w := range wa {
+		if !wb[w] {
+			return false
+		}
+	}
+	return true
+}
+
+func matchWords(s string) map[string]bool {
+	out := map[string]bool{}
+	for _, w := range strings.Fields(NormalizeSearch(s)) {
+		if matchFiller[w] {
+			continue
+		}
+		out[singular(w)] = true
+	}
+	return out
+}
+
+// singular quita el plural común en español e inglés ("papas", "potatoes", "huevos").
+func singular(w string) string {
+	switch {
+	case len(w) > 4 && strings.HasSuffix(w, "oes"): // potatoes, tomatoes
+		return w[:len(w)-2]
+	case len(w) > 3 && strings.HasSuffix(w, "s") && !strings.HasSuffix(w, "ss"):
+		return w[:len(w)-1]
+	}
+	return w
 }

@@ -38,21 +38,22 @@ type analysisEnv struct {
 	credits *memory.Credits
 	spend   *spendSpy
 	user    domain.UserID
+	store   *memory.Store
+	diary   *DiaryService
 }
 
 var testPolicy = domain.CreditPolicy{FreeDailyQuota: 1, WelcomeCredits: 15, ProFairUseDaily: 25}
 
 func newAnalysis(t *testing.T, primary, fallback ports.FoodRecognizer) analysisEnv {
 	t.Helper()
-	svc, store, u := newDiary(t) // catálogo con pechuga de pollo y arroz blanco
-	_ = svc
+	diary, store, u := newDiary(t) // catálogo con pechuga de pollo y arroz blanco
 	saveProfile(t, store, u)
 	credits := memory.NewCredits()
 	spend := &spendSpy{}
 	a := NewAnalysisService(credits, testPolicy, store, store.FoodsRepo(), spend, primary, fallback,
 		AIConfig{PrimaryTimeout: 50 * time.Millisecond, FallbackTimeout: time.Second, FallbackGramsFactor: 0.71, CostMicroUSD: 3000},
 		slog.New(slog.NewTextHandler(io.Discard, nil)), func() time.Time { return diaryNow })
-	return analysisEnv{svc: a, credits: credits, spend: spend, user: u}
+	return analysisEnv{svc: a, credits: credits, spend: spend, user: u, store: store, diary: diary}
 }
 
 func photo(content string) ports.Image {
@@ -365,4 +366,76 @@ func TestVoiceAvailability(t *testing.T) {
 	if _, err := env.svc.AnalyzeVoice(context.Background(), env.user, voice("audio")); !errors.Is(err, ports.ErrAIUnavailable) {
 		t.Errorf("sin Whisper el audio no se acepta: %v", err)
 	}
+}
+
+// --- Alimentos que no están en el catálogo: la estimación de la IA ---
+
+func TestAnalyzeUsesAIEstimateWhenNotInCatalog(t *testing.T) {
+	env := newVoice(t, fakeai.Recognizer{Model: "texto"}, nil)
+	ctx := context.Background()
+
+	got, err := env.svc.AnalyzeTranscript(ctx, env.user, "un pancake proteico")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got.Items) != 1 || got.Items[0].Food == nil {
+		t.Fatalf("análisis = %+v", got)
+	}
+	f := *got.Items[0].Food
+	if !f.Estimated() || f.Owner != env.user || f.NameES != "Pancake proteico" {
+		t.Fatalf("debe ser un alimento estimado del usuario: %+v", f)
+	}
+	if f.Per100g.Calories != 221 || f.Per100g.ProteinG != 20 {
+		t.Errorf("valores cada 100 g = %+v (las kcal las calcula el dominio: 221)", f.Per100g)
+	}
+	if got.Items[0].NeedsReview {
+		t.Error("con estimación válida y buena confianza no hace falta resaltarlo")
+	}
+
+	// La segunda vez es el mismo alimento, con los mismos valores.
+	again, err := env.svc.AnalyzeTranscript(ctx, env.user, "otro pancake")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if again.Items[0].Food.ID != f.ID {
+		t.Errorf("el mismo alimento cambió de ID: %q y %q", f.ID, again.Items[0].Food.ID)
+	}
+
+	// El dueño lo anota; otro usuario no puede (para él no existe).
+	e, err := env.diary.Log(ctx, env.user, f.ID, 120, time.Time{}, domain.SourceVoice)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if e.FoodNameES != "Pancake proteico" || e.Macros.Calories < 265 || e.Macros.Calories > 266 {
+		t.Errorf("comida anotada = %+v (120 g × 2,21 kcal/g ≈ 265)", e)
+	}
+	other, _ := env.store.CreateUser(ctx)
+	if _, err := env.diary.Log(ctx, other, f.ID, 100, time.Time{}, domain.SourceManual); !errors.Is(err, ports.ErrNotFound) {
+		t.Errorf("otro usuario anotó un alimento privado: err = %v", err)
+	}
+	// Y no aparece en la búsqueda del catálogo.
+	if found, _ := env.diary.SearchFoods(ctx, "pancake", 10); len(found) != 0 {
+		t.Errorf("la búsqueda devolvió alimentos privados: %+v", found)
+	}
+}
+
+func TestAnalyzeDiscardsImpossibleEstimate(t *testing.T) {
+	bad := domain.NutrientEstimate{ProteinG: 80, CarbsG: 80}
+	env := newVoice(t, fixedText{items: []domain.RecognizedFood{
+		{Name: "mystery", DisplayName: "Misterio", Grams: 100, Confidence: 0.9, Estimate: &bad},
+	}}, nil)
+
+	got, err := env.svc.AnalyzeTranscript(context.Background(), env.user, "misterio")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Items[0].Food != nil || !got.Items[0].NeedsReview {
+		t.Errorf("una estimación imposible no se usa: el usuario lo elige a mano: %+v", got.Items[0])
+	}
+}
+
+type fixedText struct{ items []domain.RecognizedFood }
+
+func (f fixedText) RecognizeText(context.Context, string) (ports.RecognitionResult, error) {
+	return ports.RecognitionResult{Model: "fijo", Recognition: domain.FoodRecognition{Items: f.items}}, nil
 }
