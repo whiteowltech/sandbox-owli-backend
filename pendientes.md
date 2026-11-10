@@ -25,9 +25,8 @@ El video de referencia de BitePal (`parte 1.mp4` y `parte 2.mp4`, en la raíz y 
   - Celebración corta al cerrar el día (cartel y chispas, se cierra con un toque).
   - Presentación del plan al terminar el onboarding: barra de macros con gramos y curva de peso hasta la fecha.
   - Botones que se hunden al tocarlos.
-- [ ] **Escenas de Owli generadas con IA** (decidido el 5 de noviembre de 2026): partir de las 4 imágenes actuales como referencia para mantener al personaje. Escenas: agua, día cerrado, de noche, la semana, sin análisis, micros. Mismo encuadre, fondo transparente y 512 px. Recordar que el arte generado con IA tiene protección de copyright limitada (ver Marca).
-- [ ] **Herramienta**: Rive (máquina de estados, liviano, funciona en iOS y Android dentro de Capacitor).
-  - Requiere que un ilustrador arme a Owli por partes (ojos, alas, cuerpo) para animarlo.
+- [x] **Escenas de Owli generadas con IA** (9 de noviembre de 2026, Buzzy con Nano Banana 2.1; guía y prompts en [escenas-owli.md](escenas-owli.md), originales en `arte/owli/originales/`). Las 6 están en `app/src/assets/owli/` y el componente de Owli acepta `scene`. Conectadas: día cerrado (festejo) y sin análisis. Falta decidir cuándo se muestran noche (¿después de las 22 h, aunque el ánimo sea cansado?) y semana (¿reemplaza al ánimo de la semana?); agua y micros esperan a sus funciones.
+- [ ] **Herramienta**: Rive, descartado por ahora (9 de noviembre de 2026: se eligieron imágenes generadas con IA). Se retoma si se contrata un ilustrador que arme a Owli por partes.
   - Respetar `prefers-reduced-motion` y no usar animaciones lentas (regla de CLAUDE.md).
 
 ## Producto

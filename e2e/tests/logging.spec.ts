@@ -28,6 +28,8 @@ async function openSearch(page: Page, query: string): Promise<void> {
 test('anotar a mano: buscar con un error de tipeo, elegir porción y ver lo que queda', async ({ page }) => {
   const target = await onboard(page, 'Omnívoro balanceado');
   const today = page.locator('owli-today-page');
+  // Las comidas del día (la hoja de búsqueda, mientras se cierra, muestra los mismos nombres).
+  const day = today.locator('.entries');
 
   await openSearch(page, 'pechga'); // error de tipeo a propósito
   await page.getByRole('button', { name: /Pechuga de pollo asada/ }).click();
@@ -35,7 +37,7 @@ test('anotar a mano: buscar con un error de tipeo, elegir porción y ver lo que 
   await expect(page.getByText('330 kcal · 62 g de proteína')).toBeVisible();
   await page.getByRole('button', { name: 'Agregar al día' }).click();
 
-  await expect(today.getByText('Pechuga de pollo asada')).toBeVisible();
+  await expect(day.getByText('Pechuga de pollo asada')).toBeVisible();
   await expect(today.locator('.status .big')).toHaveText(new RegExp(String(target - 330)));
   // Perfil por defecto (hombre, 75 kg, perder grasa): objetivo de proteína 2 g/kg = 150 g.
   await expect(today.locator('.macros div').first()).toContainText(/62\s*\/ 150 g/);
@@ -47,13 +49,13 @@ test('anotar a mano: buscar con un error de tipeo, elegir porción y ver lo que 
   await page.getByRole('button', { name: /^Palta/ }).click();
   await page.getByRole('button', { name: 'Más gramos' }).click(); // 110 g
   await page.getByRole('button', { name: 'Agregar al día' }).click();
-  await expect(today.getByText('Palta')).toBeVisible();
-  await expect(today.getByText(/110 g ·/)).toBeVisible();
+  await expect(day.getByText('Palta')).toBeVisible();
+  await expect(day.getByText(/110 g ·/)).toBeVisible();
 
   // Queda guardado en el servidor: al recargar sigue ahí.
   await page.reload();
-  await expect(today.getByText('Pechuga de pollo asada')).toBeVisible();
-  await expect(today.getByText('Palta')).toBeVisible();
+  await expect(day.getByText('Pechuga de pollo asada')).toBeVisible();
+  await expect(day.getByText('Palta')).toBeVisible();
 
   // Borrar una comida devuelve las calorías, y se puede deshacer.
   const palta = today.locator('.entry', { hasText: 'Palta' });
@@ -71,7 +73,7 @@ test('anotar a mano: buscar con un error de tipeo, elegir porción y ver lo que 
   await expect(palta).toHaveCount(0);
   await expect(today.locator('.status .big')).toHaveText(new RegExp(String(target - 330)));
   await page.reload();
-  await expect(today.getByText('Pechuga de pollo asada')).toBeVisible();
+  await expect(day.getByText('Pechuga de pollo asada')).toBeVisible();
   await expect(palta).toHaveCount(0);
 });
 
